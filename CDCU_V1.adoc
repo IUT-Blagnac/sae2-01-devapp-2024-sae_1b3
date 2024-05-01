@@ -1,0 +1,69 @@
+= Cahier des charges
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+
+== Projet developpement d'application 
+
+
+|===
+| Client: | Bank Univ
+| Date: | semaine 24
+|===
+
+== Objectif
+
+Le présent document a pour objectif de définir les spécifications et les exigences du projet de développemnt d'application bancaire à partir du code livrée "Daily Bank". Il décrit les fonctionnalités attendues, les contraintes techniques, ainsi que les délais et les ressources nécessaires pour sa réalisation.
+
+== Auteurs
+
+Le cahier des charges a été rédigé par :
+
+- Raban Théo
+- Magaz Yahya
+- Céolin Thomas
+
+== Révision
+
+|===
+| Date | Version 
+| [semaine 18] | [Version 1.0] 
+|===
+
+[page-break]
+
+== Sommaire
+
+toc::[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== Introduction du projet
+
+
+== I-Analyse de l'existant
+=== 1. Le code livré
+=== 2. Contraintes techniques 
+=== 3. Contraintes délai
+=== 4. Contraintes humaines 
+
+
+== II- Analyse des nouveaux besoins
+=== 1. Technique
+=== 2.
+
+== III-Organisation 
+=== 1. Modalités d’organisation pour la suite du projet
+=== 2. Organisation mise en œuvre dans l’étape CDCU
+
