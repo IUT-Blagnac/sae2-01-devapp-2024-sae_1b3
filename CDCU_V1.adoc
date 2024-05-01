@@ -81,7 +81,16 @@ Les contraintes de délai pour la SAE 2.05 exigent un dépôt sur Github dès la
 
 Les contraintes humaines pour ce projet impliquent une organisation rigoureuse de l'équipe et le respect des délais établis de la semaine 18 à la semaine 25. Chaque membre doit contribuer régulièrement, communiquer efficacement et respecter les responsabilités attribuées. La désignation d'un chef de projet est essentielle, c'est pourquoi nous avons nommé Théo RABAN chef de projet, tout comme la gestion efficace du temps et le maintien d'une bonne communication entre les membres de l'équipe et les encadrants pour résoudre rapidement les problèmes éventuels.
 
-== III-Organisation 
+
+== III-Solution
+=== 1. Description de la solution
+=== 2. Diagramme des cas d'utilisation
+=== 3. Maquette 
+=== 4. Modalités de déploiement
+
+
+
+== IV-Organisation 
 === 1. Modalités d’organisation pour la suite du projet
 
 
