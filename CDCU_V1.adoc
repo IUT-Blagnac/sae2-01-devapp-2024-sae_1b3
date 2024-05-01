@@ -19,9 +19,9 @@ Le présent document a pour objectif de définir les spécifications et les exig
 
 Le cahier des charges a été rédigé par :
 
-- Raban Théo
-- Magaz Yahya
-- Céolin Thomas
+- Théo RABAN
+- Yahya MAGAZ
+- Thomas CEOLIN
 
 == Révision
 
