@@ -69,12 +69,26 @@ besoins de la banque. Cette application sera livrée en semaine 21 après notre 
 Pour développer cette application, nous allons devoir utiliser des langages de programmation tels que Java et JavaFX pour les IHM (Interfaces Homme-Machine). Ces langages nous sont imposés par le client. De plus, nous allons devoir exploiter une base de données préexistante qui contient toutes les informations sur les comptes bancaires. Cette base de données, qui nous sera fournie, est hébergée sous Oracle, plus particulièrement par Oracle SQL Developer. Il sera donc nécessaire d'exploiter au maximum l'ensemble de ces technologies pour satisfaire les besoins de notre client.
 
 == II- Analyse des nouveaux besoins
-=== 1. Contraintes techniques 
+=== 1. Contraintes techniques
+
+Dans le cadre du projet de développement de l'application de gestion des comptes clients pour la banque BankUniv, il est nécessaire de considérer plusieurs contraintes techniques. Cela inclut le choix du langage de programmation, où Java sera utilisé, ainsi que l'interface utilisateur qui sera développée avec JavaFX. La base de données sera gérée via Oracle et accessible via Oracle SQL Developer. Pour la conception de l'application, des outils tels que VisualSNI, yEd, StarUML et PlantUML seront employés, tandis que la planification du projet se fera à l'aide de Microsoft Project ou ProjectLibre. Enfin, la documentation sera rédigée en utilisant le format ASCIIDOC. Ces contraintes guideront le processus de développement afin de répondre aux besoins de la banque BankUniv tout en respectant les exigences techniques du projet.
+
 === 2. Contraintes délai
+
+Les contraintes de délai pour la SAE 2.05 exigent un dépôt sur Github dès la semaine 18, suivi du chiffrage prévisionnel en semaine 19. La semaine 21 est réservée à la livraison de la Documentation Utilisateur (V1), du CDCU (V1) et à la réalisation du Gantt (V1), tandis que la semaine 22 implique la finalisation du Cahier de recette (V0) et le commencement de la planification du Gantt (V2). Pour la SAE 2.01, le démarrage de la Documentation Technique (V0) et du Cahier de Tests (V1) est prévu en semaine 21, avec une finalisation progressive des livrables les semaines suivantes, culminant avec la livraison finale et l'évaluation individuelle sur le code durant la semaine 25.
+
 === 3. Contraintes humaines 
+
+Les contraintes humaines pour ce projet impliquent une organisation rigoureuse de l'équipe et le respect des délais établis de la semaine 18 à la semaine 25. Chaque membre doit contribuer régulièrement, communiquer efficacement et respecter les responsabilités attribuées. La désignation d'un chef de projet est essentielle, c'est pourquoi nous avons nommé Théo RABAN chef de projet, tout comme la gestion efficace du temps et le maintien d'une bonne communication entre les membres de l'équipe et les encadrants pour résoudre rapidement les problèmes éventuels.
 
 == III-Organisation 
 === 1. Modalités d’organisation pour la suite du projet
+
+
+Pour assurer le bon déroulement du projet, plusieurs modalités d'organisation ont été mises en place. Tout d'abord, Théo RABAN a été désigné chef de projet afin de coordonner les activités de l'équipe et de garantir le respect des échéances. Des réunions régulières seront planifiées pour permettre aux membres de l'équipe de discuter de l'avancement du projet et de résoudre les éventuels problèmes rencontrés. Un planning détaillé a été établi, intégrant les différentes phases du projet ainsi que les dates limites pour chaque livrable. La communication sera favorisée grâce à l'utilisation de Github pour le dépôt du code et des documents, et des outils comme Gantt pour suivre l'avancement du projet.
+
 === 2. Organisation mise en œuvre dans l’étape CDCU
+
+Dans l'étape CDCU, l'organisation opérationnelle s'appuie sur une répartition claire des responsabilités au sein de l'équipe, avec Théo nommé en tant que chef de projet. Des réunions régulières seront programmées pour favoriser la collaboration et assurer une communication transparente entre les membres de l'équipe ainsi qu'avec les encadrants. Les tâches seront assignées en tenant compte des compétences et des disponibilités de chacun, avec une surveillance rapprochée pour assurer le respect des délais.
 
 == Conclusion
