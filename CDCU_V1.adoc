@@ -50,7 +50,12 @@ toc::[]
 
 
 == Introduction du projet
+  
+Bank Univ souhaite moderniser son système informatique en remplaçant son ancienne application de gestion bancaire. L'application actuelle est obsolète et ne répond plus aux besoins de ses clients ni aux standards de l'industrie bancaire moderne.
 
+Dans le cadre de ce projet, nous avons accès à un code source existant sur lequel nous pouvons nous appuyer pour développer une nouvelle application. L'objectif est de créer une solution plus adaptée aux attentes actuelles de Bank Univ et à celles de ses clients.
+
+Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
 
 == I-Analyse de l'existant
 === 1. Le code livré
