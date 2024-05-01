@@ -55,20 +55,26 @@ Bank Univ souhaite moderniser son système informatique en remplaçant son ancie
 
 Dans le cadre de ce projet, nous avons accès à un code source existant sur lequel nous pouvons nous appuyer pour développer une nouvelle application. L'objectif est de créer une solution plus adaptée aux attentes actuelles de Bank Univ et à celles de ses clients.
 
-Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
+Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement constitué de Théo Raban, Yahya Magaz et Thomas Céolin tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
 
 == I-Analyse de l'existant
-=== 1. Le code livré
-=== 2. Contraintes techniques 
-=== 3. Contraintes délai
-=== 4. Contraintes humaines 
+=== 1. Information sur l'existant
 
+Nous devrons travailler à partir d’une application existante
+«Daily Bank » qu’il faudra adapter aux nouveaux
+besoins de la banque. Cette application sera livrée en semaine 21 après notre formation sur l'utilisation des IHM, au moment de passer au developpement java de l'application. Nous nous servirons donc de cete base pour poursuivre l'intégration des fonctionnalités exigées de l'application de gestion de bancaire.
+
+=== 2. Technologies nécessaire d'employer
+
+Pour développer cette application, nous allons devoir utiliser des langages de programmation tels que Java et JavaFX pour les IHM (Interfaces Homme-Machine). Ces langages nous sont imposés par le client. De plus, nous allons devoir exploiter une base de données préexistante qui contient toutes les informations sur les comptes bancaires. Cette base de données, qui nous sera fournie, est hébergée sous Oracle, plus particulièrement par Oracle SQL Developer. Il sera donc nécessaire d'exploiter au maximum l'ensemble de ces technologies pour satisfaire les besoins de notre client.
 
 == II- Analyse des nouveaux besoins
-=== 1. Technique
-=== 2.
+=== 1. Contraintes techniques 
+=== 2. Contraintes délai
+=== 3. Contraintes humaines 
 
 == III-Organisation 
 === 1. Modalités d’organisation pour la suite du projet
 === 2. Organisation mise en œuvre dans l’étape CDCU
 
+== Conclusion
