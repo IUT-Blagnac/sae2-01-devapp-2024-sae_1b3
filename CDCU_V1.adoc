@@ -95,7 +95,7 @@ link:Diagramme de cas d'utilisation SAE.png
 
 Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées.
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Diagramme%20de%20cas%20d'utilisation%20SAE.png
+image::.github/Diagramme de cas d'utilisation SAE.png
 
 === 4. Modalités de déploiement
 
