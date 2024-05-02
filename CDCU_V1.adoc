@@ -32,9 +32,8 @@ Le cahier des charges a été rédigé par :
 
 [page-break]
 
-== Sommaire
-
-toc::[]
+:toc:
+:toc-title: Sommaire
 
 
 
