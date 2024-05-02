@@ -83,11 +83,20 @@ Les contraintes humaines pour ce projet impliquent une organisation rigoureuse d
 
 == III-Solution
 === 1. Description de la solution
+
+Pour la solution de notre projet, nous avons planifié le développement d'une application qui répondra aux besoins spécifiés. Cette application sera simple à utiliser et conçue pour être efficace et rapide, en utilisant les méthodes et les outils discutés lors de nos réunions de projet. Selon notre avancée, nous envisagerons d'intégrer d'autres fonctionnalités et options pour améliorer l'expérience utilisateur.
+
 === 2. Diagramme des cas d'utilisation
+
+Dans cette section, nous présentons un schéma simple montrant comment les utilisateurs interagissent avec notre application. Ce diagramme des cas d'utilisation donne une vue d'ensemble des actions possibles.
+
 === 3. Maquette 
+
+Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées.
+
 === 4. Modalités de déploiement
 
-
+Pour le déploiement de notre application, nous avons opté pour une méthode progressive. Dans un premier temps, nous installerons l'application dans les agences de la banque BankUniv. Ensuite, nous assurerons la formation du personnel de chaque agence pour faciliter l'adoption et l'utilisation de l'application.
 
 == IV-Organisation 
 === 1. Modalités d’organisation pour la suite du projet
