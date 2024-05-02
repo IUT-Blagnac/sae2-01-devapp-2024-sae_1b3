@@ -38,7 +38,7 @@ Ordinateur sous Windows ou OS équivalent.
 
 
 
-== III. Cas de test :
+== III. Cas de test ( modèle a modifié lors de la phase de développement ) :
 === 1. Fonctionnalités des guichetiers :
 ==== 1.1 Gestion des clients :
 
