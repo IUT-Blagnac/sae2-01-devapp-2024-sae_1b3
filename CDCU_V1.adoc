@@ -1,87 +1,104 @@
 = Cahier des charges
+
 :doctype: book
 :icons: font
 :source-highlighter: coderay
 
-== Projet developpement d'application 
-
+== Projet développement d'application
 
 |===
 | Client: | Bank Univ
-| Date: | semaine 24
+| Date: | Semaine 24
 |===
 
 == Objectif
 
-Le présent document a pour objectif de définir les spécifications et les exigences du projet de développemnt d'application bancaire à partir du code livrée "Daily Bank". Il décrit les fonctionnalités attendues, les contraintes techniques, ainsi que les délais et les ressources nécessaires pour sa réalisation.
+Le présent document a pour objectif de définir les spécifications et les exigences du projet de développement d'application bancaire à partir du code livré "Daily Bank". Il décrit les fonctionnalités attendues, les contraintes techniques, ainsi que les délais et les ressources nécessaires pour sa réalisation.
 
 == Auteurs
 
 Le cahier des charges a été rédigé par :
 
-- Théo RABAN
-- Yahya MAGAZ
-- Thomas CEOLIN
+    Théo RABAN
+    Yahya MAGAZ
+    Thomas CEOLIN
 
 == Révision
 
 |===
-| Date | Version 
-| [semaine 18] | [Version 1.0] 
+| Date | Version
+| [Semaine 18] | [Version 1.0]
 |===
+
+= Sommaire
+
+== Introduction du projet
+
+== I. Analyse de l’existant
+
+[small]
+=== 1. Information sur l’existant
+=== 2. Technologies nécessaires à employer
+
+== II. Analyse des nouveaux besoins
+
+[small]
+=== 1. Contraintes techniques
+=== 2. Contraintes de délai
+=== 3. Contraintes humaines
+
+== III. Solution
+
+[small]
+=== 1. Description de la solution
+=== 2. Diagramme des cas d’utilisation
+=== 3. Maquette
+=== 4. Modalités de déploiement
+
+== IV. Organisation
+
+[small]
+=== 1. Modalités d’organisation pour la suite du projet
+=== 2. Organisation mise en œuvre dans l’étape CDCU
 
 [page-break]
 
-:toc:
-:toc-title: Sommaire
-
-
-
-
-
-
-
-
-
-
-
-
-
+== Conclusion
 
 == Introduction du projet
-  
+
 Bank Univ souhaite moderniser son système informatique en remplaçant son ancienne application de gestion bancaire. L'application actuelle est obsolète et ne répond plus aux besoins de ses clients ni aux standards de l'industrie bancaire moderne.
 
 Dans le cadre de ce projet, nous avons accès à un code source existant sur lequel nous pouvons nous appuyer pour développer une nouvelle application. L'objectif est de créer une solution plus adaptée aux attentes actuelles de Bank Univ et à celles de ses clients.
 
-Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement constitué de Théo Raban, Yahya Magaz et Thomas Céolin tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
+Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement constituée de Théo Raban, Yahya Magaz et Thomas Céolin tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
 
 == I-Analyse de l'existant
+
 === 1. Information sur l'existant
 
-Nous devrons travailler à partir d’une application existante
-«Daily Bank » qu’il faudra adapter aux nouveaux
-besoins de la banque. Cette application sera livrée en semaine 21 après notre formation sur l'utilisation des IHM, au moment de passer au developpement java de l'application. Nous nous servirons donc de cete base pour poursuivre l'intégration des fonctionnalités exigées de l'application de gestion de bancaire.
+Nous devrons travailler à partir d’une application existante «Daily Bank » qu’il faudra adapter aux nouveaux besoins de la banque. Cette application sera livrée en semaine 21 après notre formation sur l'utilisation des IHM, au moment de passer au développement Java de l'application. Nous nous servirons donc de cette base pour poursuivre l'intégration des fonctionnalités exigées de l'application de gestion bancaire.
 
-=== 2. Technologies nécessaire d'employer
+=== 2. Technologies nécessaires d'employer
 
 Pour développer cette application, nous allons devoir utiliser des langages de programmation tels que Java et JavaFX pour les IHM (Interfaces Homme-Machine). Ces langages nous sont imposés par le client. De plus, nous allons devoir exploiter une base de données préexistante qui contient toutes les informations sur les comptes bancaires. Cette base de données, qui nous sera fournie, est hébergée sous Oracle, plus particulièrement par Oracle SQL Developer. Il sera donc nécessaire d'exploiter au maximum l'ensemble de ces technologies pour satisfaire les besoins de notre client.
 
 == II- Analyse des nouveaux besoins
+
 === 1. Contraintes techniques
 
 Dans le cadre du projet de développement de l'application de gestion des comptes clients pour la banque BankUniv, il est nécessaire de considérer plusieurs contraintes techniques. Cela inclut le choix du langage de programmation, où Java sera utilisé, ainsi que l'interface utilisateur qui sera développée avec JavaFX. La base de données sera gérée via Oracle et accessible via Oracle SQL Developer. Pour la conception de l'application, les outils qui seront vus durant la semaine IHM seront employés, tandis que la planification du projet se fera à l'aide de Microsoft Project ou ProjectLibre. Enfin, la documentation sera rédigée en utilisant le format ASCIIDOC. Ces contraintes guideront le processus de développement afin de répondre aux besoins de la banque BankUniv tout en respectant les exigences techniques du projet.
 
-=== 2. Contraintes délai
+=== 2. Contraintes de délai
 
-Les contraintes de délai pour la SAE 2.05 exigent un dépôt sur Github dès la semaine 18, suivi du chiffrage prévisionnel en semaine 19. La semaine 21 est réservée à la livraison de la Documentation Utilisateur (V1), du CDCU (V1) et à la réalisation du Gantt (V1), tandis que la semaine 22 implique la finalisation du Cahier de recette (V0) et le commencement de la planification du Gantt (V2). Pour la SAE 2.01, le démarrage de la Documentation Technique (V0) et du Cahier de Tests (V1) est prévu en semaine 21, avec une finalisation progressive des livrables les semaines suivantes, culminant avec la livraison finale et l'évaluation individuelle sur le code durant la semaine 25.
+Les contraintes de délai pour la SAE 2.05 exigent un dépôt sur GitHub dès la semaine 18, suivi du chiffrage prévisionnel en semaine 19. La semaine 21 est réservée à la livraison de la Documentation Utilisateur (V1), du CDCU (V1) et à la réalisation du Gantt (V1), tandis que la semaine 22 implique la finalisation du Cahier de recette (V0) et le commencement de la planification du Gantt (V2). Pour la SAE 2.01, le démarrage de la Documentation Technique (V0) et du Cahier de Tests (V1) est prévu en semaine 21, avec une finalisation progressive des livrables les semaines suivantes, culminant avec la livraison finale et l'évaluation individuelle sur le code durant la semaine 25.
 
-=== 3. Contraintes humaines 
+=== 3. Contraintes humaines
 
 Les contraintes humaines pour ce projet impliquent une organisation rigoureuse de l'équipe et le respect des délais établis de la semaine 18 à la semaine 25. Chaque membre doit contribuer régulièrement, communiquer efficacement et respecter les responsabilités attribuées. La désignation d'un chef de projet est essentielle, c'est pourquoi nous avons nommé Théo RABAN chef de projet, tout comme la gestion efficace du temps et le maintien d'une bonne communication entre les membres de l'équipe et les encadrants pour résoudre rapidement les problèmes éventuels.
 
-
 == III-Solution
+
 === 1. Description de la solution
 
 Pour la solution de notre projet, nous avons planifié le développement d'une application qui répondra aux besoins spécifiés. Cette application sera simple à utiliser et conçue pour être efficace et rapide, en utilisant les méthodes et les outils discutés lors de nos réunions de projet. Selon notre avancée, nous envisagerons d'intégrer d'autres fonctionnalités et options pour améliorer l'expérience utilisateur.
@@ -91,9 +108,10 @@ Pour la solution de notre projet, nous avons planifié le développement d'une a
 Dans cette section, nous présentons un schéma simple montrant comment les utilisateurs interagissent avec notre application. Ce diagramme des cas d'utilisation donne une vue d'ensemble des actions possibles.
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme%20de%20cas%20d'utilisation%20SAE.png[]
-=== 3. Maquette 
 
-Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs
+=== 3. Maquette
+
+Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs.
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettePNG.PNG[]
 
@@ -101,11 +119,11 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 Pour le déploiement de notre application, nous avons opté pour une méthode progressive. Dans un premier temps, nous installerons l'application dans les agences de la banque BankUniv. Ensuite, nous assurerons la formation du personnel de chaque agence pour faciliter l'adoption et l'utilisation de l'application.
 
-== IV-Organisation 
+== IV-Organisation
+
 === 1. Modalités d’organisation pour la suite du projet
 
-
-Pour assurer le bon déroulement du projet, plusieurs modalités d'organisation ont été mises en place. Tout d'abord, Théo RABAN a été désigné chef de projet afin de coordonner les activités de l'équipe et de garantir le respect des échéances. Des réunions régulières seront planifiées pour permettre aux membres de l'équipe de discuter de l'avancement du projet et de résoudre les éventuels problèmes rencontrés. Un planning détaillé a été établi, intégrant les différentes phases du projet ainsi que les dates limites pour chaque livrable. La communication sera favorisée grâce à l'utilisation de Github pour le dépôt du code et des documents, et des outils comme Gantt pour suivre l'avancement du projet.
+Pour assurer le bon déroulement du projet, plusieurs modalités d'organisation ont été mises en place. Tout d'abord, Théo RABAN a été désigné chef de projet afin de coordonner les activités de l'équipe et de garantir le respect des échéances. Des réunions régulières seront planifiées pour permettre aux membres de l'équipe de discuter de l'avancement du projet et de résoudre les éventuels problèmes rencontrés. Un planning détaillé a été établi, intégrant les différentes phases du projet ainsi que les dates limites pour chaque livrable. La communication sera favorisée grâce à l'utilisation de GitHub pour le dépôt du code et des documents, et des outils comme Gantt pour suivre l'avancement du projet.
 
 === 2. Organisation mise en œuvre dans l’étape CDCU
 
