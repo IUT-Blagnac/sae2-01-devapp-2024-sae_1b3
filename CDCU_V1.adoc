@@ -93,9 +93,9 @@ Dans cette section, nous présentons un schéma simple montrant comment les util
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme%20de%20cas%20d'utilisation%20SAE.png[]
 === 3. Maquette 
 
-Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées.
+Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs
 
-
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettePNG.PNG
 
 === 4. Modalités de déploiement
 
@@ -112,3 +112,5 @@ Pour assurer le bon déroulement du projet, plusieurs modalités d'organisation 
 Dans l'étape CDCU, l'organisation opérationnelle s'appuie sur une répartition claire des responsabilités au sein de l'équipe, avec Théo nommé en tant que chef de projet. Des réunions régulières seront programmées pour favoriser la collaboration et assurer une communication transparente entre les membres de l'équipe ainsi qu'avec les encadrants. Les tâches seront assignées en tenant compte des compétences et des disponibilités de chacun, avec une surveillance rapprochée pour assurer le respect des délais.
 
 == Conclusion
+
+En conclusion, ce cahier des charges détaille bien les étapes pour développer la nouvelle application de Bank Univ. Il aborde l'existant, les exigences techniques et les délais. L'équipe dirigée a pour mission de moderniser le système pour mieux servir les clients de la banque. Le succès du projet repose sur le respect des règles et la coopération de tous.
