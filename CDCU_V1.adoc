@@ -36,30 +36,27 @@ Le cahier des charges a été rédigé par :
 
 == I. Analyse de l’existant
 
-[small]
-=== 1. Information sur l’existant
-=== 2. Technologies nécessaires à employer
+
+1. Information sur l’existant
+2. Technologies nécessaires à employer
 
 == II. Analyse des nouveaux besoins
 
-[small]
-=== 1. Contraintes techniques
-=== 2. Contraintes de délai
-=== 3. Contraintes humaines
+1. Contraintes techniques
+2. Contraintes de délai
+3. Contraintes humaines
 
 == III. Solution
 
-[small]
-=== 1. Description de la solution
-=== 2. Diagramme des cas d’utilisation
-=== 3. Maquette
-=== 4. Modalités de déploiement
+1. Description de la solution
+2. Diagramme des cas d’utilisation
+3. Maquette
+4. Modalités de déploiement
 
 == IV. Organisation
 
-[small]
-=== 1. Modalités d’organisation pour la suite du projet
-=== 2. Organisation mise en œuvre dans l’étape CDCU
+1. Modalités d’organisation pour la suite du projet
+2. Organisation mise en œuvre dans l’étape CDCU
 
 [page-break]
 
