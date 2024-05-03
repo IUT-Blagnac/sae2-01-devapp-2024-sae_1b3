@@ -90,99 +90,47 @@ Dans le cadre du projet de développement de l'application de gestion des compte
 
 Les contraintes de délai pour la SAE 2.05 différent rendu chaque semaine : 
 
+[cols="4", options="header"]
 |===
-| Date    | Nom          
+| Date    | Nom                   | Lien   | Retour       
 
-| Sem.18  
-| CDC V1                  
-|        
-|              
+| Sem.18  | CDC V1                |        |              
 
-|        
-| Gantt V1 Prévu        
-|        
-|              
+|         | Gantt V1 Prévu        |        |              
 
-| Sem.19  
-| CdC V2 final          
-|        
-|              
+| Sem.19  | CdC V2 final          |        |              
 
-|        
-| Doc. Tec. V0          
-|        
-|              
+|         | Doc. Tec. V0          |        |              
 
-|        
-| Doc. User V0          
-|        
-|              
+|         | Doc. User V0          |        |              
 
-|        
-| Recette V0            
-|        
-|              
+|         | Recette V0            |        |              
 
-| 31/05   
-| Gantt V1 réalisé      
-|        
-|              
+| 31/05   | Gantt V1 réalisé      |        |              
 
-|        
-| Doc. Util. V1         
-|        
-|              
+|         | Doc. Util. V1         |        |              
 
-|        
-| Doc. Tec. V1          
-|        
-|              
+|         | Doc. Tec. V1          |        |              
 
-|        
-| Code V1               
-|        
-|              
+|         | Code V1               |        |              
 
-|        
-| Recette V1            
-|        
-|              
+|         | Recette V1            |        |              
 
-|        
-| Gantt V2 prévu        
-|        
-|              
+|         | Gantt V2 prévu        |        |              
 
-| 14/06   
-| Gantt V2 réalisé      
-|        
-|              
+| 14/06   | Gantt V2 réalisé      |        |              
 
-|        
-| Doc. Util. V2         
-|        
-|              
+|         | Doc. Util. V2         |        |              
 
-|        
-| Doc. Tec. V2          
-|        
-|              
+|         | Doc. Tec. V2          |        |              
 
-|        
-| Code V2               
-|        
-|              
+|         | Code V2               |        |              
 
-|        
-| Recette V2            
-|        
-|              
+|         | Recette V2            |        |              
 
-|        
-| jar projet            
-|        
-|              
+|         | jar projet            |        |              
 |===
+
 
 
 === 3. Contraintes humaines
