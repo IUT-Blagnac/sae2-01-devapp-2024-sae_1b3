@@ -88,7 +88,102 @@ Dans le cadre du projet de développement de l'application de gestion des compte
 
 === 2. Contraintes de délai
 
-Les contraintes de délai pour la SAE 2.05 exigent un dépôt sur GitHub dès la semaine 18, suivi du chiffrage prévisionnel en semaine 19. La semaine 21 est réservée à la livraison de la Documentation Utilisateur (V1), du CDCU (V1) et à la réalisation du Gantt (V1), tandis que la semaine 22 implique la finalisation du Cahier de recette (V0) et le commencement de la planification du Gantt (V2). Pour la SAE 2.01, le démarrage de la Documentation Technique (V0) et du Cahier de Tests (V1) est prévu en semaine 21, avec une finalisation progressive des livrables les semaines suivantes, culminant avec la livraison finale et l'évaluation individuelle sur le code durant la semaine 25.
+Les contraintes de délai pour la SAE 2.05 différent rendu chaque semaine : 
+
+|===
+| Date    | Nom          
+
+| Sem.18  
+| CDC V1                  
+|        
+|              
+
+|        
+| Gantt V1 Prévu        
+|        
+|              
+
+| Sem.19  
+| CdC V2 final          
+|        
+|              
+
+|        
+| Doc. Tec. V0          
+|        
+|              
+
+|        
+| Doc. User V0          
+|        
+|              
+
+|        
+| Recette V0            
+|        
+|              
+
+| 31/05   
+| Gantt V1 réalisé      
+|        
+|              
+
+|        
+| Doc. Util. V1         
+|        
+|              
+
+|        
+| Doc. Tec. V1          
+|        
+|              
+
+|        
+| Code V1               
+|        
+|              
+
+|        
+| Recette V1            
+|        
+|              
+
+|        
+| Gantt V2 prévu        
+|        
+|              
+
+| 14/06   
+| Gantt V2 réalisé      
+|        
+|              
+
+|        
+| Doc. Util. V2         
+|        
+|              
+
+|        
+| Doc. Tec. V2          
+|        
+|              
+
+|        
+| Code V2               
+|        
+|              
+
+|        
+| Recette V2            
+|        
+|              
+
+|        
+| jar projet            
+|        
+|              
+|===
+
 
 === 3. Contraintes humaines
 
