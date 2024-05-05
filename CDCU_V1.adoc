@@ -144,6 +144,29 @@ Les contraintes humaines pour ce projet impliquent une organisation rigoureuse d
 
 Pour la solution de notre projet, nous avons planifié le développement d'une application qui répondra aux besoins spécifiés. Cette application sera simple à utiliser et conçue pour être efficace et rapide, en utilisant les méthodes et les outils discutés lors de nos réunions de projet. Selon notre avancée, nous envisagerons d'intégrer d'autres fonctionnalités et options pour améliorer l'expérience utilisateur.
 
+Afin de répondre aux besoins opérationnels du guichetier et du chef d'agence, des modifications significatives sont requises tant au niveau de l'application bancaire Java que de la base de données sous-jacente. Ces modifications visent à permettre aux utilisateurs autorisés d'exécuter des opérations CRUD (Create, Read, Update, Delete) sur différentes entités tout en garantissant la sécurité et l'intégrité des données.
+
+
+
+==== Actions CRUD généralisées : 
+
+L'interface utilisateur doit être étendue pour permettre au guichetier et 
+au chef d'agence d'accéder à toutes les fonctionnalités CRUD pour les comptes clients, les virements, les prélèvements.
+
+==== Fonctionnalités spécifiques au guichetier :
+
+Crédit et débit des comptes : Ajout de fonctionnalités permettant au guichetier de créditer et de débiter les comptes clients selon les instructions données.
+Virements : Intégration d'une interface permettant au guichetier d'effectuer et d'autoriser des virements entre comptes.
+
+==== Fonctionnalités spécifiques au chef d'agence :
+
+Débit exceptionnel : Ajout d'une fonctionnalité spécifique permettant au chef d'agence d'effectuer des débits exceptionnels sur les comptes clients avec les autorisations appropriées.
+Simulation d'emprunt et d'assurance : Intégration de simulateurs d'emprunt et d'assurance pour aider le chef d'agence dans ses interactions avec les clients.
+Génération automatique de relevés et de prélèvements en PDF : Développement d'une fonctionnalité automatisée permettant à l'application de générer des relevés de compte et des prélèvements en format PDF, facilitant ainsi la communication avec les clients.
+
+
+En résumé, ces modifications permettront à l'application bancaire Java de répondre aux besoins spécifiques du guichetier et du chef d'agence, tout en offrant une expérience utilisateur améliorée et sécurisée. 
+
 === 2. Diagramme des cas d'utilisation
 
 Dans cette section, nous présentons un schéma simple montrant comment les utilisateurs interagissent avec notre application. Ce diagramme des cas d'utilisation donne une vue d'ensemble des actions possibles.
