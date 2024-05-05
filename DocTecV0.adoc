@@ -5,5 +5,3 @@
 * [[Contexte]]
 
 == Contexte
-
-Insérez ici le contenu relatif au contexte.
