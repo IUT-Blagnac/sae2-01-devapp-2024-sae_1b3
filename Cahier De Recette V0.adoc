@@ -177,8 +177,11 @@ Les chefs d'agence ont accès aux mêmes fonctionnalités que les guichetiers, a
 
 |====
 
+|====
+
 5+|Commentaire : La gestion d'un client est réussie lorsque les modifications, créations ou suppressions effectuées sont confirmées correctement. |
 
+|====
 
 ==== 1.2 Gestion des comptes bancaires :
 
