@@ -50,8 +50,8 @@ Ordinateur sous Windows ou OS équivalent.
 
 5+|
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
-^|All_G_C.1 ^|Cliquer sur le bouton "Nouveau client". ^|La fenêtre de création des clients s'ouvre. ^| aucune ^|OK
-^|All_G_C.2 ^|Compléter les champs spécifiés et valider. ^|Un nouveau client est créé. ^|aucune ^|OK
+^|All_G_C.1 ^|Cliquer sur le bouton "Nouveau client". ^|La fenêtre de création des clients s'ouvre. ^| client n'existe pas  ^|OK
+^|All_G_C.2 ^|Compléter les champs spécifiés et valider. ^|Un nouveau client est créé. ^| client n'existe pas ^|OK
 
 
 5+|
@@ -135,9 +135,24 @@ Les chefs d'agence ont accès aux mêmes fonctionnalités que les guichetiers, a
 
 ==== 2.1 Gestion des clients :
 
+
 |====
 
 >|Cas de test 4+|Test-02-01-01
+>|Titre 4+|Création d'un nouveau client
+>|Objectif 4+| Vérifier qu'il est possible de créer un nouveau client
+
+5+|
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|All_G_C.1 ^|Cliquer sur le bouton "Nouveau client". ^|La fenêtre de création des clients s'ouvre. ^| client n'existe pas ... ^|OK
+^|All_G_C.2 ^|Compléter les champs spécifiés et valider. ^|Un nouveau client est créé. ^| client n'existe pas... ^|OK
+
+
+|====
+
+|====
+
+>|Cas de test 4+|Test-02-01-02
 >|Titre 4+|Rendre inactif un client
 >|Objectif 4+| Vérifier qu'il est possible de rendre un client inactif
 
@@ -146,6 +161,57 @@ Les chefs d'agence ont accès aux mêmes fonctionnalités que les guichetiers, a
 ^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
 ^|C_G_C.1    ^|Sélectionner le bouton "Inactif" et confirmer. ^| Le client est rendu comme Inactif  ^|Un client actif est sélectionné ... ^| Ok
 5+|
+|====
+
+|====
+
+>|Cas de test 4+|Test-02-01-03
+>|Titre 4+| Supprimer un client
+>|Objectif 4+| Vérifier qu'il est possible de supprimer un client 
+
+5+|
+
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|C_G_C.1    ^|Sélectionner le bouton "supprimer" et confirmer. ^| Le compte du client est supprimer ^| Un compte client est supprimer... ^| Ok
+5+|
+
+|====
+
+==== 1.2 Gestion des comptes bancaires :
+
+|====
+
+>|Cas de test 4+|Test-02-02-01
+>|Titre 4+|Consultation d'un compte
+>|Objectif 4+| Vérifier qu'il est possible de consulter un compte
+
+5+|
+
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|All_G_CB.1 ^|Cliquer sur le bouton "Comptes client". ^|La page des comptes du client s’affiche. ^|Un client actif est sélectionné ^|OK
+^|All_G_CB.2 ^|Sélectionner le bouton "Voir opérations". ^|La page des opérations du compte s’affiche. ^|Un compte actif est sélectionné ^|OK
+...
+
+|====
+
+|====
+
+>|Cas de test 4+|Test-02-02-02
+>|Titre 4+|Mettre a jour un compte
+>|Objectif 4+| Vérifier qu'il est possible mettre a jour un compte
+
+5+|
+
+^|ID ^|Action ^|Comportement attendu ^|Pré-conditions ^|Résultat
+^|All_G_CB.1 ^|Cliquer sur le bouton "Mettre a jour ". ^|La page du comptes du client s’affiche. ^|Un client actif est sélectionné ^|OK
+...
+
+|====
+
+
+
+
+|====
 
 5+|Commentaire : REVOIR AVEC
  *clôturés*.|
