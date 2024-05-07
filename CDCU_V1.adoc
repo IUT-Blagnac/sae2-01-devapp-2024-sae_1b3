@@ -30,6 +30,8 @@ Le cahier des charges a été rédigé par :
 | Date | Version
 | [Semaine 18] | [Version 1.0]
 |===
+| [Semaine 19] | [Version 2.0]
+|===
 
 = Sommaire
 
@@ -39,9 +41,11 @@ Le cahier des charges a été rédigé par :
 
 
 1. Information sur l’existant
-2. Technologies nécessaires à employer
+2. Diagramme des cas d'utilisation existant
+3. Maquette de l'existant
+4. Technologies nécessaires à employer
 
-== II. Analyse des nouveaux besoins
+== II. Analyse des contraintes
 
 1. Contraintes techniques
 2. Contraintes de délai
@@ -67,7 +71,9 @@ Le cahier des charges a été rédigé par :
 
 Bank Univ souhaite moderniser son système informatique en remplaçant son ancienne application de gestion bancaire. L'application actuelle est obsolète et ne répond plus aux besoins de ses clients ni aux standards de l'industrie bancaire moderne.
 
-Dans le cadre de ce projet, nous avons accès à un code source existant sur lequel nous pouvons nous appuyer pour développer une nouvelle application. L'objectif est de créer une solution plus adaptée aux attentes actuelles de Bank Univ et à celles de ses clients.
+Dans le cadre de ce projet, nous avons accès à un code source existant sur lequel nous pouvons nous appuyer pour développer une nouvelle application. Le contexte du client est celui d'un environnement concurrentiel où les attentes des clients évoluent rapidement, nécessitant une réponse agile et efficace de la part de Bank Univ. La problématique majeure réside dans la nécessité de moderniser le système informatique tout en assurant une transition sans dommages pour les opérations bancaires et en répondant aux besoins spécifiques de la clientèle.
+
+Dans ce cadre, les objectifs du projet sont clairs : remplacer l'ancienne application par une solution plus adaptée, répondant aux attentes actuelles de Bank Univ et à celles de sa clientèle.
 
 Ce cahier des charges est un document de référence qui définit les exigences et les spécifications techniques pour le développement de la nouvelle application. Il est conçu pour guider l'équipe de développement constituée de Théo Raban, Yahya Magaz et Thomas Céolin tout au long du processus, en veillant à ce que la nouvelle application réponde efficacement aux besoins de Bank Univ.
 
@@ -75,13 +81,20 @@ Ce cahier des charges est un document de référence qui définit les exigences 
 
 === 1. Information sur l'existant
 
-Nous devrons travailler à partir d’une application existante «Daily Bank » qu’il faudra adapter aux nouveaux besoins de la banque. Cette application sera livrée en semaine 21 après notre formation sur l'utilisation des IHM, au moment de passer au développement Java de l'application. Nous nous servirons donc de cette base pour poursuivre l'intégration des fonctionnalités exigées de l'application de gestion bancaire.
+Le système actuel de Bank Univ offre quelques fonctionnalités de base pour gérer les opérations bancaires. Les Guichetiers peuvent changer les infos clients, créer de nouveaux comptes, voir les comptes et retirer de l'argent. Cela leur permet de s'occuper des besoins courants des clients. De plus, les Chefs d'Agence peuvent aussi rendre un compte inactif si besoin, donnant un peu plus de contrôle sur la gestion des comptes. Ces fonctionnalités couvrent les besoins de base.
 
-=== 2. Technologies nécessaires d'employer
+=== 2. Diagramme des cas d'utilisation existant
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme%20de%20cas%20d'utilisatoin%20existant.PNG[]
+
+=== 3. Maquette de l'existant
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettePNG.PNG[]
+
+=== 4. Technologies nécessaires d'employer
 
 Pour développer cette application, nous allons devoir utiliser des langages de programmation tels que Java et JavaFX pour les IHM (Interfaces Homme-Machine). Ces langages nous sont imposés par le client. De plus, nous allons devoir exploiter une base de données préexistante qui contient toutes les informations sur les comptes bancaires. Cette base de données, qui nous sera fournie, est hébergée sous Oracle, plus particulièrement par Oracle SQL Developer. Il sera donc nécessaire d'exploiter au maximum l'ensemble de ces technologies pour satisfaire les besoins de notre client.
 
-== II- Analyse des nouveaux besoins
+== II- Analyse des contraintes
 
 === 1. Contraintes techniques
 
@@ -171,13 +184,14 @@ En résumé, ces modifications permettront à l'application bancaire Java de ré
 
 Dans cette section, nous présentons un schéma simple montrant comment les utilisateurs interagissent avec notre application. Ce diagramme des cas d'utilisation donne une vue d'ensemble des actions possibles.
 
+
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme%20de%20cas%20d'utilisation%20SAE.png[]
 
 === 3. Maquette
 
 Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs.
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettePNG.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettefuture.pdf[]
 
 === 4. Modalités de déploiement
 
