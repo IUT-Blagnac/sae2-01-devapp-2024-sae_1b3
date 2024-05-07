@@ -1,9 +1,11 @@
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
 = Cahier des charges
 
 :doctype: book
 :icons: font
 :source-highlighter: coderay
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
+
 
 == Projet développement d'application bancaire
 
@@ -32,7 +34,10 @@ Le cahier des charges a été rédigé par :
 | [Semaine 19] | [Version 2.0]
 |===
 
-= Sommaire
+== Sommaire
+
+:toc:
+:toc-title: Sommaire
 
 == Introduction du projet
 
