@@ -5,7 +5,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 :icons: font
 :source-highlighter: coderay
 
-== Projet développement d'application
+== Projet développement d'application bancaire
 
 |===
 | Client: | Bank Univ
@@ -53,9 +53,10 @@ Le cahier des charges a été rédigé par :
 == III. Solution
 
 1. Description de la solution
-2. Diagramme des cas d’utilisation
-3. Maquette
-4. Modalités de déploiement
+2. Fonctionnalités
+3. Diagramme des cas d’utilisation
+4. Maquette
+5. Modalités de déploiement
 
 == IV. Organisation
 
@@ -165,34 +166,85 @@ Afin de répondre aux besoins opérationnels du guichetier et du chef d'agence, 
 L'interface utilisateur doit être étendue pour permettre au guichetier et 
 au chef d'agence d'accéder à toutes les fonctionnalités CRUD pour les comptes clients, les virements, les prélèvements.
 
-==== Fonctionnalités spécifiques au guichetier :
+=== 2. Fonctionnalités
+=== Modifier informations client (adresse, téléphone, …) :
 
-Crédit et débit des comptes : Ajout de fonctionnalités permettant au guichetier de créditer et de débiter les comptes clients selon les instructions données.
-Virements : Intégration d'une interface permettant au guichetier d'effectuer et d'autoriser des virements entre comptes.
+ Permet de mettre à jour les données personnelles d'un client dans le système. (Guichetier / Chef d'Agence)
 
-==== Fonctionnalités spécifiques au chef d'agence :
+=== Créer un nouveau client :
 
-Débit exceptionnel : Ajout d'une fonctionnalité spécifique permettant au chef d'agence d'effectuer des débits exceptionnels sur les comptes clients avec les autorisations appropriées.
-Simulation d'emprunt et d'assurance : Intégration de simulateurs d'emprunt et d'assurance pour aider le chef d'agence dans ses interactions avec les clients.
-Génération automatique de relevés et de prélèvements en PDF : Développement d'une fonctionnalité automatisée permettant à l'application de générer des relevés de compte et des prélèvements en format PDF, facilitant ainsi la communication avec les clients.
+ Permet d'ajouter un nouveau client à la base de données de la banque. (Guichetier / Chef d'Agence)
+
+=== Consulter un compte :
+
+ Permet de visualiser les informations et l'historique d'un compte client. (Guichetier / Chef d'Agence)
+
+=== Débiter un compte :
+
+ Permet de retirer de l'argent d'un compte bancaire. (Guichetier / Chef d'Agence)
+
+=== Rendre inactif un client :
+
+ Permet de rendre un client de la banque inactif. (Chef d'Agence)
+
+=== Créditer/débiter un compte :
+
+ Permet d'effectuer des opérations de dépôt et de retrait sur un compte. (Guichetier)
+
+=== Créer un compte :
+
+  Permet de créer un nouveau compte bancaire pour un client. (Guichetier)
+
+=== Effectuer un virement de compte à compte :
+
+ Permet de transférer de l'argent d'un compte à un autre. (Guichetier)
+
+=== Clôturer un compte :
+
+ Permet de fermer un compte bancaire. (Guichetier)
+
+=== Gérer les employés :
+
+ Permet de créer, mettre à jour, et supprimer des profils d'employés de la banque. (Chef d'Agence)
+
+=== Générer un relevé mensuel d’un compte en PDF :
+
+ Permet de créer un document PDF récapitulatif des transactions d'un compte sur un mois. (Guichetier)
+
+=== Gérer les prélèvements automatiques :
+
+ Permet de gérer les prélèvements automatiques sur les comptes clients. (Guichetier)
+
+=== Effectuer un Débit exceptionnel :
+
+ Permet d'effectuer un retrait exceptionnel sur un compte client. (Chef d'Agence)
+
+=== Simuler un emprunt :
+
+ Permet de simuler un prêt pour un client. (Chef d'Agence)
+
+=== Simuler une assurance d’emprunt :
+
+ Permet de simuler un prêt pour un client. (Chef d'Agence)
+
 
 
 En résumé, ces modifications permettront à l'application bancaire Java de répondre aux besoins spécifiques du guichetier et du chef d'agence, tout en offrant une expérience utilisateur améliorée et sécurisée. 
 
-=== 2. Diagramme des cas d'utilisation
+=== 3. Diagramme des cas d'utilisation
 
 Dans cette section, nous présentons un schéma simple montrant comment les utilisateurs interagissent avec notre application. Ce diagramme des cas d'utilisation donne une vue d'ensemble des actions possibles.
 
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme%20de%20cas%20d'utilisation%20SAE.png[]
 
-=== 3. Maquette
+=== 4. Maquette
 
 Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs.
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettefuture.png[]
 
-=== 4. Modalités de déploiement
+=== 5. Modalités de déploiement
 
 Pour le déploiement de notre application, nous avons opté pour une méthode progressive. Dans un premier temps, nous installerons l'application dans les agences de la banque BankUniv. Ensuite, nous assurerons la formation du personnel de chaque agence pour faciliter l'adoption et l'utilisation de l'application.
 
