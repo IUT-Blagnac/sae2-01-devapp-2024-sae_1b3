@@ -39,9 +39,9 @@ Le cahier des charges a été rédigé par :
 :toc:
 :toc-title: Sommaire
 
-== Introduction du projet
+=== Introduction du projet
 
-== I. Analyse de l’existant
+=== I. Analyse de l’existant
 
 
 1. Information sur l’existant
@@ -49,13 +49,13 @@ Le cahier des charges a été rédigé par :
 3. Maquette de l'existant
 4. Technologies nécessaires à employer
 
-== II. Analyse des contraintes
+=== II. Analyse des contraintes
 
 1. Contraintes techniques
 2. Contraintes de délai
 3. Contraintes humaines
 
-== III. Solution
+=== III. Solution
 
 1. Description de la solution
 2. Fonctionnalités
@@ -63,14 +63,14 @@ Le cahier des charges a été rédigé par :
 4. Maquette
 5. Modalités de déploiement
 
-== IV. Organisation
+=== IV. Organisation
 
 1. Modalités d’organisation pour la suite du projet
 2. Organisation mise en œuvre dans l’étape CDCU
 
 [page-break]
 
-== Conclusion
+=== Conclusion
 
 == Introduction du projet
 
