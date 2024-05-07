@@ -29,7 +29,6 @@ Le cahier des charges a été rédigé par :
 |===
 | Date | Version
 | [Semaine 18] | [Version 1.0]
-|===
 | [Semaine 19] | [Version 2.0]
 |===
 
@@ -191,7 +190,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 Dans cette partie, nous vous présentons une illustration visuelle de notre application à travers une maquette. Cette image donne un aperçu de l'apparence générale de l'interface utilisateur et de la manière dont les différentes fonctionnalités seront disposées. Il est prévu que l'application évolue légèrement au fil du développement pour mieux répondre aux attentes des utilisateurs.
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettefuture.pdf[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/maquettefuture.png[]
 
 === 4. Modalités de déploiement
 
