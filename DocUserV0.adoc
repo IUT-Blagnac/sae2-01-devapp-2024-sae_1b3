@@ -39,14 +39,49 @@ Le cahier des charges a été rédigé par :
 
 == Introduction
 
+Ce document présente le cahier des charges de l'application DailyBank, DailyBank est une plateforme bancaire complète offrant une gamme de fonctionnalités pour les clients et le personnel. 
+
+Nous aborderons l'installation, la connexion, et les fonctionnalités existantes telles que la gestion des clients et des comptes. Ensuite, nous explorerons les fonctionnalités à développer pour les versions futures, notamment la gestion des prélèvements automatiques et les simulations financières.
+
 == Installation et Configuration
 
+=== Mise en place du workspace (1.1)
 
-== Prérequis
+Pour préparer votre espace de travail :
 
-== Procédure d'Installation
+1. Téléchargez le fichier de code initial depuis Moodle.
+2. Décompressez le fichier dans un emplacement accessible.
+3. Ouvrez VSCode.
+4. Cliquez sur "File" > "Open Folder" et sélectionnez le dossier extrait.
+5. Attendez que VSCode charge le projet et les dépendances Maven.
 
-== Configuration Initiale
+=== Comptes Oracle (1.2)
+
+Pour accéder à la base de données Oracle :
+
+1. Trouvez les informations de connexion Oracle sur Moodle.
+2. Ouvrez SQLDeveloper.
+3. Utilisez ces informations pour vous connecter à votre base de données.
+4. Changez le mot de passe avec la commande `password`.
+
+=== Création de la base depuis SQLDeveloper (1.3)
+
+Pour créer la base de données :
+
+1. Trouvez le répertoire "basededonnee" dans le projet Eclipse DailyBank en V0.
+2. Ouvrez le fichier "scriptCreaBase_V2.sql" dans un éditeur de texte.
+3. Copiez tout le contenu du fichier.
+4. Collez le script dans l'éditeur SQL de SQLDeveloper.
+5. Exécutez le script.
+
+=== Paramétrage de LogToDatabase (1.4)
+
+Pour configurer la connexion à la base de données :
+
+1. Ouvrez le fichier "LogToDatabase.java" dans VSCode.
+2. Recherchez les champs "user" et "passwd".
+3. Remplacez les valeurs par vos informations de connexion Oracle.
+4. Enregistrez le fichier.
 
 == Connexion
 
