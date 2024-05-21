@@ -1,13 +1,27 @@
 = DocUser
-Auteur: [Thomas CEOLIN, Théo RABAN, Yahya MAGAZ ]
-Date: [ 21/05/2024]
 
 :toc:
 :toc-title: Sommaire
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
 
-Bienvenue dans le document utilisateur de notre application. Ce document contient toutes les informations nécessaires pour installer, configurer, et utiliser notre logiciel.
+
+== Auteurs
+
+Le cahier des charges a été rédigé par :
+
+    Théo RABAN
+    Yahya MAGAZ
+    Thomas CEOLIN
+
+== Révision
+
+|===
+| Date | Version
+| [Semaine 18] | [Version 1.0]
+| [Semaine 19] | [Version 2.0]
+|===
+
 
 == Sommaire
 
@@ -25,39 +39,194 @@ Bienvenue dans le document utilisateur de notre application. Ce document contien
 
 == Introduction
 
-Ce document a pour but de vous guider à travers l'installation, la configuration, et l'utilisation de notre application. Il est structuré de manière à faciliter l'accès à l'information pour différents types d'utilisateurs.
-
 == Installation et Configuration
 
-=== Prérequis
+== Prérequis
 
-Avant d'installer le logiciel, assurez-vous que votre système répond aux exigences suivantes :
+== Procédure d'Installation
 
-* Système d'exploitation : Windows 10 ou supérieur, macOS 10.13 ou supérieur, ou une distribution Linux récente
-* Mémoire RAM : Minimum 4 Go
-* Espace disque : Minimum 500 Mo
-* Connexion Internet pour le téléchargement et les mises à jour
-
-=== Procédure d'Installation
-
-1. Téléchargez le programme d'installation depuis notre site officiel.
-2. Exécutez le fichier d'installation et suivez les instructions à l'écran.
-3. Une fois l'installation terminée, lancez l'application depuis le menu Démarrer (Windows), le Launchpad (macOS), ou le terminal (Linux).
-
-=== Configuration Initiale
-
-1. À la première ouverture, configurez les paramètres de base comme la langue et le fuseau horaire.
-2. Créez un compte administrateur pour gérer les utilisateurs et les paramètres avancés.
+== Configuration Initiale
 
 == Connexion
 
-=== Création de Compte
+Pour accéder à l'application DailyBank, la première étape consiste à vous connecter. Voici les étapes à suivre :
 
-1. Sur l'écran de connexion, cliquez sur "Créer un compte".
-2. Remplissez le formulaire avec vos informations personnelles et cliquez sur "S'inscrire".
+1. *Accéder à la page de connexion* :
+   Rendez-vous sur la page de connexion de l'application. Vous trouverez cette page sur l'interface principale de DailyBank.
 
-=== Connexion
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/%C3%A9tape1.PNG[]
 
-1. Sur l'écran de connexion, entrez votre nom d'utilisateur et votre mot de passe.
-2. Cliquez sur "Se connecter".
+2. *Entrer vos identifiants* :
+   Saisissez votre login et votre mot de passe dans les champs prévus à cet effet. Ces informations d'identification sont associées à votre compte utilisateur et sont stockées dans une base de données sécurisée.
 
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/%C3%A9tape2.PNG[]
+
+3. *Valider votre connexion* :
+   Une fois vos identifiants entrés, cliquez sur le bouton de validation pour confirmer votre connexion.
+
+En suivant ces étapes simples, vous aurez accès à toutes les fonctionnalités de l'application DailyBank en fonction de vos autorisations et de votre rôle au sein de l'organisation.
+
+
+== Fonctionnalités
+
+=== Version existante (V0)
+
+Dans la version existante (V0), les fonctionnalités disponibles sont les suivantes :
+
+==== Gestion des clients
+
+* Modification des informations client
+  * Description : Permet de mettre à jour les informations personnelles d'un client, telles que l'adresse, le numéro de téléphone, etc.
+  * Étapes :
+    1. Accéder au profil du client via le système.
+    2. Sélectionner l'option de modification des informations.
+    3. Mettre à jour les champs requis (adresse, téléphone, etc.).
+    4. Sauvegarder les modifications.
+  * Remarques : Assurez-vous que toutes les informations sont correctes avant de sauvegarder.
+
+* Création d'un nouveau client
+  * Description : Permet de créer un nouveau profil client dans le système.
+  * Étapes :
+    1. Accéder à l'option de création de client.
+    2. Remplir les informations nécessaires (nom, adresse, téléphone, etc.).
+    3. Vérifier les informations saisies.
+    4. Confirmer la création du profil client.
+  * Remarques : Toutes les informations obligatoires doivent être remplies avant la création du compte.
+
+* Mise en inactivité d'un client
+  * Description : Permet de désactiver temporairement un client.
+  * Étapes :
+    1. Accéder au profil du client.
+    2. Sélectionner l'option de mise en inactivité.
+    3. Confirmer la mise en inactivité.
+  * Remarques : La réactivation du client peut être effectuée via la même procédure.
+
+==== Gestion des comptes
+
+* Consultation d'un compte
+  * Description : Permet de visualiser les détails d'un compte client.
+  * Étapes :
+    1. Accéder à la section de consultation des comptes.
+    2. Entrer l'identifiant du compte ou du client.
+    3. Afficher les informations du compte (solde, transactions récentes, etc.).
+  * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
+
+* Débit d'un compte
+  * Description : Permet de débiter un montant d'un compte client.
+  * Étapes :
+    1. Accéder à la section de gestion des comptes.
+    2. Sélectionner le compte à débiter.
+    3. Entrer le montant à débiter.
+    4. Confirmer la transaction.
+  * Remarques : Vérifiez toujours le solde du compte avant de débiter.
+
+=== Versions à développer
+
+Voici les fonctionnalités à développer pour chaque version du logiciel (V1, V2) :
+
+==== Version 1 (V1)
+
+Cas d’utilisation à développer dans la Version 1 :
+
+==== Gestion des comptes
+
+* Crédit/débit d'un compte (Java et BD avec procédure stockée)
+  * Description : Ajout ou retrait d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
+  * Étapes :
+    1. Sélectionner l'opération souhaitée (crédit ou débit).
+    2. Entrer les détails de la transaction (montant, compte, etc.).
+    3. Exécuter la procédure stockée.
+    4. Confirmer la transaction.
+
+* Création d'un compte
+  * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
+  * Étapes :
+    1. Sélectionner le client.
+    2. Entrer les détails du compte (type de compte, dépôt initial, etc.).
+    3. Confirmer la création du compte.
+
+* Clôture d'un compte
+  * Description : Permet de fermer un compte client.
+  * Étapes :
+    1. Sélectionner le compte à clôturer.
+    2. Vérifier les soldes et les transactions en cours.
+    3. Confirmer la clôture du compte.
+
+==== Transferts et virements
+
+* Virement de compte à compte
+  * Description : Permet de transférer des fonds d'un compte à un autre.
+  * Étapes :
+    1. Sélectionner les comptes source et destination.
+    2. Entrer le montant à transférer.
+    3. Confirmer le virement.
+
+==== Gestion des employés
+
+* Gestion des employés (CRUD) : guichetier et chef d’agence
+  * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
+  * Étapes :
+    1. Accéder à la gestion des employés.
+    2. Sélectionner l'action souhaitée (créer, lire, mettre à jour, supprimer).
+    3. Remplir ou modifier les informations nécessaires.
+    4. Confirmer l'action.
+
+==== Version 2 (V2)
+
+Cas d’utilisation à développer dans la Version 2 :
+
+==== Génération de documents
+
+* Génération d'un relevé mensuel d’un compte en PDF
+  * Description : Permet de générer et de télécharger un relevé mensuel des transactions d'un compte au format PDF.
+  * Étapes :
+    1. Sélectionner le compte et le mois concerné.
+    2. Générer le relevé.
+    3. Télécharger le PDF.
+
+* Génération des relevés mensuels en PDF (batch)
+  * Description : Automatiser la génération des relevés mensuels pour tous les comptes clients en PDF.
+  * Étapes :
+    1. Configurer le batch pour exécuter mensuellement.
+    2. Générer les relevés pour chaque compte.
+    3. Stocker ou envoyer les relevés générés.
+
+==== Gestion des prélèvements automatiques
+
+* Gestion des prélèvements automatiques (CRUD)
+  * Description : Permet de créer, lire, mettre à jour et supprimer des prélèvements automatiques sur un compte.
+  * Étapes :
+    1. Accéder à la gestion des prélèvements automatiques.
+    2. Sélectionner l'action souhaitée (créer, lire, mettre à jour, supprimer).
+    3. Remplir ou modifier les informations nécessaires.
+    4. Confirmer l'action.
+
+* Exécution des prélèvements automatiques (batch)
+  * Description : Automatiser l'exécution des prélèvements automatiques sur les comptes clients.
+  * Étapes :
+    1. Configurer le batch pour exécuter selon le planning des prélèvements.
+    2. Exécuter les prélèvements pour chaque compte concerné.
+    3. Mettre à jour les comptes en conséquence.
+
+==== Simulations financières
+
+* Débit exceptionnel
+  * Description : Permet d'autoriser un débit exceptionnel sur un compte client.
+  * Étapes :
+    1. Accéder au compte concerné.
+    2. Entrer les détails du débit exceptionnel.
+    3. Confirmer le débit.
+
+* Simulation d'un emprunt
+  * Description : Permet de simuler les conditions et le remboursement d'un emprunt pour un client.
+  * Étapes :
+    1. Entrer les détails de l'emprunt (montant, taux, durée, etc.).
+    2. Exécuter la simulation.
+    3. Afficher les résultats de la simulation.
+
+* Simulation d'une assurance d'emprunt
+  * Description : Permet de simuler les conditions d'une assurance liée à un emprunt.
+  * Étapes :
+    1. Entrer les détails de l'assurance (type, couverture, etc.).
+    2. Exécuter la simulation.
+    3. Afficher les résultats de la simulation.
