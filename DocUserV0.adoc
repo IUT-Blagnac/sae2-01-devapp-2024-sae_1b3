@@ -74,9 +74,9 @@ En suivant ces étapes simples, vous aurez accès à toutes les fonctionnalités
 
 Dans la version existante (V0), les fonctionnalités disponibles sont les suivantes :
 
-==== Gestion des clients
+=== Gestion des clients
 
-* Modification des informations client
+==== _Modification des informations client_
   * Description : Permet de mettre à jour les informations personnelles d'un client, telles que l'adresse, le numéro de téléphone, etc.
   * Étapes :
     1. Accéder au profil du client via le système.
@@ -86,7 +86,8 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
   * Remarques : Assurez-vous que toutes les informations sont correctes avant de sauvegarder.
   * Auteur : Guichetier
 
-* Création d'un nouveau client
+
+==== _Création d'un nouveau client_
   * Description : Permet de créer un nouveau profil client dans le système.
   * Étapes :
     1. Accéder à l'option de création de client.
@@ -96,7 +97,8 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
   * Remarques : Toutes les informations obligatoires doivent être remplies avant la création du compte.
   * Auteur : Guichetier
 
-* Mise en inactivité d'un client
+
+==== _Mise en inactivité d'un client_
   * Description : Permet de désactiver temporairement un client.
   * Étapes :
     1. Accéder au profil du client.
@@ -105,9 +107,9 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
   * Remarques : La réactivation du client peut être effectuée via la même procédure.
   * Auteur : Chef d’agence
 
-==== Gestion des comptes
+=== Gestion des comptes
 
-* Consultation d'un compte
+==== _Consultation d'un compte_
   * Description : Permet de visualiser les détails d'un compte client.
   * Étapes :
     1. Accéder à la section de consultation des comptes.
@@ -116,7 +118,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
   * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
   * Auteur : Guichetier
 
-* Débit d'un compte
+==== _Débit d'un compte_
   * Description : Permet de débiter un montant d'un compte client.
   * Étapes :
     1. Accéder à la section de gestion des comptes.
@@ -130,13 +132,13 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
 
 Voici les fonctionnalités à développer pour chaque version du logiciel (V1, V2) :
 
-==== Version 1 (V1)
+=== Version 1 (V1)
 
 Cas d’utilisation à développer dans la Version 1 :
 
-==== Gestion des comptes
+=== Gestion des comptes
 
-* Crédit/débit d'un compte (Java et BD avec procédure stockée)
+==== _Crédit/débit d'un compte (Java et BD avec procédure stockée)_
   * Description : Ajout ou retrait d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
   * Étapes :
     1. Sélectionner l'opération souhaitée (crédit ou débit).
@@ -145,7 +147,7 @@ Cas d’utilisation à développer dans la Version 1 :
     4. Confirmer la transaction.
   * Auteur : Guichetier
 
-* Création d'un compte
+==== _Création d'un compte_
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
   * Étapes :
     1. Sélectionner le client.
@@ -153,7 +155,7 @@ Cas d’utilisation à développer dans la Version 1 :
     3. Confirmer la création du compte.
   * Auteur : Guichetier
 
-* Clôture d'un compte
+==== _Clôture d'un compte_
   * Description : Permet de fermer un compte client.
   * Étapes :
     1. Sélectionner le compte à clôturer.
@@ -161,9 +163,9 @@ Cas d’utilisation à développer dans la Version 1 :
     3. Confirmer la clôture du compte.
   * Auteur : Guichetier
 
-==== Transferts et virements
+=== Transferts et virements
 
-* Virement de compte à compte
+==== Virement de compte à compte
   * Description : Permet de transférer des fonds d'un compte à un autre.
   * Étapes :
     1. Sélectionner les comptes source et destination.
@@ -171,9 +173,9 @@ Cas d’utilisation à développer dans la Version 1 :
     3. Confirmer le virement.
   * Auteur : Guichetier
 
-==== Gestion des employés
+=== Gestion des employés
 
-* Gestion des employés (CRUD) : guichetier et chef d’agence
+==== Gestion des employés (CRUD) : guichetier et chef d’agence
   * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
   * Étapes :
     1. Accéder à la gestion des employés.
@@ -182,13 +184,13 @@ Cas d’utilisation à développer dans la Version 1 :
     4. Confirmer l'action.
   * Auteur : Chef d’agence
 
-==== Version 2 (V2)
+=== Version 2 (V2)
 
 Cas d’utilisation à développer dans la Version 2 :
 
-==== Génération de documents
+=== Génération de documents
 
-* Génération d'un relevé mensuel d’un compte en PDF
+==== Génération d'un relevé mensuel d’un compte en PDF
   * Description : Permet de générer et de télécharger un relevé mensuel des transactions d'un compte au format PDF.
   * Étapes :
     1. Sélectionner le compte et le mois concerné.
@@ -196,7 +198,7 @@ Cas d’utilisation à développer dans la Version 2 :
     3. Télécharger le PDF.
   * Auteur : Guichetier
 
-* Génération des relevés mensuels en PDF (batch)
+==== Génération des relevés mensuels en PDF (batch)
   * Description : Automatiser la génération des relevés mensuels pour tous les comptes clients en PDF.
   * Étapes :
     1. Configurer le batch pour exécuter mensuellement.
@@ -204,9 +206,9 @@ Cas d’utilisation à développer dans la Version 2 :
     3. Stocker ou envoyer les relevés générés.
   * Auteur : Batch (Automatisé)
 
-==== Gestion des prélèvements automatiques
+=== Gestion des prélèvements automatiques
 
-* Gestion des prélèvements automatiques (CRUD)
+==== Gestion des prélèvements automatiques (CRUD)
   * Description : Permet de créer, lire, mettre à jour et supprimer des prélèvements automatiques sur un compte.
   * Étapes :
     1. Accéder à la gestion des prélèvements automatiques.
@@ -215,7 +217,7 @@ Cas d’utilisation à développer dans la Version 2 :
     4. Confirmer l'action.
   * Auteur : Guichetier
 
-* Exécution des prélèvements automatiques (batch)
+==== Exécution des prélèvements automatiques (batch)
   * Description : Automatiser l'exécution des prélèvements automatiques sur les comptes clients.
   * Étapes :
     1. Configurer le batch pour exécuter selon le planning des prélèvements.
@@ -223,9 +225,9 @@ Cas d’utilisation à développer dans la Version 2 :
     3. Mettre à jour les comptes en conséquence.
   * Auteur : Batch (Automatisé)
 
-==== Simulations financières
+=== Simulations financières
 
-* Débit exceptionnel
+==== Débit exceptionnel
   * Description : Permet d'autoriser un débit exceptionnel sur un compte client.
   * Étapes :
     1. Accéder au compte concerné.
@@ -233,7 +235,7 @@ Cas d’utilisation à développer dans la Version 2 :
     3. Confirmer le débit.
   * Auteur : Chef d’agence
 
-* Simulation d'un emprunt
+==== Simulation d'un emprunt
   * Description : Permet de simuler les conditions et le remboursement d'un emprunt pour un client.
   * Étapes :
     1. Entrer les détails de l'emprunt (montant, taux, durée, etc.).
@@ -241,7 +243,7 @@ Cas d’utilisation à développer dans la Version 2 :
     3. Afficher les résultats de la simulation.
   * Auteur : Chef d’agence
 
-* Simulation d'une assurance d'emprunt
+==== Simulation d'une assurance d'emprunt
   * Description : Permet de simuler les conditions d'une assurance liée à un emprunt.
   * Étapes :
     1. Entrer les détails de l'assurance (type, couverture, etc.).
