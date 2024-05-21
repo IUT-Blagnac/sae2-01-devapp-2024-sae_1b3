@@ -1,9 +1,63 @@
-= Doc. User
+= DocUser
+Auteur: [Thomas CEOLIN, Théo RABAN, Yahya MAGAZ ]
+Date: [ 21/05/2024]
+
+:toc:
+:toc-title: Sommaire
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
+
+Bienvenue dans le document utilisateur de notre application. Ce document contient toutes les informations nécessaires pour installer, configurer, et utiliser notre logiciel.
 
 == Sommaire
 
-* [[Contexte]]
+* <<Introduction>>
+* <<Installation_et_Configuration>>
+* <<Connexion>>
+* <<Fonctionnalités>>
+** <<Fonctionnalités_V1>>
+*** <<Chef_Agence_V1>>
+*** <<Guichetier_V1>>
+** <<Fonctionnalités_V2>>
+*** <<Chef_Agence_V2>>
+*** <<Guichetier_V2>>
+*** <<Batch_V2>>
 
-== Contexte
+== Introduction
 
-Au cours de cette SAE, nous devons d'abord effectuer une V1 du code, puis une V2. Dans la V1 du code, nous avons plusieurs fonctionnalités à implémenter. Tout d'abord, il faudrait une fonction "créer" destinée au chef d'agence, suivie d'une fonction "lire/consulter" également destinée au chef d'agence, puis une fonction "mettre à jour" destinée au chef d'agence, et enfin une fonction "supprimer" destinée au chef d'agence. Ensuite, nous devons créer une fonction "créer" destinée au guichetier, et enfin une fonction "créditer/débiter" destinée au guichetier. Une fois cette première version du code réalisée, nous devons passer à la version 2 dans laquelle d'autres fonctions seront ajoutées, telles qu'une fonction "débit exceptionnel" destinée au chef d'agence, puis une fonction "simuler emprunt" également destinée au chef d'agence, ensuite une fonction "simuler assurance" destinée au chef d'agence, suivie d'une fonction "créer prélèvement" destinée au guichetier, une fonction "lire/consulter prélèvement" destinée au guichetier, une fonction "mettre à jour prélèvement" destinée au guichetier, une fonction "supprimer prélèvement" destinée au guichetier, une fonction "prélèvement automatique" destinée au Batch, et enfin une fonction "relevés mensuels" destinée au Batch.
+Ce document a pour but de vous guider à travers l'installation, la configuration, et l'utilisation de notre application. Il est structuré de manière à faciliter l'accès à l'information pour différents types d'utilisateurs.
+
+== Installation et Configuration
+
+=== Prérequis
+
+Avant d'installer le logiciel, assurez-vous que votre système répond aux exigences suivantes :
+
+* Système d'exploitation : Windows 10 ou supérieur, macOS 10.13 ou supérieur, ou une distribution Linux récente
+* Mémoire RAM : Minimum 4 Go
+* Espace disque : Minimum 500 Mo
+* Connexion Internet pour le téléchargement et les mises à jour
+
+=== Procédure d'Installation
+
+1. Téléchargez le programme d'installation depuis notre site officiel.
+2. Exécutez le fichier d'installation et suivez les instructions à l'écran.
+3. Une fois l'installation terminée, lancez l'application depuis le menu Démarrer (Windows), le Launchpad (macOS), ou le terminal (Linux).
+
+=== Configuration Initiale
+
+1. À la première ouverture, configurez les paramètres de base comme la langue et le fuseau horaire.
+2. Créez un compte administrateur pour gérer les utilisateurs et les paramètres avancés.
+
+== Connexion
+
+=== Création de Compte
+
+1. Sur l'écran de connexion, cliquez sur "Créer un compte".
+2. Remplissez le formulaire avec vos informations personnelles et cliquez sur "S'inscrire".
+
+=== Connexion
+
+1. Sur l'écran de connexion, entrez votre nom d'utilisateur et votre mot de passe.
+2. Cliquez sur "Se connecter".
+
