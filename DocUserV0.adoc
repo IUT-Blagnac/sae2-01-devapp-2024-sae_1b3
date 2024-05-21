@@ -41,6 +41,7 @@ Le cahier des charges a été rédigé par :
 
 == Installation et Configuration
 
+
 == Prérequis
 
 == Procédure d'Installation
@@ -83,6 +84,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
     3. Mettre à jour les champs requis (adresse, téléphone, etc.).
     4. Sauvegarder les modifications.
   * Remarques : Assurez-vous que toutes les informations sont correctes avant de sauvegarder.
+  * Auteur : Guichetier
 
 * Création d'un nouveau client
   * Description : Permet de créer un nouveau profil client dans le système.
@@ -92,6 +94,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
     3. Vérifier les informations saisies.
     4. Confirmer la création du profil client.
   * Remarques : Toutes les informations obligatoires doivent être remplies avant la création du compte.
+  * Auteur : Guichetier
 
 * Mise en inactivité d'un client
   * Description : Permet de désactiver temporairement un client.
@@ -100,6 +103,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
     2. Sélectionner l'option de mise en inactivité.
     3. Confirmer la mise en inactivité.
   * Remarques : La réactivation du client peut être effectuée via la même procédure.
+  * Auteur : Chef d’agence
 
 ==== Gestion des comptes
 
@@ -110,6 +114,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
     2. Entrer l'identifiant du compte ou du client.
     3. Afficher les informations du compte (solde, transactions récentes, etc.).
   * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
+  * Auteur : Guichetier
 
 * Débit d'un compte
   * Description : Permet de débiter un montant d'un compte client.
@@ -119,6 +124,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
     3. Entrer le montant à débiter.
     4. Confirmer la transaction.
   * Remarques : Vérifiez toujours le solde du compte avant de débiter.
+  * Auteur : Guichetier
 
 === Versions à développer
 
@@ -137,6 +143,7 @@ Cas d’utilisation à développer dans la Version 1 :
     2. Entrer les détails de la transaction (montant, compte, etc.).
     3. Exécuter la procédure stockée.
     4. Confirmer la transaction.
+  * Auteur : Guichetier
 
 * Création d'un compte
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
@@ -144,6 +151,7 @@ Cas d’utilisation à développer dans la Version 1 :
     1. Sélectionner le client.
     2. Entrer les détails du compte (type de compte, dépôt initial, etc.).
     3. Confirmer la création du compte.
+  * Auteur : Guichetier
 
 * Clôture d'un compte
   * Description : Permet de fermer un compte client.
@@ -151,6 +159,7 @@ Cas d’utilisation à développer dans la Version 1 :
     1. Sélectionner le compte à clôturer.
     2. Vérifier les soldes et les transactions en cours.
     3. Confirmer la clôture du compte.
+  * Auteur : Guichetier
 
 ==== Transferts et virements
 
@@ -160,6 +169,7 @@ Cas d’utilisation à développer dans la Version 1 :
     1. Sélectionner les comptes source et destination.
     2. Entrer le montant à transférer.
     3. Confirmer le virement.
+  * Auteur : Guichetier
 
 ==== Gestion des employés
 
@@ -170,6 +180,7 @@ Cas d’utilisation à développer dans la Version 1 :
     2. Sélectionner l'action souhaitée (créer, lire, mettre à jour, supprimer).
     3. Remplir ou modifier les informations nécessaires.
     4. Confirmer l'action.
+  * Auteur : Chef d’agence
 
 ==== Version 2 (V2)
 
@@ -183,6 +194,7 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Sélectionner le compte et le mois concerné.
     2. Générer le relevé.
     3. Télécharger le PDF.
+  * Auteur : Guichetier
 
 * Génération des relevés mensuels en PDF (batch)
   * Description : Automatiser la génération des relevés mensuels pour tous les comptes clients en PDF.
@@ -190,6 +202,7 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Configurer le batch pour exécuter mensuellement.
     2. Générer les relevés pour chaque compte.
     3. Stocker ou envoyer les relevés générés.
+  * Auteur : Batch (Automatisé)
 
 ==== Gestion des prélèvements automatiques
 
@@ -200,6 +213,7 @@ Cas d’utilisation à développer dans la Version 2 :
     2. Sélectionner l'action souhaitée (créer, lire, mettre à jour, supprimer).
     3. Remplir ou modifier les informations nécessaires.
     4. Confirmer l'action.
+  * Auteur : Guichetier
 
 * Exécution des prélèvements automatiques (batch)
   * Description : Automatiser l'exécution des prélèvements automatiques sur les comptes clients.
@@ -207,6 +221,7 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Configurer le batch pour exécuter selon le planning des prélèvements.
     2. Exécuter les prélèvements pour chaque compte concerné.
     3. Mettre à jour les comptes en conséquence.
+  * Auteur : Batch (Automatisé)
 
 ==== Simulations financières
 
@@ -216,6 +231,7 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Accéder au compte concerné.
     2. Entrer les détails du débit exceptionnel.
     3. Confirmer le débit.
+  * Auteur : Chef d’agence
 
 * Simulation d'un emprunt
   * Description : Permet de simuler les conditions et le remboursement d'un emprunt pour un client.
@@ -223,6 +239,7 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Entrer les détails de l'emprunt (montant, taux, durée, etc.).
     2. Exécuter la simulation.
     3. Afficher les résultats de la simulation.
+  * Auteur : Chef d’agence
 
 * Simulation d'une assurance d'emprunt
   * Description : Permet de simuler les conditions d'une assurance liée à un emprunt.
@@ -230,3 +247,4 @@ Cas d’utilisation à développer dans la Version 2 :
     1. Entrer les détails de l'assurance (type, couverture, etc.).
     2. Exécuter la simulation.
     3. Afficher les résultats de la simulation.
+  * Auteur : Chef d’agence
