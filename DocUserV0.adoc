@@ -29,13 +29,6 @@ Le cahier des charges a été rédigé par :
 * <<Installation_et_Configuration>>
 * <<Connexion>>
 * <<Fonctionnalités>>
-** <<Fonctionnalités_V1>>
-*** <<Chef_Agence_V1>>
-*** <<Guichetier_V1>>
-** <<Fonctionnalités_V2>>
-*** <<Chef_Agence_V2>>
-*** <<Guichetier_V2>>
-*** <<Batch_V2>>
 
 == Introduction
 
