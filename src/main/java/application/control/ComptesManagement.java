@@ -72,19 +72,10 @@ public class ComptesManagement {
 		compte = cep.doCompteEditorDialog(this.clientDesComptes, null, EditionMode.CREATION);
 		if (compte != null) {
 			try {
-				// Temporaire jusqu'à implémentation
-				compte = null;
-				AlertUtilities.showAlert(this.cmStage, "En cours de développement", "Non implémenté",
-						"Enregistrement réel en BDD du compe non effectué\nEn cours de développement", AlertType.ERROR);
-
-				// TODO : enregistrement du nouveau compte en BDD (la BDD donne de nouvel id
-				// dans "compte")
-
-				// if JAMAIS vrai
-				// existe pour compiler les catchs dessous
-				if (Math.random() < -1) {
-					throw new ApplicationException(Table.CompteCourant, Order.INSERT, "todo : test exceptions", null);
-				}
+				Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+				acc.insertCompte(compte); // Enregistre le compte dans la base de données
+				AlertUtilities.showAlert(this.cmStage, "Création réussie", "Compte créé",
+						"Le nouveau compte a été créé avec succès", AlertType.INFORMATION);
 			} catch (DatabaseConnexionException e) {
 				ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
 				ed.doExceptionDialog();
@@ -96,6 +87,7 @@ public class ComptesManagement {
 		}
 		return compte;
 	}
+	
 
 	public ArrayList<CompteCourant> getComptesDunClient() {
 		ArrayList<CompteCourant> listeCpt = new ArrayList<>();

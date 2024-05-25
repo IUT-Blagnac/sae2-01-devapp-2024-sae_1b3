@@ -169,4 +169,26 @@ public class Access_BD_CompteCourant {
 			throw new DataAccessException(Table.CompteCourant, Order.UPDATE, "Erreur accès", e);
 		}
 	}
+
+	public void insertCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "INSERT INTO CompteCourant (idNumCompte, debitAutorise, solde, estCloture, idNumCli) VALUES (?, ?, ?, ?, ?)";
+			
+			PreparedStatement pst = con.prepareStatement(query);
+	
+			pst.setInt(1, compte.idNumCompte);
+			pst.setInt(2, compte.debitAutorise);
+			pst.setDouble(3, compte.solde);
+			pst.setString(4, compte.estCloture);
+			pst.setInt(5, compte.idNumCli);
+	
+			pst.executeUpdate();
+			pst.close();
+			con.commit();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.CompteCourant, Order.INSERT, "Erreur lors de l'insertion du compte", e);
+		}
+	}
+	
 }
