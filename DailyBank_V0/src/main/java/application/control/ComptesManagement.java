@@ -69,22 +69,45 @@ public class ComptesManagement {
 	public CompteCourant creerNouveauCompte() {
 		CompteCourant compte;
 		CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
+
+		// Récupérer la liste de tous les comptes existants
+		ArrayList<CompteCourant> tousLesComptes = new ArrayList<>();
+		try {
+			Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+			tousLesComptes = acc.getTousLesComptes();
+		} catch (DatabaseConnexionException e) {
+			ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
+			ed.doExceptionDialog();
+			this.cmStage.close();
+			return null;
+		} catch (ApplicationException ae) {
+			ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, ae);
+			ed.doExceptionDialog();
+			return null;
+		}
+
+		// Trouver le numéro de compte le plus élevé parmi tous les comptes
+		int dernierNumeroCompte = 0;
+		for (CompteCourant c : tousLesComptes) {
+			if (c.idNumCompte > dernierNumeroCompte) {
+				dernierNumeroCompte = c.idNumCompte;
+			}
+		}
+
+		// Incrémenter pour obtenir le nouveau numéro de compte
+		int nouveauNumeroCompte = dernierNumeroCompte + 1;
+		System.out.println("Nouveau numéro de compte : " + nouveauNumeroCompte);
+
+		// Créer le nouveau compte avec le numéro de compte correct
 		compte = cep.doCompteEditorDialog(this.clientDesComptes, null, EditionMode.CREATION);
 		if (compte != null) {
+			compte.idNumCompte = nouveauNumeroCompte;
+			System.out.println("Compte à insérer : " + compte.idNumCompte);
 			try {
-				// Temporaire jusqu'à implémentation
-				compte = null;
-				AlertUtilities.showAlert(this.cmStage, "En cours de développement", "Non implémenté",
-						"Enregistrement réel en BDD du compe non effectué\nEn cours de développement", AlertType.ERROR);
-
-				// TODO : enregistrement du nouveau compte en BDD (la BDD donne de nouvel id
-				// dans "compte")
-
-				// if JAMAIS vrai
-				// existe pour compiler les catchs dessous
-				if (Math.random() < -1) {
-					throw new ApplicationException(Table.CompteCourant, Order.INSERT, "todo : test exceptions", null);
-				}
+				Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+				acc.insertCompte(compte); // Enregistre le compte dans la base de données
+				AlertUtilities.showAlert(this.cmStage, "Création réussie", "Compte créé",
+						"Le nouveau compte a été créé avec succès", AlertType.INFORMATION);
 			} catch (DatabaseConnexionException e) {
 				ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
 				ed.doExceptionDialog();
@@ -96,6 +119,8 @@ public class ComptesManagement {
 		}
 		return compte;
 	}
+	
+	
 
 	public ArrayList<CompteCourant> getComptesDunClient() {
 		ArrayList<CompteCourant> listeCpt = new ArrayList<>();

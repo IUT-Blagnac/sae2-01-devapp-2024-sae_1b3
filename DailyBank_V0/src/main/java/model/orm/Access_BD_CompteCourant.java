@@ -169,4 +169,54 @@ public class Access_BD_CompteCourant {
 			throw new DataAccessException(Table.CompteCourant, Order.UPDATE, "Erreur accès", e);
 		}
 	}
+
+	public void insertCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "INSERT INTO CompteCourant (idNumCompte, debitAutorise, solde, estCloture, idNumCli) VALUES (?, ?, ?, ?, ?)";
+			
+			PreparedStatement pst = con.prepareStatement(query);
+			System.out.println("le num compte insert est "+compte.idNumCompte);
+			pst.setInt(1, compte.idNumCompte);
+			pst.setInt(2, compte.debitAutorise);
+			pst.setDouble(3, compte.solde);
+			pst.setString(4, compte.estCloture);
+			pst.setInt(5, compte.idNumCli);
+	
+			pst.executeUpdate();
+			pst.close();
+			con.commit();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.CompteCourant, Order.INSERT, "Erreur lors de l'insertion du compte", e);
+		}
+	}
+
+	public ArrayList<CompteCourant> getTousLesComptes() throws DataAccessException, DatabaseConnexionException {
+		ArrayList<CompteCourant> alResult = new ArrayList<>();
+
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "SELECT * FROM CompteCourant ORDER BY idNumCompte";
+
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				int idNumCompte = rs.getInt("idNumCompte");
+				int debitAutorise = rs.getInt("debitAutorise");
+				double solde = rs.getDouble("solde");
+				String estCloture = rs.getString("estCloture");
+				int idNumCli = rs.getInt("idNumCli");
+
+				alResult.add(new CompteCourant(idNumCompte, debitAutorise, solde, estCloture, idNumCli));
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.CompteCourant, Order.SELECT, "Erreur accès", e);
+		}
+
+		return alResult;
+	}
+	
+	
 }
