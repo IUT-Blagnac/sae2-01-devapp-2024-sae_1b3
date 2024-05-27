@@ -226,17 +226,48 @@ public class Access_BD_CompteCourant {
      * @throws DatabaseConnexionException Erreur de connexion
      */
     public void deleteCompteCourant(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
-        String query = "DELETE FROM CompteCourant WHERE idNumCompte = ?";
-        try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
-            pst.setInt(1, compte.idNumCompte);
-            int rowsAffected = pst.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Aucune ligne affectée par la suppression", null);
-            }
-        } catch (SQLException e) {
-            throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Erreur lors de la suppression du compte", e);
-        }
-    }
+		// Supprimer les opérations associées au compte
+		deleteOperationsForCompte(compte);
+	
+		// Supprimer le compte lui-même
+		String query = "DELETE FROM CompteCourant WHERE idNumCompte = ?";
+		try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
+			pst.setInt(1, compte.idNumCompte);
+	
+			// Ajout de logs pour le débogage
+			System.out.println("Tentative de suppression du compte avec idNumCompte : " + compte.idNumCompte);
+	
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 0) {
+				throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Aucune ligne affectée par la suppression", null);
+			} else {
+				System.out.println("Compte supprimé avec succès, idNumCompte : " + compte.idNumCompte);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Affiche la pile d'appels pour le débogage
+			throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Erreur lors de la suppression du compte", e);
+		}
+	}
+	
+	private void deleteOperationsForCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+		String query = "DELETE FROM Operation WHERE idNumCompte = ?";
+		try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
+			pst.setInt(1, compte.idNumCompte);
+	
+			// Ajout de logs pour le débogage
+			System.out.println("Tentative de suppression des opérations pour le compte avec idNumCompte : " + compte.idNumCompte);
+	
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 0) {
+				System.out.println("Aucune opération associée au compte avec idNumCompte : " + compte.idNumCompte);
+			} else {
+				System.out.println("Opérations associées au compte avec idNumCompte : " + compte.idNumCompte + " supprimées avec succès");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Affiche la pile d'appels pour le débogage
+			throw new DataAccessException(Table.Operation, Order.DELETE, "Erreur lors de la suppression des opérations pour le compte", e);
+		}
+	}
 	
 	
 }
