@@ -2,6 +2,8 @@ package application.control;
 
 import java.util.ArrayList;
 
+import com.itextpdf.text.List;
+
 import application.DailyBankApp;
 import application.DailyBankState;
 import application.tools.AlertUtilities;
@@ -16,7 +18,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.data.Client;
 import model.data.CompteCourant;
+import model.data.Operation;
 import model.orm.Access_BD_CompteCourant;
+import model.orm.Access_BD_Operation;
 import model.orm.exception.ApplicationException;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
@@ -145,26 +149,27 @@ public class ComptesManagement {
 	}
 
 	public CompteCourant modifierCompteCourant(CompteCourant compte) throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
-    CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
-    CompteCourant result = cep.doCompteEditorDialog(this.clientDesComptes, compte, EditionMode.MODIFICATION);
-    if (result != null) {
-        try {
-            Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
-            acc.updateCompteCourant(result); // Mise à jour du compte dans la base de données
-            AlertUtilities.showAlert(this.cmStage, "Modification réussie", "Compte modifié",
-                    "Le compte a été modifié avec succès", AlertType.INFORMATION);
-        } catch (DatabaseConnexionException e) {
-            ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
-            ed.doExceptionDialog();
-            result = null;
-        } catch (DataAccessException ae) {
-            ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, ae);
-            ed.doExceptionDialog();
-            result = null;
-        }
-    }
-    return result;
-}
+		CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
+		CompteCourant result = cep.doCompteEditorDialog(this.clientDesComptes, compte, EditionMode.MODIFICATION);
+	
+		if (result != null) {
+			try {
+				Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+				acc.updateCompteCourant(result);
+				AlertUtilities.showAlert(this.cmStage, "Modification réussie", "Compte modifié",
+						"Le compte a été modifié avec succès", AlertType.INFORMATION);
+			} catch (DatabaseConnexionException | DataAccessException e) {
+				ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
+				ed.doExceptionDialog();
+				result = null;
+			}
+		}
+		return result;
+	}
+	
+	
+	
+
 
 public void supprimerCompteCourant(CompteCourant compte) {
 	if (compte != null) {

@@ -111,16 +111,13 @@ public class CompteEditorPaneViewController {
 
 	private Object focusDecouvert(ObservableValue<? extends Boolean> txtField, boolean oldPropertyValue,
 			boolean newPropertyValue) {
-		if (oldPropertyValue) {
+		if (!newPropertyValue) {
 			try {
 				int val;
 				val = Integer.parseInt(this.txtDecAutorise.getText().trim());
-				if (val < 0) {
-					throw new NumberFormatException();
-				}
-				this.compteEdite.debitAutorise = val;
+				this.compteEdite.debitAutorise = val; // Mise à jour directe du débit autorisé
 			} catch (NumberFormatException nfe) {
-				this.txtDecAutorise.setText("" + this.compteEdite.debitAutorise);
+				// Ne rien faire en cas d'exception
 			}
 		}
 		return null;
@@ -128,19 +125,15 @@ public class CompteEditorPaneViewController {
 
 	private Object focusSolde(ObservableValue<? extends Boolean> txtField, boolean oldPropertyValue,
 			boolean newPropertyValue) {
-		if (oldPropertyValue) {
+		if (!newPropertyValue) {
 			try {
 				double val;
 				val = Double.parseDouble(this.txtSolde.getText().trim());
-				if (val < 0) {
-					throw new NumberFormatException();
-				}
-				this.compteEdite.solde = val;
+				this.compteEdite.solde = val; // Mise à jour directe du solde
 			} catch (NumberFormatException nfe) {
-				this.txtSolde.setText(String.format(Locale.ENGLISH, "%10.02f", this.compteEdite.solde));
+				// Ne rien faire en cas d'exception
 			}
 		}
-		this.txtSolde.setText(String.format(Locale.ENGLISH, "%10.02f", this.compteEdite.solde));
 		return null;
 	}
 

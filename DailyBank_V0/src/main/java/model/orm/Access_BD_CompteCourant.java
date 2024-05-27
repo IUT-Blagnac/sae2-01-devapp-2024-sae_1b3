@@ -136,39 +136,56 @@ public class Access_BD_CompteCourant {
 	 *                                           débitAutorisé)
 	 */
 	public void updateCompteCourant(CompteCourant cc) throws RowNotFoundOrTooManyRowsException, DataAccessException,
-			DatabaseConnexionException, ManagementRuleViolation {
-		try {
+        DatabaseConnexionException, ManagementRuleViolation {
+    try {
+        // Récupération du compte avant modification
+        CompteCourant cAvant = this.getCompteCourant(cc.idNumCompte);
+        
+        // Correction du signe du débit autorisé si nécessaire
+        if (cc.debitAutorise > 0) {
+            cc.debitAutorise = -cc.debitAutorise;
+        }
+        
+        // Vérification des règles de gestion
+        if (cAvant.solde < cc.debitAutorise) {
+            throw new ManagementRuleViolation(Table.CompteCourant, Order.UPDATE,
+                    "Erreur de règle de gestion : solde à découvert", null);
+        }
+        
+        // Ouverture de la connexion à la base de données
+        Connection con = LogToDatabase.getConnexion();
 
-			CompteCourant cAvant = this.getCompteCourant(cc.idNumCompte);
-			if (cc.debitAutorise > 0) {
-				cc.debitAutorise = -cc.debitAutorise;
-			}
-			if (cAvant.solde < cc.debitAutorise) {
-				throw new ManagementRuleViolation(Table.CompteCourant, Order.UPDATE,
-						"Erreur de règle de gestion : sole à découvert", null);
-			}
-			Connection con = LogToDatabase.getConnexion();
+        // Préparation de la requête SQL
+        String query = "UPDATE CompteCourant SET solde = ?, debitAutorise = ? WHERE idNumCompte = ?";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setDouble(1, cc.solde); // Mise à jour du solde
+        pst.setInt(2, cc.debitAutorise); // Mise à jour du débit autorisé
+        pst.setInt(3, cc.idNumCompte); // Condition de mise à jour sur l'ID du compte
 
-			String query = "UPDATE CompteCourant SET " + "debitAutorise = ? " + "WHERE idNumCompte = ?";
+        // Exécution de la requête SQL
+        int result = pst.executeUpdate();
+        
+        // Fermeture des ressources
+        pst.close();
+        
+        // Vérification du nombre de lignes affectées
+        if (result != 1) {
+            con.rollback(); // Annulation des changements en cas d'échec
+            throw new RowNotFoundOrTooManyRowsException(Table.CompteCourant, Order.UPDATE,
+                    "Update anormal (update de moins ou plus d'une ligne)", null, result);
+        }
+        
+        // Confirmation des changements
+        con.commit();
+        
+    } catch (SQLException e) {
+        // Gestion des exceptions SQL
+        throw new DataAccessException(Table.CompteCourant, Order.UPDATE, "Erreur accès", e);
+    }
+}
 
-			PreparedStatement pst = con.prepareStatement(query);
-			pst.setInt(1, cc.debitAutorise);
-			pst.setInt(2, cc.idNumCompte);
 
-			System.err.println(query);
 
-			int result = pst.executeUpdate();
-			pst.close();
-			if (result != 1) {
-				con.rollback();
-				throw new RowNotFoundOrTooManyRowsException(Table.CompteCourant, Order.UPDATE,
-						"Update anormal (update de moins ou plus d'une ligne)", null, result);
-			}
-			con.commit();
-		} catch (SQLException e) {
-			throw new DataAccessException(Table.CompteCourant, Order.UPDATE, "Erreur accès", e);
-		}
-	}
 
 	public void insertCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		try {

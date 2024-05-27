@@ -106,16 +106,20 @@ public class ComptesManagementViewController {
 	}
 
 	@FXML
-    private void doModifierCompte() throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
-        int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
-        if (selectedIndice >= 0) {
-            CompteCourant cptMod = this.oListCompteCourant.get(selectedIndice);
-            CompteCourant result = this.cmDialogController.modifierCompteCourant(cptMod);
-            if (result != null) {
-                this.oListCompteCourant.set(selectedIndice, result);
-            }
+private void doModifierCompte() throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
+    int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+    if (selectedIndice >= 0) {
+        CompteCourant cptMod = this.oListCompteCourant.get(selectedIndice);
+        CompteCourant result = this.cmDialogController.modifierCompteCourant(cptMod);
+        if (result != null) {
+            this.oListCompteCourant.set(selectedIndice, result);
+            // Rafraîchir l'affichage de la liste
+            this.lvComptes.refresh();
         }
     }
+}
+
+
 
 	@FXML
 private void doSupprimerCompte() {
