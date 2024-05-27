@@ -1,19 +1,26 @@
 package application.view;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import application.DailyBankState;
 import application.control.DailyBankMainFrame;
+import application.control.EmployeManagement;
 import application.tools.AlertUtilities;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.AgenceBancaire;
 import model.data.Employe;
+import java.util.List;
 
 /**
  * Controller JavaFX de la view dailybankmainframe.
@@ -209,13 +216,20 @@ public class DailyBankMainFrameViewController {
 	 */
 	@FXML
 	private void doEmployeOption() {
-
-		LocalDate current_date;
-
-		current_date = LocalDate.now();
-		AlertUtilities.showAlert(this.containingStage, "Gestion des Employé", "En cours de développement",
-				"Livraison prévue\nEn juin " + current_date.getYear(), AlertType.INFORMATION);
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/employesmanagement.fxml"));
+			VBox employeListPane = loader.load();
+			Scene scene = new Scene(employeListPane);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Liste des Employés");
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+			AlertUtilities.showAlert(this.containingStage, "Erreur", null, "Impossible de charger la vue des employés.", AlertType.ERROR);
+		}
 	}
+	
 
 	/*
 	 * Se déconnecter de la bd oracle. Demande au contrôleur de dialogue de se

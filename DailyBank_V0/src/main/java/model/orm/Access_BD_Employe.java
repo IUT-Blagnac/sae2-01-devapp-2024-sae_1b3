@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.data.Employe;
 import model.orm.exception.DataAccessException;
@@ -80,4 +82,36 @@ public class Access_BD_Employe {
 			throw new DataAccessException(Table.Employe, Order.SELECT, "Erreur accès", e);
 		}
 	}
+
+	public List<Employe> getAllEmployes() throws DataAccessException, DatabaseConnexionException {
+		List<Employe> employes = new ArrayList<>();
+	
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "SELECT * FROM Employe";
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+	
+			while (rs.next()) {
+				int idEmploye = rs.getInt("idEmploye");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String droitsAccess = rs.getString("droitsAccess");
+				String login = rs.getString("login");
+				String motPasse = rs.getString("motPasse");
+				int idAg = rs.getInt("idAg");
+	
+				Employe employe = new Employe(idEmploye, nom, prenom, droitsAccess, login, motPasse, idAg);
+				employes.add(employe);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Employe, Order.SELECT, "Erreur accès", e);
+		}
+		System.out.println("Employés récupérés: " + employes.size()); // Ligne de débogage
+		return employes;
+	}
+	
 }
+

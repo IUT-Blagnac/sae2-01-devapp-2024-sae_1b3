@@ -39,4 +39,24 @@ public class Employe {
 				+ ", idAg=" + this.idAg + "]";
 	}
 
+	public int getIdEmploye() {
+        return idEmploye;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getDroitsAccess() {
+        return droitsAccess;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
 }
