@@ -217,6 +217,26 @@ public class Access_BD_CompteCourant {
 
 		return alResult;
 	}
+
+	/**
+     * Suppression d'un CompteCourant.
+     *
+     * @param compte Le compte à supprimer
+     * @throws DataAccessException        Erreur d'accès aux données (requête mal formée ou autre)
+     * @throws DatabaseConnexionException Erreur de connexion
+     */
+    public void deleteCompteCourant(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+        String query = "DELETE FROM CompteCourant WHERE idNumCompte = ?";
+        try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setInt(1, compte.idNumCompte);
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Aucune ligne affectée par la suppression", null);
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(Table.CompteCourant, Order.DELETE, "Erreur lors de la suppression du compte", e);
+        }
+    }
 	
 	
 }

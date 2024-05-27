@@ -66,16 +66,22 @@ public class CompteEditorPaneViewController {
 			this.btnOk.setText("Ajouter");
 			this.btnCancel.setText("Annuler");
 			break;
-		case MODIFICATION:
-			AlertUtilities.showAlert(this.containingStage, "Non implémenté", "Modif de compte n'est pas implémenté", null,
-					AlertType.ERROR);
-			return null;
-		// break;
+			case MODIFICATION:
+			this.txtDecAutorise.setDisable(false);
+			this.txtSolde.setDisable(false);
+			this.lblMessage.setText("Modification des informations du compte");
+			this.lblSolde.setText("Nouveau solde");
+			this.btnOk.setText("Modifier");
+			this.btnCancel.setText("Annuler");
+			break;
 		case SUPPRESSION:
-			AlertUtilities.showAlert(this.containingStage, "Non implémenté", "Suppression de compte n'est pas implémenté",
-					null, AlertType.ERROR);
-			return null;
-		// break;
+			this.txtDecAutorise.setDisable(true);
+			this.txtSolde.setDisable(true);
+			this.lblMessage.setText("Suppression du compte");
+			this.lblSolde.setText("Solde");
+			this.btnOk.setText("Supprimer");
+			this.btnCancel.setText("Annuler");
+			break;
 		}
 
 		// Paramétrages spécifiques pour les chefs d'agences

@@ -7,7 +7,10 @@ import application.control.ComptesManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -15,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.Client;
 import model.data.CompteCourant;
+import model.orm.Access_BD_CompteCourant;
+import model.orm.exception.ManagementRuleViolation;
+import model.orm.exception.RowNotFoundOrTooManyRowsException;
 
 public class ComptesManagementViewController {
 
@@ -100,12 +106,47 @@ public class ComptesManagementViewController {
 	}
 
 	@FXML
-	private void doModifierCompte() {
-	}
+    private void doModifierCompte() throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
+        int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+        if (selectedIndice >= 0) {
+            CompteCourant cptMod = this.oListCompteCourant.get(selectedIndice);
+            CompteCourant result = this.cmDialogController.modifierCompteCourant(cptMod);
+            if (result != null) {
+                this.oListCompteCourant.set(selectedIndice, result);
+            }
+        }
+    }
 
 	@FXML
-	private void doSupprimerCompte() {
-	}
+private void doSupprimerCompte() {
+    int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+    if (selectedIndice >= 0) {
+        CompteCourant compte = this.oListCompteCourant.get(selectedIndice);
+        
+        Alert confirm = new Alert(AlertType.CONFIRMATION);
+        confirm.setTitle("Suppression de compte");
+        confirm.setHeaderText("Voulez-vous réellement supprimer le compte bancaire?");
+        confirm.initOwner(this.containingStage);
+        confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+        if (confirm.showAndWait().orElse(null) == ButtonType.YES) {
+            try {
+                new Access_BD_CompteCourant().deleteCompteCourant(compte);
+                this.oListCompteCourant.remove(selectedIndice);
+            } catch (Exception e) {
+                showErrorAlert("Erreur lors de la suppression du compte", e.getMessage());
+            }
+        }
+    }
+}
+
+private void showErrorAlert(String message, String details) {
+    Alert error = new Alert(AlertType.ERROR);
+    error.setTitle("Erreur");
+    error.setHeaderText(message);
+    error.setContentText(details);
+    error.showAndWait();
+}
 
 	@FXML
 	private void doNouveauCompte() {
@@ -127,12 +168,18 @@ public class ComptesManagementViewController {
 		// Non implémenté => désactivé
 		this.btnModifierCompte.setDisable(true);
 		this.btnSupprCompte.setDisable(true);
-
+	
 		int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
 		if (selectedIndice >= 0) {
 			this.btnVoirOpes.setDisable(false);
+			this.btnModifierCompte.setDisable(false);
+			this.btnSupprCompte.setDisable(false);
+
 		} else {
 			this.btnVoirOpes.setDisable(true);
+			this.btnModifierCompte.setDisable(true);
+			this.btnSupprCompte.setDisable(true);
+
 		}
 	}
 }

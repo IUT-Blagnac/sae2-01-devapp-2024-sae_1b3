@@ -18,8 +18,11 @@ import model.data.Client;
 import model.data.CompteCourant;
 import model.orm.Access_BD_CompteCourant;
 import model.orm.exception.ApplicationException;
+import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
+import model.orm.exception.ManagementRuleViolation;
 import model.orm.exception.Order;
+import model.orm.exception.RowNotFoundOrTooManyRowsException;
 import model.orm.exception.Table;
 
 public class ComptesManagement {
@@ -140,4 +143,47 @@ public class ComptesManagement {
 		}
 		return listeCpt;
 	}
+
+	public CompteCourant modifierCompteCourant(CompteCourant compte) throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
+    CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
+    CompteCourant result = cep.doCompteEditorDialog(this.clientDesComptes, compte, EditionMode.MODIFICATION);
+    if (result != null) {
+        try {
+            Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+            acc.updateCompteCourant(result); // Mise à jour du compte dans la base de données
+            AlertUtilities.showAlert(this.cmStage, "Modification réussie", "Compte modifié",
+                    "Le compte a été modifié avec succès", AlertType.INFORMATION);
+        } catch (DatabaseConnexionException e) {
+            ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
+            ed.doExceptionDialog();
+            result = null;
+        } catch (DataAccessException ae) {
+            ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, ae);
+            ed.doExceptionDialog();
+            result = null;
+        }
+    }
+    return result;
+}
+
+public void supprimerCompteCourant(CompteCourant compte) {
+	if (compte != null) {
+		try {
+			Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+			acc.deleteCompteCourant(compte); // Supprime le compte de la base de données
+			AlertUtilities.showAlert(this.cmStage, "Suppression réussie", "Compte supprimé",
+					"Le compte a été supprimé avec succès", AlertType.INFORMATION);
+		} catch (DatabaseConnexionException e) {
+			ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, e);
+			ed.doExceptionDialog();
+		} catch (DataAccessException ae) {
+			ExceptionDialog ed = new ExceptionDialog(this.cmStage, this.dailyBankState, ae);
+			ed.doExceptionDialog();
+		}
+	}
+}
+
+
+
+	
 }
