@@ -112,6 +112,84 @@ public class Access_BD_Employe {
 		System.out.println("Employés récupérés: " + employes.size()); // Ligne de débogage
 		return employes;
 	}
+
+	public void addEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			
+			// Compter le nombre d'employés existants
+			String countQuery = "SELECT COUNT(*) FROM Employe";
+			PreparedStatement countStatement = con.prepareStatement(countQuery);
+			ResultSet resultSet = countStatement.executeQuery();
+			resultSet.next();
+			int existingCount = resultSet.getInt(1);
+			
+			// Ajouter 1 pour obtenir un nouvel ID unique
+			int newId = existingCount + 1;
+	
+			String query = "INSERT INTO Employe (idEmploye, nom, prenom, droitsAccess, login, motPasse, idAg) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setInt(1, newId);  // Utiliser le nouvel ID
+			pst.setString(2, employe.getNom());
+			pst.setString(3, employe.getPrenom());
+			pst.setString(4, employe.getDroitsAccess());
+			pst.setString(5, employe.getLogin());
+			pst.setString(6, employe.getMotPasse());
+			pst.setInt(7, employe.getIdAg());
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Employe, Order.INSERT, "Erreur accès", e);
+		}
+	}
+
+	public Employe getEmployeByLogin(String login) throws DataAccessException, DatabaseConnexionException {
+		Employe employeTrouve = null;
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			con = LogToDatabase.getConnexion();
+			String query = "SELECT * FROM Employe WHERE login = ?";
+			pst = con.prepareStatement(query);
+			pst.setString(1, login);
+			rs = pst.executeQuery();
+	
+			if (rs.next()) {
+				int idEmploye = rs.getInt("idEmploye");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String droitsAccess = rs.getString("droitsAccess");
+				String motPasse = rs.getString("motPasse");
+				int idAg = rs.getInt("idAg");
+	
+				employeTrouve = new Employe(idEmploye, nom, prenom, droitsAccess, login, motPasse, idAg);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Employe, Order.SELECT, "Erreur accès", e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pst != null) {
+					pst.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				// Gérer les erreurs de fermeture de la connexion, du statement et du resultset
+				e.printStackTrace();
+			}
+		}
+	
+		return employeTrouve;
+	}
+
+	
 	
 }
 

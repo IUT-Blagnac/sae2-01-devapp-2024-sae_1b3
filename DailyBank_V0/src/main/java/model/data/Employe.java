@@ -59,4 +59,12 @@ public class Employe {
         return login;
     }
 
+	public String getMotPasse() {
+        return motPasse;
+    }
+
+	public int getIdAg() {
+        return idAg;
+    }
+
 }

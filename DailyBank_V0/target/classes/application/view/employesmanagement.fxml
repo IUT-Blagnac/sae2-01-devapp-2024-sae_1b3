@@ -16,5 +16,5 @@
         </columns>
     </TableView>
     <Button text="Charger Employés" onAction="#loadEmployes"/>
+    <Button text="Ajouter Employé" onAction="#showAddEmployeForm"/>
 </VBox>
-
