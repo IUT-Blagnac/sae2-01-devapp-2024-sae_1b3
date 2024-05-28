@@ -91,4 +91,10 @@ public class EmployeController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void modifierEmploye(){
+        
+    }
+
 }
