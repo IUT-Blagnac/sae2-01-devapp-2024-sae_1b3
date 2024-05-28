@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.Client;
 import model.data.CompteCourant;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class CompteEditorPaneViewController {
 
@@ -110,32 +112,58 @@ public class CompteEditorPaneViewController {
 	}
 
 	private Object focusDecouvert(ObservableValue<? extends Boolean> txtField, boolean oldPropertyValue,
-			boolean newPropertyValue) {
-		if (!newPropertyValue) {
-			try {
-				int val;
-				val = Integer.parseInt(this.txtDecAutorise.getText().trim());
-				this.compteEdite.debitAutorise = val; // Mise à jour directe du débit autorisé
-			} catch (NumberFormatException nfe) {
-				// Ne rien faire en cas d'exception
-			}
-		}
-		return null;
-	}
+        boolean newPropertyValue) {
+    if (!newPropertyValue) {
+        try {
+            int val;
+            val = Integer.parseInt(this.txtDecAutorise.getText().trim());
+            // Vérifier que le découvert autorisé ne soit pas supérieur au solde
+            if (val <= this.compteEdite.solde || -val <= this.compteEdite.solde) {
+                this.compteEdite.debitAutorise = val; // Mise à jour directe du débit autorisé
+            } else {
+                // Afficher une alerte d'information
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information de découvert");
+                alert.setHeaderText(null);
+                alert.setContentText("Le découvert autorisé ne peut pas être supérieur au solde.");
+                alert.showAndWait();
 
-	private Object focusSolde(ObservableValue<? extends Boolean> txtField, boolean oldPropertyValue,
-			boolean newPropertyValue) {
-		if (!newPropertyValue) {
-			try {
-				double val;
-				val = Double.parseDouble(this.txtSolde.getText().trim());
-				this.compteEdite.solde = val; // Mise à jour directe du solde
-			} catch (NumberFormatException nfe) {
-				// Ne rien faire en cas d'exception
-			}
-		}
-		return null;
-	}
+                // Réinitialiser le champ de texte à la valeur actuelle du découvert autorisé
+                this.txtDecAutorise.setText(String.valueOf(this.compteEdite.debitAutorise));
+            }
+        } catch (NumberFormatException nfe) {
+            // Ne rien faire en cas d'exception
+        }
+    }
+    return null;
+}
+
+private Object focusSolde(ObservableValue<? extends Boolean> txtField, boolean oldPropertyValue,
+        boolean newPropertyValue) {
+    if (!newPropertyValue) {
+        try {
+            double val;
+            val = Double.parseDouble(this.txtSolde.getText().trim());
+            // Vérifier que le solde ne soit pas inférieur au découvert autorisé
+            if (val >= this.compteEdite.debitAutorise) {
+                this.compteEdite.solde = val; // Mise à jour directe du solde
+            } else {
+                // Afficher une alerte d'information
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information de solde");
+                alert.setHeaderText(null);
+                alert.setContentText("Le solde ne peut pas être inférieur au découvert autorisé.");
+                alert.showAndWait();
+
+                // Réinitialiser le champ de texte à la valeur actuelle du solde
+                this.txtSolde.setText(String.valueOf(this.compteEdite.solde));
+            }
+        } catch (NumberFormatException nfe) {
+            // Ne rien faire en cas d'exception
+        }
+    }
+    return null;
+}
 
 	// Attributs de la scene + actions
 	@FXML
