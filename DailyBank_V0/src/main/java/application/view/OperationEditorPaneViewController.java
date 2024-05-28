@@ -64,12 +64,22 @@ public class OperationEditorPaneViewController {
 			this.cbTypeOpe.setItems(listTypesOpesPossibles);
 			this.cbTypeOpe.getSelectionModel().select(0);
 			break;
-		case CREDIT:
-			AlertUtilities.showAlert(this.containingStage, "Non implémenté", "Modif de compte n'est pas implémenté", null,
-					AlertType.ERROR);
-			return null;
-		// break;
-		}
+			case CREDIT:
+			String infoCredit = "Cpt. : " + this.compteEdite.idNumCompte + "  "
+					+ String.format(Locale.ENGLISH, "%12.02f", this.compteEdite.solde) + "  /  "
+					+ String.format(Locale.ENGLISH, "%8d", this.compteEdite.debitAutorise);
+			this.lblMessage.setText(infoCredit);
+
+			this.btnOk.setText("Effectuer Crédit");
+			this.btnCancel.setText("Annuler crédit");
+
+			ObservableList<String> listTypesOpesPossiblesCredit = FXCollections.observableArrayList();
+			listTypesOpesPossiblesCredit.addAll(ConstantesIHM.OPERATIONS_CREDIT_GUICHET);
+
+			this.cbTypeOpe.setItems(listTypesOpesPossiblesCredit);
+			this.cbTypeOpe.getSelectionModel().select(0);
+			break;
+	}
 
 		// Paramétrages spécifiques pour les chefs d'agences
 		if (ConstantesIHM.isAdmin(this.dailyBankState.getEmployeActuel())) {
@@ -154,11 +164,27 @@ public class OperationEditorPaneViewController {
 			this.operationResultat = new Operation(-1, montant, null, null, this.compteEdite.idNumCli, typeOp);
 			this.containingStage.close();
 			break;
-		case CREDIT:
-			// ce genre d'operation n'est pas encore géré
-			this.operationResultat = null;
-			this.containingStage.close();
-			break;
-		}
-	}
+			case CREDIT:
+            double montantCredit;
+
+            this.txtMontant.getStyleClass().remove("borderred");
+            this.lblMontant.getStyleClass().remove("borderred");
+
+            try {
+                montantCredit = Double.parseDouble(this.txtMontant.getText().trim());
+                if (montantCredit <= 0)
+                    throw new NumberFormatException();
+            } catch (NumberFormatException nfe) {
+                this.txtMontant.getStyleClass().add("borderred");
+                this.lblMontant.getStyleClass().add("borderred");
+                this.txtMontant.requestFocus();
+                return;
+            }
+
+            String typeOpCredit = this.cbTypeOpe.getValue();
+            this.operationResultat = new Operation(-1, montantCredit, null, null, this.compteEdite.idNumCli, typeOpCredit);
+            this.containingStage.close();
+            break;
+    }
+}
 }

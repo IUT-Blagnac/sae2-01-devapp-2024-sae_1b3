@@ -166,6 +166,37 @@ public class Access_BD_Operation {
 		}
 	}
 
+	public void insertCredit(int idNumCompte, double montant, String typeOp)
+        throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
+    try {
+        Connection con = LogToDatabase.getConnexion();
+        CallableStatement call;
+
+        String q = "{call CreerOperation (?, ?, ?, ?)}";
+        call = con.prepareCall(q);
+        call.setInt(1, idNumCompte);
+        call.setDouble(2, montant);
+        call.setString(3, typeOp);
+        call.registerOutParameter(4, java.sql.Types.INTEGER);
+
+        System.out.println("Exécution de la procédure stockée avec les paramètres : idNumCompte=" + idNumCompte +
+                ", montant=" + montant + ", typeOp=" + typeOp);
+
+        call.execute();
+
+        int res = call.getInt(4);
+        System.out.println("La procédure stockée a retourné : " + res);
+
+        if (res != 0) {
+            throw new ManagementRuleViolation(Table.Operation, Order.INSERT,
+                    "Erreur de règle de gestion : crédit non autorisé", null);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new DataAccessException(Table.Operation, Order.INSERT, "Erreur d'accès à la base de données", e);
+    }
+}
+
 	/*
 	 * Fonction utilitaire qui retourne un ordre sql "to_date" pour mettre une date
 	 * dans une requête sql
