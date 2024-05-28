@@ -17,7 +17,7 @@
         </columns>
     </TableView>
     <Button onAction="#loadEmployes" text="Charger Employés" />
-   <Button mnemonicParsing="false" text="Modifier Employé" />
+   <Button mnemonicParsing="false" onAction="#modifierEmploye" text="Modifier Employé" />
     <Button onAction="#showAddEmployeForm" text="Ajouter Employé">
       <VBox.margin>
          <Insets bottom="5.0" />

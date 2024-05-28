@@ -67,4 +67,28 @@ public class Employe {
         return idAg;
     }
 
+	public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setDroitsAccess(String droitsAccess) {
+        this.droitsAccess = droitsAccess;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setMotPasse(String motPasse) {
+        this.motPasse = motPasse;
+    }
+
+    public void setIdAg(int idAg) {
+        this.idAg = idAg;
+    }
+
 }

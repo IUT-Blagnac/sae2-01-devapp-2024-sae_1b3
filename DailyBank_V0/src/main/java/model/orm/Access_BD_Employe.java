@@ -144,6 +144,32 @@ public class Access_BD_Employe {
 		}
 	}
 
+	public void updateEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+	
+			String query = "UPDATE Employe SET nom=?, prenom=?, droitsAccess=?, login=?, motPasse=?, idAg=? WHERE idEmploye=?";
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setString(1, employe.getNom());
+			pst.setString(2, employe.getPrenom());
+			pst.setString(3, employe.getDroitsAccess());
+			pst.setString(4, employe.getLogin());
+			pst.setString(5, employe.getMotPasse());
+			pst.setInt(6, employe.getIdAg());
+			pst.setInt(7, employe.getIdEmploye());
+	
+			int rowsAffected = pst.executeUpdate();
+			pst.close();
+	
+			if (rowsAffected == 0) {
+				throw new DataAccessException(Table.Employe, Order.UPDATE, "Aucune ligne mise à jour", null);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Employe, Order.UPDATE, "Erreur accès", e);
+		}
+	}
+	
+
 	public Employe getEmployeByLogin(String login) throws DataAccessException, DatabaseConnexionException {
 		Employe employeTrouve = null;
 		Connection con = null;

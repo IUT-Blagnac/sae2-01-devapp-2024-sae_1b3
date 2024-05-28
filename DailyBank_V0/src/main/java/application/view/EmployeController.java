@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -93,8 +94,51 @@ public class EmployeController {
     }
 
     @FXML
-    private void modifierEmploye(){
-        
+    private void modifierEmploye() {
+        // Récupérer l'employé sélectionné dans la table
+        Employe selectedEmploye = employeTable.getSelectionModel().getSelectedItem();
+    
+        // Vérifier si un employé est sélectionné
+        if (selectedEmploye != null) {
+            try {
+                // Charger le formulaire de modification de l'employé
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/application/view/ModifyEmploye.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Modifier un Employé");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
+    
+                // Passer l'employé sélectionné au contrôleur de modification
+                ModifyEmployeController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setEmploye(selectedEmploye);
+    
+                // Afficher le formulaire de modification et attendre sa fermeture
+                dialogStage.showAndWait();
+    
+                // Recharger la liste des employés si la modification est confirmée
+                if (controller.isOkClicked()) {
+                    loadEmployes();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Aucun employé sélectionné, afficher un message d'erreur
+            showAlert(Alert.AlertType.ERROR, "Aucune sélection", "Veuillez sélectionner un employé dans la table.");
+        }
     }
 
+    @FXML
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+}
+
+    
 }

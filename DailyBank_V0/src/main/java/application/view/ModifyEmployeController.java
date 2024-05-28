@@ -10,7 +10,7 @@ import model.orm.Access_BD_Employe;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
-public class AddEmployeController {
+public class ModifyEmployeController {
 
     @FXML
     private TextField nomField;
@@ -19,10 +19,10 @@ public class AddEmployeController {
     private TextField prenomField;
 
     @FXML
-    private RadioButton adminRadioButton;
+    private RadioButton userRadioButton;
 
     @FXML
-    private RadioButton userRadioButton;
+    private RadioButton adminRadioButton;
 
     @FXML
     private TextField loginField;
@@ -34,10 +34,27 @@ public class AddEmployeController {
     private TextField idAgField;
 
     private Stage dialogStage;
+    private Employe employe;
     private boolean okClicked = false;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public void setEmploye(Employe employe) {
+        this.employe = employe;
+    
+        nomField.setText(employe.getNom());
+        prenomField.setText(employe.getPrenom());
+        loginField.setText(employe.getLogin());
+        motPasseField.setText(employe.getMotPasse());
+        idAgField.setText(Integer.toString(employe.getIdAg()));
+        String droitsAccess = employe.getDroitsAccess();
+        if (droitsAccess.equals("guichetier")) {
+            userRadioButton.setSelected(true);
+        } else if (droitsAccess.equals("chefAgence")) {
+            adminRadioButton.setSelected(true);
+        }
     }
 
     public boolean isOkClicked() {
@@ -45,58 +62,49 @@ public class AddEmployeController {
     }
 
     @FXML
-    private void handleAddEmploye() {
+    private void handleOk() {
         if (isInputValid()) {
-            String login = loginField.getText(); // Utilisation de la variable login uniquement ici
-    
-            // Vérifier si le login est déjà utilisé
+            employe.setNom(nomField.getText());
+            employe.setPrenom(prenomField.getText());
+            employe.setLogin(loginField.getText());
+            employe.setMotPasse(motPasseField.getText());
+            employe.setIdAg(Integer.parseInt(idAgField.getText()));
+            employe.setDroitsAccess(userRadioButton.isSelected() ? "guichetier" : "chefAgence");
+
+            okClicked = true;
+            dialogStage.close();
+        }
+    }
+
+    @FXML
+    private void handleUpdateEmploye() {
+        if (isInputValid()) {
+            String login = loginField.getText();
+
             try {
                 Access_BD_Employe accessBDEmploye = new Access_BD_Employe();
                 Employe existingEmploye = accessBDEmploye.getEmployeByLogin(login);
-                
-                if (existingEmploye != null) {
-                    showAlert(Alert.AlertType.ERROR, "Erreur d'ajout", "Ce login est déjà utilisé par un autre employé.");
-                    return; // Arrêter l'ajout de l'employé
+
+                if (existingEmploye == null || existingEmploye.getIdEmploye() == employe.getIdEmploye()) {
+                    employe.setNom(nomField.getText());
+                    employe.setPrenom(prenomField.getText());
+                    employe.setLogin(loginField.getText());
+                    employe.setMotPasse(motPasseField.getText());
+                    employe.setIdAg(Integer.parseInt(idAgField.getText()));
+                    employe.setDroitsAccess(userRadioButton.isSelected() ? "guichetier" : "chefAgence");
+
+                    accessBDEmploye.updateEmploye(employe);
+                    okClicked = true;
+                    dialogStage.close();
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Erreur de modification", "Ce login est déjà utilisé par un autre employé.");
                 }
             } catch (DataAccessException | DatabaseConnexionException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de la vérification du login.");
-                e.printStackTrace();
-                return; // Arrêter l'ajout de l'employé en cas d'erreur de base de données
-            }
-    
-            // Continuer l'ajout de l'employé si le login n'est pas déjà utilisé
-            String nom = nomField.getText();
-            String prenom = prenomField.getText();
-            String droitsAccess;
-            if (userRadioButton.isSelected()) {
-                droitsAccess = "guichetier";
-            } else if (adminRadioButton.isSelected()) {
-                droitsAccess = "chefAgence";
-            } else {
-                droitsAccess = "guichetier";
-            }
-    
-            String motPasse = motPasseField.getText();
-            int idAg = Integer.parseInt(idAgField.getText());
-    
-            Employe newEmploye = new Employe(0, nom, prenom, droitsAccess, login, motPasse, idAg);
-    
-            try {
-                Access_BD_Employe accessBDEmploye = new Access_BD_Employe();
-                accessBDEmploye.addEmploye(newEmploye);
-                okClicked = true;
-                dialogStage.close();
-            } catch (DataAccessException | DatabaseConnexionException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de l'ajout de l'employé.");
+                showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de la modification de l'employé.");
                 e.printStackTrace();
             }
         }
     }
-
-  
-
-
-    
 
     @FXML
     private void handleCancel() {
@@ -110,7 +118,7 @@ public class AddEmployeController {
             errorMessage += "Nom invalide!\n";
         }
         if (prenomField.getText() == null || prenomField.getText().isEmpty()) {
-            errorMessage += "Prenom invalide!\n";
+            errorMessage += "Prénom invalide!\n";
         }
         if (loginField.getText() == null || loginField.getText().isEmpty()) {
             errorMessage += "Login invalide!\n";
