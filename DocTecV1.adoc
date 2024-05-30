@@ -1,5 +1,7 @@
 = Documentation Technique
 
+:toc: right
+:toclevels: 4
 
 == Fonctionalité Ajouter Compte
 
@@ -67,6 +69,27 @@ public CompteCourant creerNouveauCompte() {
     return compte;
 }
 ----
+ Description des étapes de la méthode creerNouveauCompte :
+
+    Initialisation et ouverture de l'éditeur de compte :
+        La méthode commence par initialiser un objet CompteEditorPane pour afficher la fenêtre de dialogue de création de compte.
+
+    Récupération de tous les comptes existants :
+        La méthode appelle getTousLesComptes pour obtenir la liste de tous les comptes courants existants.
+        Si une exception DatabaseConnexionException ou ApplicationException est levée, un dialogue d'exception est affiché et la méthode retourne null.
+
+    Détermination du nouveau numéro de compte :
+        La méthode parcourt tous les comptes existants pour trouver le numéro de compte le plus élevé.
+        Ensuite, elle incrémente ce numéro pour obtenir le nouveau numéro de compte.
+
+    Création du nouveau compte :
+        L'utilisateur entre les détails du nouveau compte via l'éditeur de compte.
+        Si un compte valide est retourné, son numéro de compte est mis à jour avec le nouveau numéro calculé.
+
+    Insertion du nouveau compte dans la base de données :
+        La méthode insertCompte est appelée pour enregistrer le nouveau compte dans la base de données.
+        En cas de succès, une alerte de confirmation est affichée. En cas d'erreur, un dialogue d'exception est affiché.
+
 
 === Modifications dans `Access_BD_CompteCourant`
 
@@ -94,6 +117,18 @@ public void insertCompte(CompteCourant compte) throws DataAccessException, Datab
     }
 }
 ----
+
+Description de la méthode insertCompte :
+
+    Connexion à la base de données :
+        La méthode établit une connexion avec la base de données via LogToDatabase.getConnexion().
+
+    Préparation et exécution de la requête SQL :
+        Une requête SQL INSERT est préparée pour insérer un nouveau compte dans la table CompteCourant.
+        Les valeurs des colonnes sont définies en utilisant les méthodes setInt, setDouble, et setString du PreparedStatement.
+
+    Gestion des erreurs :
+        Si une exception SQL est levée, une DataAccessException est lancée avec des détails sur l'erreur.
 
 ==== Méthode `getTousLesComptes`
 
@@ -134,6 +169,17 @@ return alResult;
 }
 ----
 
+ Description de la méthode getTousLesComptes :
+
+    Connexion à la base de données :
+        La méthode établit une connexion avec la base de données via LogToDatabase.getConnexion().
+
+    Préparation et exécution de la requête SQL :
+        Une requête SQL SELECT est préparée pour récupérer tous les comptes courants ordonnés par idNumCompte.
+        Les résultats de la requête sont traités ligne par ligne pour créer des objets CompteCourant et les ajouter à une liste.
+
+    Gestion des erreurs :
+        Si une exception SQL est levée, une DataAccessException est lancée avec des détails sur l'erreur.
 
 === Conclusion
 
@@ -181,6 +227,11 @@ public class Employe {
 }
 ----
 
+Description des modifications dans Employe :
+
+    Ajout des méthodes getter :
+        Les getters pour les attributs idEmploye, nom, prenom, droitsAccess, et login ont été ajoutés pour permettre l’accès sécurisé à ces propriétés.
+
 == Modifications dans `DailyBankMainFrameController`
 
 === Méthode `doEmployeOption`
@@ -203,6 +254,13 @@ private void doEmployeOption() {
     }
 }
 ----
+
+Description des modifications dans doEmployeOption :
+
+    Vérification des droits d’accès :
+        La méthode vérifie si l’utilisateur actuel est un chef d’agence en utilisant this.dailyBankState.isChefDAgence().
+        Si c’est le cas, un objet EmployeManagement est créé et la méthode doEmployeManagementDialog est appelée.
+        Sinon, une alerte d’erreur est affichée indiquant que l’accès est refusé.
 
 === Création du Contrôleur `EmployeController`
 
@@ -280,6 +338,22 @@ public class EmployeController {
 }
 ----
 
+Description du EmployeManagementController :
+
+    Attributs FXML :
+        Les éléments de la table et les colonnes sont définis avec les annotations @FXML.
+
+    Méthode initContext :
+        Initialisation du contexte avec les paramètres nécessaires.
+        Chargement des données des employés.
+
+    Méthode initialize :
+        Configuration des colonnes de la table pour afficher les attributs des employés.
+
+    Méthode loadEmployeData :
+        Récupération des données des employés via Access_BD_Employe.
+        Chargement des données dans la table.
+
 === Vue FXML pour `EmployeController`
 
 ==== Code FXML
@@ -306,6 +380,12 @@ public class EmployeController {
     <Button text="Charger Employés" onAction="#loadEmployes"/>
 </VBox>
 ----
+
+Description du fichier FXML :
+
+    Structure de base :
+        Utilisation d’un AnchorPane comme conteneur principal.
+        Inclusion d’une TableView avec des TableColumn pour afficher les attributs des employés.
 
 === Conclusion
 
