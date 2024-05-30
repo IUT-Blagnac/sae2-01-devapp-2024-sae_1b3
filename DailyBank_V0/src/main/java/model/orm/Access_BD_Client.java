@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.data.Client;
+import model.data.Employe;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 import model.orm.exception.Order;
@@ -160,6 +162,45 @@ public class Access_BD_Client {
 			throw new DataAccessException(Table.Client, Order.SELECT, "Erreur accès", e);
 		}
 	}
+
+	public List<Client> getAllClient() throws DataAccessException, DatabaseConnexionException {
+		List<Client> clients = new ArrayList<>();
+	
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "SELECT * FROM Client";
+			PreparedStatement pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+	
+			while (rs.next()) {
+				int idNumCli = rs.getInt("idNumCli");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String adressePostale = rs.getString("adressePostale");
+				adressePostale = (adressePostale == null ? "" : adressePostale);
+				String email = rs.getString("email");
+				email = (email == null ? "" : email);
+				String telephone = rs.getString("telephone");
+				telephone = (telephone == null ? "" : telephone);
+				String estInactif = rs.getString("estInactif");
+				int idAgCli = rs.getInt("idAg");
+	
+				Client client = new Client(idNumCli, nom, prenom, adressePostale, email, telephone, estInactif, idAgCli);
+				clients.add(client);
+	
+				// Message de débogage
+				System.out.println("Client récupéré : " + client);
+			}
+			rs.close();
+			pst.close();
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Client, Order.SELECT, "Erreur accès", e);
+		}
+	
+		System.out.println("Clients récupérés: " + clients.size());
+		return clients;
+	}
+	
 
 	/**
 	 * Insertion d'un client.

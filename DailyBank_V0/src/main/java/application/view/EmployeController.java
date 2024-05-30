@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -132,13 +133,40 @@ public class EmployeController {
     }
 
     @FXML
+    private Button btnSupprimerEmploye;
+
+    @FXML
+    private void supprimerEmploye() {
+        // Récupérer l'employé sélectionné dans la table
+        Employe selectedEmploye = employeTable.getSelectionModel().getSelectedItem();
+
+        // Vérifier si un employé est sélectionné
+        if (selectedEmploye != null) {
+            try {
+                // Supprimer l'employé de la base de données
+                Access_BD_Employe accessBDEmploye = new Access_BD_Employe();
+                accessBDEmploye.deleteEmploye(selectedEmploye);
+
+                // Supprimer l'employé de la table affichée
+                employeTable.getItems().remove(selectedEmploye);
+
+                // Afficher une confirmation de suppression
+                showAlert(Alert.AlertType.INFORMATION, "Suppression réussie", "L'employé a été supprimé avec succès.");
+            } catch (DataAccessException | DatabaseConnexionException e) {
+                // Gérer les exceptions
+                showAlert(Alert.AlertType.ERROR, "Erreur de suppression", "Une erreur est survenue lors de la suppression de l'employé.");
+            }
+        } else {
+            // Aucun employé sélectionné, afficher un message d'erreur
+            showAlert(Alert.AlertType.ERROR, "Aucune sélection", "Veuillez sélectionner un employé dans la table.");
+        }
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-}
-
-    
+    }
 }

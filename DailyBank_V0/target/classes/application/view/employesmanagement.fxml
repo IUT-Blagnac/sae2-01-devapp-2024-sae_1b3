@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EmployeController">
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EmployeController">
     <TableView fx:id="employeTable" prefHeight="397.0" prefWidth="402.0">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
@@ -22,4 +22,9 @@
       <VBox.margin>
          <Insets bottom="5.0" />
       </VBox.margin></Button>
+   <Button fx:id="btnSupprimerEmploye" onAction="#supprimerEmploye" text="Supprimer Employé">
+      <VBox.margin>
+         <Insets bottom="10.0" />
+      </VBox.margin>
+   </Button>
 </VBox>

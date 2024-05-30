@@ -1,19 +1,24 @@
 package application.view;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import application.DailyBankState;
+import application.control.ComptesManagement;
 import application.tools.AlertUtilities;
 import application.tools.CategorieOperation;
 import application.tools.ConstantesIHM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.CompteCourant;
@@ -79,6 +84,17 @@ public class OperationEditorPaneViewController {
 			this.cbTypeOpe.setItems(listTypesOpesPossiblesCredit);
 			this.cbTypeOpe.getSelectionModel().select(0);
 			break;
+			case VIREMENT:
+
+			ObservableList<String> listTypesOpesPossiblesVIREMENT = FXCollections.observableArrayList();
+			listTypesOpesPossiblesVIREMENT.addAll(ConstantesIHM.OPERATIONS_VIREMENT_GUICHET);
+
+			this.cbTypeOpe.setItems(listTypesOpesPossiblesVIREMENT);
+			this.cbTypeOpe.getSelectionModel().select(0);
+			break;
+			
+
+		
 	}
 
 		// Paramétrages spécifiques pour les chefs d'agences
@@ -119,7 +135,7 @@ public class OperationEditorPaneViewController {
 	private void doCancel() {
 		this.operationResultat = null;
 		this.containingStage.close();
-	}
+	};
 
 	@FXML
 	private void doAjouter() {
@@ -185,6 +201,44 @@ public class OperationEditorPaneViewController {
             this.operationResultat = new Operation(-1, montantCredit, null, null, this.compteEdite.idNumCli, typeOpCredit);
             this.containingStage.close();
             break;
+			case VIREMENT:
+    double montantVirement;
+
+    this.txtMontant.getStyleClass().remove("borderred");
+    this.lblMontant.getStyleClass().remove("borderred");
+
+    try {
+        montantVirement = Double.parseDouble(this.txtMontant.getText().trim());
+        if (montantVirement <= 0)
+            throw new NumberFormatException();
+    } catch (NumberFormatException nfe) {
+        this.txtMontant.getStyleClass().add("borderred");
+        this.lblMontant.getStyleClass().add("borderred");
+        this.txtMontant.requestFocus();
+        return;
     }
+
+    String typeOpVirement = this.cbTypeOpe.getValue();
+    this.operationResultat = new Operation(-1, montantVirement, null, null, this.compteEdite.idNumCli, typeOpVirement);
+
+    try {
+        Stage stage = (Stage) this.containingStage.getScene().getWindow();
+        stage.close();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientControllerfxml.fxml"));
+        BorderPane root = loader.load();
+
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.setTitle("Gestion des comptes");
+        newStage.showAndWait();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    break;
+
 }
 }
+
+}
+

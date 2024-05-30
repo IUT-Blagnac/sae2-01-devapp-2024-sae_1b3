@@ -42,4 +42,25 @@ public class CompteCourant {
 		return s;
 	}
 
+	// Getters
+	public int getIdNumCompte() {
+		return idNumCompte;
+	}
+
+	public int getDebitAutorise() {
+		return debitAutorise;
+	}
+
+	public double getSolde() {
+		return solde;
+	}
+
+	public String getEstCloture() {
+		return estCloture;
+	}
+
+	public int getIdNumCli() {
+		return idNumCli;
+	}
+
 }

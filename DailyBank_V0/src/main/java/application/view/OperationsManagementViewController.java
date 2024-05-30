@@ -45,6 +45,7 @@ public class OperationsManagementViewController {
 		this.compteConcerne = compte;
 		this.configure();
 	}
+	
 
 	private void configure() {
 		this.containingStage.setOnCloseRequest(e -> this.closeWindow(e));
@@ -106,6 +107,11 @@ public class OperationsManagementViewController {
 
 	@FXML
 	private void doAutre() {
+		Operation op = this.omDialogController.enregistrerVirement();
+		if (op != null) {
+			this.updateInfoCompteClient();
+			this.validateComponentState();
+		}
 	}
 
 	private void validateComponentState() {

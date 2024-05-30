@@ -215,6 +215,22 @@ public class Access_BD_Employe {
 		return employeTrouve;
 	}
 
+	public void deleteEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			String query = "DELETE FROM Employe WHERE idEmploye = ?";
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setInt(1, employe.getIdEmploye());
+			int rowsAffected = pst.executeUpdate();
+			pst.close();
+	
+			if (rowsAffected == 0) {
+				throw new DataAccessException(Table.Employe, Order.DELETE, "Aucune ligne supprimée", null);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Employe, Order.DELETE, "Erreur accès", e);
+		}
+	}
 	
 	
 }
