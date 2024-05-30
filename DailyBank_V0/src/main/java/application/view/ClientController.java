@@ -11,8 +11,15 @@ import model.data.Client;
 import model.orm.Access_BD_Client;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
+import application.control.OperationsManagement;
+
 import java.util.List;
 
+/**
+ * La classe ClientController contrôle le comportement de la vue client.
+ * Elle gère l'affichage des données clients dans un tableau, le chargement des clients depuis la base de données,
+ * et la gestion des interactions utilisateur telles que les opérations de virement.
+ */
 public class ClientController {
 
     @FXML
@@ -39,16 +46,17 @@ public class ClientController {
     @FXML
     private TableColumn<Client, String> estInactif;
 
-    @FXML
-    private TableColumn<Client, Integer> idAgCli;
-
     private ObservableList<Client> clientData = FXCollections.observableArrayList();
 
+    private OperationsManagement omDialogController;
+
+    /**
+     * Initialise le ClientController.
+     * Configure les colonnes du tableau et initialise le TableView avec les données clients.
+     */
     @FXML
     private void initialize() {
-        System.out.println("Initialisation du contrôleur ClientController...");
-        
-        // Initialiser la table avec les colonnes
+        // Initialise les colonnes du tableau
         idNumCli.setCellValueFactory(new PropertyValueFactory<>("idNumCli"));
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -56,20 +64,23 @@ public class ClientController {
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         telephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         estInactif.setCellValueFactory(new PropertyValueFactory<>("estInactif"));
-        idAgCli.setCellValueFactory(new PropertyValueFactory<>("idAgCli"));
-    
-        // Vérifiez que la table est initialisée correctement
+
+        // Définit les données clients dans le tableau
         ClientTable.setItems(clientData);
         System.out.println("TableView initialisée avec succès.");
     }
-
-
+    /**
+     * Définit les données clients à afficher dans le tableau.
+     * @param clientData La liste des clients à afficher.
+     */
     public void setClientData(ObservableList<Client> clientData) {
         this.clientData = clientData;
         ClientTable.setItems(clientData);
         System.out.println("Les données de la TableView ont été mises à jour.");
     }
-    
+    /**
+     * Charge les clients depuis la base de données et met à jour le tableau avec les données récupérées.
+     */
     @FXML
     private void loadClient() {
         System.out.println("Chargement des clients depuis la base de données...");
@@ -84,10 +95,24 @@ public class ClientController {
         } catch (DataAccessException | DatabaseConnexionException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des clients.");
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des clients depuis la base de données.");
         }
     }
-    
 
+    /**
+     * Effectue une opération de virement.
+     */
+    @FXML
+    private void doVirement() {
+        // À implémenter
+    }
+
+    /**
+     * Affiche une boîte de dialogue d'alerte.
+     * @param alertType Le type d'alerte.
+     * @param title Le titre de l'alerte.
+     * @param message Le contenu du message de l'alerte.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -95,4 +120,5 @@ public class ClientController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

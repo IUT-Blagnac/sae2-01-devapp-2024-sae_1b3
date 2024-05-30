@@ -23,6 +23,10 @@ import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 import model.orm.exception.ManagementRuleViolation;
 
+/**
+ * La classe OperationsManagement contrôle la gestion des opérations.
+ * Elle gère l'affichage des données et les interactions utilisateur pour les opérations de débit, crédit et virement.
+ */
 public class OperationsManagement {
 
 	private Stage omStage;
@@ -31,6 +35,13 @@ public class OperationsManagement {
 	private Client clientDuCompte;
 	private CompteCourant compteConcerne;
 
+	/**
+     * Initialise un gestionnaire d'opérations.
+     * @param _parentStage La fenêtre parente.
+     * @param _dbstate L'état courant de l'application.
+     * @param client Le client concerné par les opérations.
+     * @param compte Le compte concerné par les opérations.
+     */
 	public OperationsManagement(Stage _parentStage, DailyBankState _dbstate, Client client, CompteCourant compte) {
 
 		this.clientDuCompte = client;
@@ -60,10 +71,17 @@ public class OperationsManagement {
 		}
 	}
 
+	/**
+     * Affiche la fenêtre de gestion des opérations.
+     */
 	public void doOperationsManagementDialog() {
 		this.omViewController.displayDialog();
 	}
 
+	/**
+     * Enregistre une opération de débit.
+     * @return L'opération enregistrée.
+     */
 	public Operation enregistrerDebit() {
 
 		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
@@ -88,30 +106,21 @@ public class OperationsManagement {
 		return op;
 	}
 
+	/**
+     * Enregistre une opération de virement.
+     * @return L'opération enregistrée.
+     */
 	public Operation enregistrerVirement() {
 
 		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
 		Operation op = oep.doOperationEditorDialog(this.compteConcerne, CategorieOperation.VIREMENT);
-		if (op != null) {
-			try {
-				Access_BD_Operation ao = new Access_BD_Operation();
-
-				ao.insertDebit(this.compteConcerne.idNumCompte, op.montant, op.idTypeOp);
-
-			} catch (DatabaseConnexionException e) {
-				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, e);
-				ed.doExceptionDialog();
-				this.omStage.close();
-				op = null;
-			} catch (ApplicationException ae) {
-				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, ae);
-				ed.doExceptionDialog();
-				op = null;
-			}
-		}
 		return op;
 	}
 
+	 /**
+     * Enregistre une opération de crédit.
+     * @return L'opération enregistrée.
+     */
 	public Operation enregistrerCredit() {
 		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
 		Operation op = oep.doOperationEditorDialog(this.compteConcerne, CategorieOperation.CREDIT);
@@ -135,6 +144,10 @@ public class OperationsManagement {
 		return op;
 	}
 
+	 /**
+     * Récupère les opérations et le solde d'un compte.
+     * @return Une paire contenant le compte et sa liste d'opérations.
+     */
 	public PairsOfValue<CompteCourant, ArrayList<Operation>> operationsEtSoldeDunCompte() {
 		ArrayList<Operation> listeOP = new ArrayList<>();
 

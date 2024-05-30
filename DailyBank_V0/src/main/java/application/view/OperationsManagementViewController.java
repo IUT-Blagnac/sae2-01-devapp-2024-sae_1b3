@@ -35,8 +35,14 @@ public class OperationsManagementViewController {
 	private CompteCourant compteConcerne;
 	private ObservableList<Operation> oListOperations;
 
-	// Manipulation de la fenêtre
-	public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
+	/**
+     * Initialise le contexte de la fenêtre.
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _om Le contrôleur d'opérations.
+     * @param _dbstate L'état courant de l'application.
+     * @param client Le client associé au compte.
+     * @param compte Le compte concerné par les opérations.
+     */	public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
 			CompteCourant compte) {
 		this.containingStage = _containingStage;
 		this.dailyBankState = _dbstate;
@@ -56,7 +62,9 @@ public class OperationsManagementViewController {
 		this.updateInfoCompteClient();
 		this.validateComponentState();
 	}
-
+	/**
+     * Affiche la fenêtre de gestion des opérations.
+     */
 	public void displayDialog() {
 		this.containingStage.showAndWait();
 	}
@@ -108,10 +116,7 @@ public class OperationsManagementViewController {
 	@FXML
 	private void doAutre() {
 		Operation op = this.omDialogController.enregistrerVirement();
-		if (op != null) {
-			this.updateInfoCompteClient();
-			this.validateComponentState();
-		}
+
 	}
 
 	private void validateComponentState() {

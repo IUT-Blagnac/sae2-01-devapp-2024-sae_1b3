@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.CompteCourant;
@@ -37,7 +38,11 @@ public class OperationEditorPaneViewController {
 	private CompteCourant compteEdite;
 	private Operation operationResultat;
 
-	// Manipulation de la fenêtre
+	/**
+     * Initialise le contexte de la fenêtre.
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _dbstate L'état courant de l'application.
+     */
 	public void initContext(Stage _containingStage, DailyBankState _dbstate) {
 		this.containingStage = _containingStage;
 		this.dailyBankState = _dbstate;
@@ -48,6 +53,12 @@ public class OperationEditorPaneViewController {
 		this.containingStage.setOnCloseRequest(e -> this.closeWindow(e));
 	}
 
+	/**
+     * Affiche la boîte de dialogue d'édition des opérations.
+     * @param cpte Le compte concerné par l'opération.
+     * @param mode Le mode d'opération (débit, crédit, virement).
+     * @return L'opération effectuée.
+     */
 	public Operation displayDialog(CompteCourant cpte, CategorieOperation mode) {
 		this.categorieOperation = mode;
 		this.compteEdite = cpte;
@@ -141,10 +152,7 @@ public class OperationEditorPaneViewController {
 	private void doAjouter() {
 		switch (this.categorieOperation) {
 		case DEBIT:
-			// règles de validation d'un débit :
-			// - le montant doit être un nombre valide
-			// - et si l'utilisateur n'est pas chef d'agence,
-			// - le débit ne doit pas amener le compte en dessous de son découvert autorisé
+
 			double montant;
 
 			this.txtMontant.getStyleClass().remove("borderred");
@@ -219,23 +227,23 @@ public class OperationEditorPaneViewController {
     }
 
     String typeOpVirement = this.cbTypeOpe.getValue();
-    this.operationResultat = new Operation(-1, montantVirement, null, null, this.compteEdite.idNumCli, typeOpVirement);
+   	this.operationResultat = new Operation(-1, montantVirement, null, null, this.compteEdite.idNumCli, typeOpVirement);
+	
+	this.containingStage.close();
 
     try {
-        Stage stage = (Stage) this.containingStage.getScene().getWindow();
-        stage.close();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ClientControllerfxml.fxml"));
-        BorderPane root = loader.load();
-
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene(root));
-        newStage.setTitle("Gestion des comptes");
-        newStage.showAndWait();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    break;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/ClientvirementManagement.fxml"));
+		VBox ClientListPane = loader.load();
+		Scene scene = new Scene(ClientListPane);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.setTitle("Liste des Client");
+		stage.show();
+	} catch (IOException e) {
+		e.printStackTrace();
+		AlertUtilities.showAlert(this.containingStage, "Erreur", null, "Impossible de charger la vue des clients.", AlertType.ERROR);
+	}
+	    break;
 
 }
 }

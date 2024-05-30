@@ -83,6 +83,12 @@ public class Access_BD_Employe {
 		}
 	}
 
+	/**
+ 	* Récupère tous les employés de la base de données.
+ 	* @return Une liste contenant tous les employés.
+ 	* @throws DataAccessException Si une erreur d'accès aux données survient.
+ 	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ 	*/
 	public List<Employe> getAllEmployes() throws DataAccessException, DatabaseConnexionException {
 		List<Employe> employes = new ArrayList<>();
 	
@@ -215,6 +221,12 @@ public class Access_BD_Employe {
 		return employeTrouve;
 	}
 
+	/**
+ 	* Supprime un employé de la base de données.
+ 	* @param employe L'employé à supprimer.
+ 	* @throws DataAccessException Si une erreur d'accès aux données survient.
+ 	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ 	*/
 	public void deleteEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {
 			Connection con = LogToDatabase.getConnexion();

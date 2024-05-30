@@ -166,6 +166,15 @@ public class Access_BD_Operation {
 		}
 	}
 
+	/**
+ 	* Insère une opération de crédit dans la base de données.
+ 	* @param idNumCompte L'identifiant du compte.
+ 	* @param montant Le montant de l'opération.
+ 	* @param typeOp Le type de l'opération.
+ 	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ 	* @throws ManagementRuleViolation Si une violation des règles de gestion est détectée.
+ 	* @throws DataAccessException Si une erreur d'accès à la base de données survient.
+ 	*/
 	public void insertCredit(int idNumCompte, double montant, String typeOp)
         throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
     try {
@@ -196,39 +205,6 @@ public class Access_BD_Operation {
         throw new DataAccessException(Table.Operation, Order.INSERT, "Erreur d'accès à la base de données", e);
     }
 }
-/**
-     * Effectue un virement entre deux comptes en utilisant une procédure stockée.
-     *
-     * @param idCompteDeb ID du compte à débiter
-     * @param idCompteCred ID du compte à créditer
-     * @param montant montant du virement
-     * @throws DatabaseConnexionException en cas d'erreur de connexion à la base de données
-     * @throws ManagementRuleViolation en cas de violation des règles de gestion
-     * @throws DataAccessException en cas d'erreur d'accès aux données
-     */
-    public void insertVirement(int idCompteDeb, int idCompteCred, double montant)
-            throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
-        try (Connection connection = LogToDatabase.getConnexion();
-             CallableStatement callableStatement = connection.prepareCall("{call Virer(?, ?, ?, ?)}")) {
-
-            callableStatement.setInt(1, idCompteDeb); // Paramètre IN: ID du compte à débiter
-            callableStatement.setInt(2, idCompteCred); // Paramètre IN: ID du compte à créditer
-            callableStatement.setDouble(3, montant); // Paramètre IN: Montant du virement
-            callableStatement.registerOutParameter(4, java.sql.Types.INTEGER); // Paramètre OUT: Code de retour
-
-            callableStatement.execute(); // Exécution de la procédure stockée
-
-            int resultCode = callableStatement.getInt(4); // Récupération du code de retour
-
-        if (resultCode != 0) {
-            throw new ManagementRuleViolation(Table.Operation, Order.INSERT,
-                    "Erreur de règle de gestion : crédit non autorisé", null);
-        	}
-   	 	} catch (SQLException e) {
-        e.printStackTrace();
-        throw new DataAccessException(Table.Operation, Order.INSERT, "Erreur d'accès à la base de données", e);
-    }
-    }
 	
 	/*
 	 * Fonction utilitaire qui retourne un ordre sql "to_date" pour mettre une date
