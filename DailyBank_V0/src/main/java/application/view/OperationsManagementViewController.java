@@ -123,16 +123,6 @@ public class OperationsManagementViewController {
 
 	}
 
-	@FXML
-	private void do2() {
-		Operation op = this.omDialogController.enregistrerVirement2();
-		if (op != null) {
-			this.updateInfoCompteClient();
-			this.validateComponentState();
-		}
-
-	}
-
 	private void validateComponentState() {
 		// Non implémenté => désactivé
 		this.btnCredit.setDisable(false);

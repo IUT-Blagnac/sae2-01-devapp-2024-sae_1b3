@@ -8,5 +8,5 @@ package application.tools;
  *
  */
 public enum CategorieOperation {
-	DEBIT, CREDIT,VIREMENT, VIREMENT2
+	DEBIT, CREDIT,VIREMENT
 }

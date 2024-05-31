@@ -134,14 +134,6 @@ public class OperationEditorPaneViewController {
 			this.cbTypeOpe.setItems(listTypesComptesPossibles);
 			this.cbTypeOpe.getSelectionModel().select(0);
 			break;
-			case VIREMENT2:
-
-            ObservableList<String> listTypesOpesPossiblesVIREMENT = FXCollections.observableArrayList();
-            listTypesOpesPossiblesVIREMENT.addAll(ConstantesIHM.OPERATIONS_VIREMENT_GUICHET);
-
-            this.cbTypeOpe.setItems(listTypesOpesPossiblesVIREMENT);
-            this.cbTypeOpe.getSelectionModel().select(0);
-            break;
 	}
 
 		// Paramétrages spécifiques pour les chefs d'agences
@@ -284,40 +276,6 @@ private void doAjouter() {
             if (idNumCpt != -1) {
                 this.operationResultat = new Operation(-1, montant2, null, null, idNumCpt, "Virement Compte à Compte");
                 this.containingStage.close();
-            }
-            break;
-
-        case VIREMENT2:
-            double montantVirement;
-
-            this.txtMontant.getStyleClass().remove("borderred");
-            this.lblMontant.getStyleClass().remove("borderred");
-
-            try {
-                montantVirement = Double.parseDouble(this.txtMontant.getText().trim());
-                if (montantVirement <= 0) throw new NumberFormatException();
-            } catch (NumberFormatException nfe) {
-                this.txtMontant.getStyleClass().add("borderred");
-                this.lblMontant.getStyleClass().add("borderred");
-                this.txtMontant.requestFocus();
-                return;
-            }
-
-            String typeOpVirement = this.cbTypeOpe.getValue();
-            this.operationResultat = new Operation(-1, montantVirement, null, null, this.compteEdite.idNumCli, typeOpVirement);
-            this.containingStage.close();
-
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/ClientvirementManagement.fxml"));
-                VBox ClientListPane = loader.load();
-                Scene scene = new Scene(ClientListPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Liste des Client");
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                AlertUtilities.showAlert(this.containingStage, "Erreur", null, "Impossible de charger la vue des clients.", AlertType.ERROR);
             }
             break;
     }
