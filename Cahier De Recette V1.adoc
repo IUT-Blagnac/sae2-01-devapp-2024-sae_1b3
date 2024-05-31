@@ -1,4 +1,38 @@
-= Scénarios de Test pour les fonctionnalités de la V1"
+= Cahier De Recette
+:toc: right
+:toclevels: 4
+
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
+
+
+== Projet développement d'application bancaire
+
+|===
+| Client: | Bank Univ
+| Date: | Semaine 24
+|===
+
+== Auteurs
+
+Le cahier de recette a été rédigé par :
+
+    Théo RABAN
+    Yahya MAGAZ
+    Thomas CEOLIN
+
+== Révision
+
+|===
+| Date | Version
+| [Semaine 20] | [Version 0.0]
+| [Semaine 22] | [Version 1.0]
+|===
+
+== Scénarios de Test pour les fonctionnalités de la V1"
 :toc: right
 :toclevels: 4
 
@@ -556,6 +590,259 @@ public void testGetTousLesEmployes_Exception() throws Exception {
     // Une exception SQLException est attendue
 }
 ----
+
+== Scénarios de Test pour la Fonctionnalité "Modifier Compte"
+
+=== Scénario 1 : Modifier un compte existant avec des informations valides
+
+==== Description
+Modifier un compte existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 1
+| Nouveau solde    | 1500.0
+| Nouveau découvert autorisé | 2000.0
+|===
+
+==== Action
+Appeler la méthode `modifierCompte()` avec les informations valides.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Le compte est mis à jour avec succès dans la base de données.
+| Les nouvelles informations du compte sont correctement enregistrées.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testModifierCompte_Valid() throws Exception {
+    // Arrange
+    CompteCourant compte = new CompteCourant(1, 100, 500.0, "N", 1);
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(1)).thenReturn(compte);
+
+    // Act
+    boolean success = comptesManagement.modifierCompte(1, 1500.0, 2000.0);
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un compte
+
+==== Description
+Vérifier la gestion des erreurs lors de la modification d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 999 (compte inexistant)
+| Nouveau solde    | 1500.0
+| Nouveau découvert autorisé | 2000.0
+|===
+
+==== Action
+Appeler la méthode `modifierCompte()` avec un ID de compte inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Une exception de type `CompteIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = CompteIntrouvableException.class)
+public void testModifierCompte_CompteIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(999)).thenReturn(null);
+
+    // Act
+    comptesManagement.modifierCompte(999, 1500.0, 2000.0);
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Modifier Client"
+
+=== Scénario 1 : Modifier un client existant avec des informations valides
+
+==== Description
+Modifier un client existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut          | Valeur
+| ID du client      | 1
+| Nouveau nom       | "NouveauNom"
+| Nouveau prénom    | "NouveauPrenom"
+| Nouvelle adresse  | "NouvelleAdresse"
+| Nouveau numéro de téléphone | "0123456789"
+| Nouveau email     | "nouveau.email@example.com"
+|===
+
+==== Action
+Appeler la méthode `modifierClient()` avec les informations valides.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Le client est mis à jour avec succès dans la base de données.
+| Les nouvelles informations du client sont correctement enregistrées.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testModifierClient_Valid() throws Exception {
+    // Arrange
+    Client client = new Client(1, "NomActuel", "PrenomActuel", "AdresseActuelle", "0123456789", "email.actuel@example.com");
+    Mockito.when(mockAccessBDClient.getClientById(1)).thenReturn(client);
+
+    // Act
+    boolean success = clientsManagement.modifierClient(1, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "0123456789", "nouveau.email@example.com");
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un client
+
+==== Description
+Vérifier la gestion des erreurs lors de la modification d'un client si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut          | Valeur
+| ID du client      | 999 (client inexistant)
+| Nouveau nom       | "NouveauNom"
+| Nouveau prénom    | "NouveauPrenom"
+| Nouvelle adresse  | "NouvelleAdresse"
+| Nouveau numéro de téléphone | "0123456789"
+| Nouveau email     | "nouveau.email@example.com"
+|===
+
+==== Action
+Appeler la méthode `modifierClient()` avec un ID de client inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Une exception de type `ClientIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ClientIntrouvableException.class)
+public void testModifierClient_ClientIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDClient.getClientById(999)).thenReturn(null);
+
+    // Act
+    clientsManagement.modifierClient(999, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "0123456789", "nouveau.email@example.com");
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Supprimer Compte"
+
+=== Scénario 1 : Supprimer un compte existant
+
+==== Description
+Supprimer un compte existant dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 1
+|===
+
+==== Action
+Appeler la méthode `supprimerCompte()` avec l'ID du compte existant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Le compte est supprimé avec succès de la base de données.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testSupprimerCompte_Valid() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(1)).thenReturn(new CompteCourant(1, 100, 500.0, "N", 1));
+
+    // Act
+    boolean success = comptesManagement.supprimerCompte(1);
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la suppression d'un compte
+
+==== Description
+Vérifier la gestion des erreurs lors de la suppression d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut          | Valeur
+| ID du compte      | 999 (compte inexistant)
+|===
+
+==== Action
+Appeler la méthode `supprimerCompte()` avec un ID de compte inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Une exception de type `CompteIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = CompteIntrouvableException.class)
+public void testSupprimerCompte_CompteIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(999)).thenReturn(null);
+
+    // Act
+    comptesManagement.supprimerCompte(999);
+}
+----
+
+
+
+
 
 
 
