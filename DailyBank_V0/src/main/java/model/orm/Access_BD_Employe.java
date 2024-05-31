@@ -119,6 +119,13 @@ public class Access_BD_Employe {
 		return employes;
 	}
 
+	/**
+     * Ajoute un nouvel employé à la base de données.
+     *
+     * @param employe L'employé à ajouter.
+     * @throws DataAccessException      Si une erreur d'accès aux données survient.
+     * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+     */
 	public void addEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {
 			Connection con = LogToDatabase.getConnexion();
@@ -150,6 +157,13 @@ public class Access_BD_Employe {
 		}
 	}
 
+	/**
+     * Met à jour les informations d'un employé dans la base de données.
+     *
+     * @param employe L'employé avec les nouvelles informations.
+     * @throws DataAccessException      Si une erreur d'accès aux données survient.
+     * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+     */
 	public void updateEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {
 			Connection con = LogToDatabase.getConnexion();
@@ -176,6 +190,14 @@ public class Access_BD_Employe {
 	}
 	
 
+	/**
+     * Récupère un employé à partir de son login.
+     *
+     * @param login Le login de l'employé à rechercher.
+     * @return L'employé correspondant au login, ou null s'il n'existe pas.
+     * @throws DataAccessException      Si une erreur d'accès aux données survient.
+     * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+     */
 	public Employe getEmployeByLogin(String login) throws DataAccessException, DatabaseConnexionException {
 		Employe employeTrouve = null;
 		Connection con = null;

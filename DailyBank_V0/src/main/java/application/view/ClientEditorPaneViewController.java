@@ -21,6 +21,9 @@ import model.orm.exception.ApplicationException;
 import model.orm.exception.Order;
 import model.orm.exception.Table;
 
+/**
+ * Contrôleur pour la vue d'édition des clients.
+ */
 public class ClientEditorPaneViewController {
 
 	// Etat courant de l'application
@@ -37,6 +40,12 @@ public class ClientEditorPaneViewController {
 
 	// Manipulation de la fenêtre
 
+	/**
+     * Initialise le contexte du contrôleur.
+     *
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _dbstate         L'état actuel de la banque quotidienne.
+     */
 	public void initContext(Stage _containingStage, DailyBankState _dbstate) {
 		this.containingStage = _containingStage;
 		this.dailyBankState = _dbstate;
@@ -47,6 +56,14 @@ public class ClientEditorPaneViewController {
 		this.containingStage.setOnCloseRequest(e -> this.closeWindow(e));
 	}
 
+
+	 /**
+     * Affiche la boîte de dialogue de modification des clients.
+     *
+     * @param client Le client à modifier.
+     * @param mode   Le mode d'édition (création, modification, suppression).
+     * @return Le client modifié ou null en cas d'annulation.
+     */
 	public Client displayDialog(Client client, EditionMode mode) {
 
 		this.editionMode = mode;

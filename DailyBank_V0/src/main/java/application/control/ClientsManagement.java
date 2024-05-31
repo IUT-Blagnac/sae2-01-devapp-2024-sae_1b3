@@ -17,12 +17,23 @@ import model.orm.Access_BD_Client;
 import model.orm.exception.ApplicationException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * Cette classe gère la fenêtre de gestion des clients dans l'application.
+ * Elle permet d'afficher une interface utilisateur pour interagir avec les clients,
+ * notamment pour les ajouter, les modifier et les supprimer.
+ */
 public class ClientsManagement {
 
 	private Stage cmStage;
 	private DailyBankState dailyBankState;
 	private ClientsManagementViewController cmViewController;
 
+	/**
+     * Constructeur de la classe ClientsManagement.
+     * 
+     * @param _parentStage La fenêtre parente à laquelle la fenêtre de gestion des clients est associée.
+     * @param _dbstate L'état actuel de la banque quotidienne.
+     */
 	public ClientsManagement(Stage _parentStage, DailyBankState _dbstate) {
 		this.dailyBankState = _dbstate;
 		try {
@@ -48,10 +59,19 @@ public class ClientsManagement {
 		}
 	}
 
+	/**
+     * Affiche la fenêtre de gestion des clients.
+     */
 	public void doClientManagementDialog() {
 		this.cmViewController.displayDialog();
 	}
 
+	/**
+     * Modifie les détails d'un client existant.
+     * 
+     * @param c Le client à modifier.
+     * @return Le client modifié.
+     */
 	public Client modifierClient(Client c) {
 		ClientEditorPane cep = new ClientEditorPane(this.cmStage, this.dailyBankState);
 		Client result = cep.doClientEditorDialog(c, EditionMode.MODIFICATION);
@@ -73,6 +93,11 @@ public class ClientsManagement {
 		return result;
 	}
 
+	 /**
+     * Ajoute un nouveau client.
+     * 
+     * @return Le nouveau client ajouté.
+     */
 	public Client nouveauClient() {
 		Client client;
 		ClientEditorPane cep = new ClientEditorPane(this.cmStage, this.dailyBankState);
@@ -96,11 +121,24 @@ public class ClientsManagement {
 		return client;
 	}
 
+	/**
+     * Gère les comptes d'un client donné.
+     * 
+     * @param c Le client dont les comptes doivent être gérés.
+     */
 	public void gererComptesClient(Client c) {
 		ComptesManagement cm = new ComptesManagement(this.cmStage, this.dailyBankState, c);
 		cm.doComptesManagementDialog();
 	}
 
+	/**
+     * Récupère une liste de clients en fonction des paramètres de recherche.
+     * 
+     * @param _numCompte Le numéro de compte à rechercher.
+     * @param _debutNom Le début du nom à rechercher.
+     * @param _debutPrenom Le début du prénom à rechercher.
+     * @return La liste des clients correspondant aux critères de recherche.
+     */
 	public ArrayList<Client> getlisteComptes(int _numCompte, String _debutNom, String _debutPrenom) {
 		ArrayList<Client> listeCli = new ArrayList<>();
 		try {

@@ -19,6 +19,9 @@ import model.data.CompteCourant;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Contrôleur pour la vue de l'édition des comptes.
+ */
 public class CompteEditorPaneViewController {
 
 	// Etat courant de l'application
@@ -33,7 +36,12 @@ public class CompteEditorPaneViewController {
 	private CompteCourant compteEdite;
 	private CompteCourant compteResultat;
 
-	// Manipulation de la fenêtre
+/**
+     * Initialise le contexte du contrôleur.
+     *
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _dbstate         L'état actuel de la banque quotidienne.
+     */
 	public void initContext(Stage _containingStage, DailyBankState _dbstate) {
 		this.containingStage = _containingStage;
 		this.dailyBankState = _dbstate;
@@ -47,6 +55,14 @@ public class CompteEditorPaneViewController {
 		this.txtSolde.focusedProperty().addListener((t, o, n) -> this.focusSolde(t, o, n));
 	}
 
+	/**
+     * Affiche la boîte de dialogue d'édition de compte.
+     *
+     * @param client Le client associé au compte.
+     * @param cpte   Le compte à éditer.
+     * @param mode   Le mode d'édition.
+     * @return Le compte édité ou null.
+     */
 	public CompteCourant displayDialog(Client client, CompteCourant cpte, EditionMode mode) {
 		this.clientDuCompte = client;
 		this.editionMode = mode;

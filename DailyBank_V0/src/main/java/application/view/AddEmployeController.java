@@ -10,6 +10,9 @@ import model.orm.Access_BD_Employe;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * Classe contrôleur pour l'ajout d'un nouvel employé.
+ */
 public class AddEmployeController {
 
     @FXML
@@ -36,14 +39,27 @@ public class AddEmployeController {
     private Stage dialogStage;
     private boolean okClicked = false;
 
+    /**
+     * Définit la fenêtre pour le dialogue.
+     *
+     * @param dialogStage La fenêtre pour le dialogue
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Indique si le bouton "OK" a été cliqué.
+     *
+     * @return true si le bouton "OK" a été cliqué, sinon false
+     */
     public boolean isOkClicked() {
         return okClicked;
     }
 
+    /**
+     * Gère l'action d'ajouter un nouvel employé.
+     */
     @FXML
     private void handleAddEmploye() {
         if (isInputValid()) {
@@ -98,11 +114,19 @@ public class AddEmployeController {
 
     
 
+    /**
+     * Gère l'action d'annuler le dialogue.
+     */
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
+    /**
+     * Valide les champs d'entrée.
+     *
+     * @return true si l'entrée est valide, sinon false
+     */
     private boolean isInputValid() {
         String errorMessage = "";
 
@@ -136,6 +160,13 @@ public class AddEmployeController {
         }
     }
 
+    /**
+     * Affiche une alerte.
+     *
+     * @param alertType Type d'alerte
+     * @param title     Titre de l'alerte
+     * @param message   Message de l'alerte
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

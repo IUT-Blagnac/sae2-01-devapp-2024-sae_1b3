@@ -11,43 +11,50 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.orm.exception.ApplicationException;
 
+/**
+ * La classe ExceptionDialog représente un dialogue pour afficher les exceptions survenues dans l'application.
+ */
 public class ExceptionDialog {
 
-	private Stage edStage;
-	private ExceptionDialogViewController edViewController;
+    private Stage edStage;
+    private ExceptionDialogViewController edViewController;
 
-	public ExceptionDialog(Stage _parentStage, DailyBankState _dbstate, ApplicationException ae) {
+    /**
+     * Construit une nouvelle instance de ExceptionDialog.
+     *
+     * @param _parentStage Le stage parent pour le dialogue.
+     * @param _dbstate     L'état courant de l'application.
+     * @param ae           L'exception à afficher.
+     */
+    public ExceptionDialog(Stage _parentStage, DailyBankState _dbstate, ApplicationException ae) {
 
-		try {
-			FXMLLoader loader = new FXMLLoader(ExceptionDialogViewController.class.getResource("exceptiondialog.fxml"));
-			BorderPane root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(ExceptionDialogViewController.class.getResource("exceptiondialog.fxml"));
+            BorderPane root = loader.load();
 
-			Scene scene = new Scene(root, 700 + 20, 400 + 10);
-			scene.getStylesheets().add(DailyBankApp.class.getResource("application.css").toExternalForm());
+            Scene scene = new Scene(root, 700 + 20, 400 + 10);
+            scene.getStylesheets().add(DailyBankApp.class.getResource("application.css").toExternalForm());
 
-			this.edStage = new Stage();
-			this.edStage.initModality(Modality.WINDOW_MODAL);
-			this.edStage.initOwner(_parentStage);
-			StageManagement.manageCenteringStage(_parentStage, this.edStage);
-			this.edStage.setScene(scene);
-			this.edStage.setTitle("Opération impossible");
-			this.edStage.setResizable(false);
+            this.edStage = new Stage();
+            this.edStage.initModality(Modality.WINDOW_MODAL);
+            this.edStage.initOwner(_parentStage);
+            StageManagement.manageCenteringStage(_parentStage, this.edStage);
+            this.edStage.setScene(scene);
+            this.edStage.setTitle("Opération impossible");
+            this.edStage.setResizable(false);
 
-			this.edViewController = loader.getController();
-			this.edViewController.initContext(this.edStage, _dbstate, ae);
+            this.edViewController = loader.getController();
+            this.edViewController.initContext(this.edStage, _dbstate, ae);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void doExceptionDialog() {
-		this.edViewController.displayDialog();
-	}
-
-	/*
-	 * Test : ApplicationException ae = new ApplicationException(Table.NONE,
-	 * Order.OTHER, "M", null ); ExceptionDialogTemp ed = new
-	 * ExceptionDialogTemp(aStage, dbs, ae); ed.doExceptionDisplay();
-	 */
+    /**
+     * Affiche le dialogue d'exception.
+     */
+    public void doExceptionDialog() {
+        this.edViewController.displayDialog();
+    }
 }

@@ -64,6 +64,17 @@ public class Access_BD_Operation {
 			throw new DataAccessException(Table.Operation, Order.SELECT, "Erreur accès", e);
 		}
 	}
+
+	/**
+	 * Insère un virement dans la base de données.
+	 *
+	 * @param idNumCompte L'identifiant du compte source du virement.
+	 * @param pfNumCptVir L'identifiant du compte destinataire du virement.
+	 * @param montant     Le montant du virement.
+	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 * @throws ManagementRuleViolation    Si une règle de gestion n'est pas respectée lors de l'insertion du virement.
+	 * @throws DataAccessException       Si une erreur d'accès aux données survient.
+	 */
 	public  void insertVirement(int idNumCompte, int pfNumCptVir, double montant) throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
 		try {
 			Connection con = LogToDatabase.getConnexion();

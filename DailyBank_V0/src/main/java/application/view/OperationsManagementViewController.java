@@ -19,6 +19,9 @@ import model.data.Client;
 import model.data.CompteCourant;
 import model.data.Operation;
 
+/**
+ * Contrôleur pour la gestion des opérations dans l'application.
+ */
 public class OperationsManagementViewController {
 
 	// Etat courant de l'application
@@ -42,7 +45,8 @@ public class OperationsManagementViewController {
      * @param _dbstate L'état courant de l'application.
      * @param client Le client associé au compte.
      * @param compte Le compte concerné par les opérations.
-     */	public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
+     */
+	public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
 			CompteCourant compte) {
 		this.containingStage = _containingStage;
 		this.dailyBankState = _dbstate;
@@ -89,11 +93,17 @@ public class OperationsManagementViewController {
 	@FXML
 	private Button btnCredit;
 
+	/**
+     * Annule la gestion des opérations et ferme la fenêtre.
+     */
 	@FXML
 	private void doCancel() {
 		this.containingStage.close();
 	}
 
+	/**
+     * Enregistre une opération de débit.
+     */
 	@FXML
 	private void doDebit() {
 
@@ -104,6 +114,9 @@ public class OperationsManagementViewController {
 		}
 	}
 
+	/**
+     * Enregistre une opération de crédit.
+     */
 	@FXML
 	private void doCredit() {
 		Operation op = this.omDialogController.enregistrerCredit();
@@ -113,7 +126,9 @@ public class OperationsManagementViewController {
 		}
 	}	
 
-	// Méthode annotée @FXML, appelée lorsqu'un événement se produit
+	/**
+     * Enregistre une autre opération (par exemple, un virement).
+     */
 	@FXML
 	private void doAutre() {
     // Appeler une méthode de contrôleur pour enregistrer un virement

@@ -29,6 +29,10 @@ import model.orm.exception.Order;
 import model.orm.exception.RowNotFoundOrTooManyRowsException;
 import model.orm.exception.Table;
 
+/**
+ * La classe ComptesManagement représente un contrôleur pour gérer la fenêtre de gestion des comptes.
+ * Elle permet d'effectuer des opérations telles que la création, la modification et la suppression de comptes.
+ */
 public class ComptesManagement {
 
 	private Stage cmStage;
@@ -36,6 +40,13 @@ public class ComptesManagement {
 	private DailyBankState dailyBankState;
 	private Client clientDesComptes;
 
+	/**
+     * Construit une nouvelle instance de ComptesManagement.
+     *
+     * @param _parentStage Le stage parent pour la fenêtre de gestion des comptes.
+     * @param _dbstate     L'instance de DailyBankState pour gérer l'état de l'application.
+     * @param client       Le client dont les comptes sont gérés.
+     */
 	public ComptesManagement(Stage _parentStage, DailyBankState _dbstate, Client client) {
 
 		this.clientDesComptes = client;
@@ -63,16 +74,29 @@ public class ComptesManagement {
 		}
 	}
 
+	/**
+     * Affiche la fenêtre de gestion des comptes.
+     */
 	public void doComptesManagementDialog() {
 		this.cmViewController.displayDialog();
 	}
 
+	 /**
+     * Gère les opérations d'un compte.
+     *
+     * @param cpt Le compte pour lequel les opérations sont gérées.
+     */
 	public void gererOperationsDUnCompte(CompteCourant cpt) {
 		OperationsManagement om = new OperationsManagement(this.cmStage, this.dailyBankState,
 				this.clientDesComptes, cpt);
 		om.doOperationsManagementDialog();
 	}
 
+	/**
+     * Crée un nouveau compte.
+     *
+     * @return Le compte créé.
+     */
 	public CompteCourant creerNouveauCompte() {
 		CompteCourant compte;
 		CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
@@ -128,7 +152,13 @@ public class ComptesManagement {
 	}
 	
 	
+	
 
+	/**
+     * Récupère la liste des comptes d'un client.
+     *
+     * @return La liste des comptes d'un client.
+     */
 	public ArrayList<CompteCourant> getComptesDunClient() {
 		ArrayList<CompteCourant> listeCpt = new ArrayList<>();
 

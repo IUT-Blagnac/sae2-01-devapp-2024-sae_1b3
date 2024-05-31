@@ -1,29 +1,42 @@
 package model.data;
 
-/*
- * Attributs mis en public car cette classe ne fait que "véhiculer" des données.
+/**
+ * Représente un type d'opération bancaire.
  */
-
 public class TypeOperation {
 
-	public String idTypeOp;
+    /** L'identifiant du type d'opération. */
+    public String idTypeOp;
 
-	public TypeOperation(String idTypeOp) {
-		super();
-		this.idTypeOp = idTypeOp;
-	}
+    /**
+     * Constructeur avec un seul paramètre.
+     * @param idTypeOp L'identifiant du type d'opération.
+     */
+    public TypeOperation(String idTypeOp) {
+        super();
+        this.idTypeOp = idTypeOp;
+    }
 
-	public TypeOperation(TypeOperation to) {
-		this(to.idTypeOp);
-	}
+    /**
+     * Constructeur de copie.
+     * @param to L'objet TypeOperation à copier.
+     */
+    public TypeOperation(TypeOperation to) {
+        this(to.idTypeOp);
+    }
 
-	public TypeOperation() {
-		this((String) null);
-	}
+    /** Constructeur par défaut, initialise l'attribut à null. */
+    public TypeOperation() {
+        this((String) null);
+    }
 
-	@Override
-	public String toString() {
-		return "TypeOperation [idTypeOp=" + this.idTypeOp + "]";
-	}
+    /**
+     * Renvoie une représentation sous forme de chaîne de caractères du type d'opération.
+     * @return La représentation sous forme de chaîne de caractères du type d'opération.
+     */
+    @Override
+    public String toString() {
+        return "TypeOperation [idTypeOp=" + this.idTypeOp + "]";
+    }
 
 }

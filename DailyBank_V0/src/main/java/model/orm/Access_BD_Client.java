@@ -163,6 +163,13 @@ public class Access_BD_Client {
 		}
 	}
 
+	/**
+ * Récupère tous les clients à partir de la base de données.
+ * 
+ * @return Une liste contenant tous les clients récupérés.
+ * @throws DataAccessException      Si une erreur d'accès aux données survient.
+ * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ */
 	public List<Client> getAllClient() throws DataAccessException, DatabaseConnexionException {
 		List<Client> clients = new ArrayList<>();
 	

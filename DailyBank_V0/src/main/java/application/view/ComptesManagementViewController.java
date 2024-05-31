@@ -22,6 +22,9 @@ import model.orm.Access_BD_CompteCourant;
 import model.orm.exception.ManagementRuleViolation;
 import model.orm.exception.RowNotFoundOrTooManyRowsException;
 
+/**
+ * Contrôleur pour la gestion des comptes bancaires d'un client.
+ */
 public class ComptesManagementViewController {
 
 	// Etat courant de l'application
@@ -37,7 +40,14 @@ public class ComptesManagementViewController {
 	private Client clientDesComptes;
 	private ObservableList<CompteCourant> oListCompteCourant;
 
-	// Manipulation de la fenêtre
+	/**
+     * Initialise le contexte du contrôleur.
+     *
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _cm              Le contrôleur de dialogue associé.
+     * @param _dbstate         L'état actuel de la banque quotidienne.
+     * @param client           Le client associé aux comptes.
+     */
 	public void initContext(Stage _containingStage, ComptesManagement _cm, DailyBankState _dbstate, Client client) {
 		this.cmDialogController = _cm;
 		this.containingStage = _containingStage;

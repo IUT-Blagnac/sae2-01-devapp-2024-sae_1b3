@@ -198,27 +198,42 @@ public class Access_BD_CompteCourant {
 
 
 
+	/**
+	 * Insère un compte courant dans la base de données.
+	 *
+	 * @param compte Le compte courant à insérer.
+	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
+	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 */
 	public void insertCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		try {
 			Connection con = LogToDatabase.getConnexion();
 			String query = "INSERT INTO CompteCourant (idNumCompte, debitAutorise, solde, estCloture, idNumCli) VALUES (?, ?, ?, ?, ?)";
-			
+
 			PreparedStatement pst = con.prepareStatement(query);
-			System.out.println("le num compte insert est "+compte.idNumCompte);
+			System.out.println("le num compte insert est " + compte.idNumCompte);
 			pst.setInt(1, compte.idNumCompte);
 			pst.setInt(2, compte.debitAutorise);
 			pst.setDouble(3, compte.solde);
 			pst.setString(4, compte.estCloture);
 			pst.setInt(5, compte.idNumCli);
-	
+
 			pst.executeUpdate();
 			pst.close();
 			con.commit();
 		} catch (SQLException e) {
 			throw new DataAccessException(Table.CompteCourant, Order.INSERT, "Erreur lors de l'insertion du compte", e);
 		}
-	}
+}
 
+
+	/**
+	 * Récupère tous les comptes courants depuis la base de données.
+	 *
+	 * @return Une liste contenant tous les comptes courants.
+	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
+	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 */
 	public ArrayList<CompteCourant> getTousLesComptes() throws DataAccessException, DatabaseConnexionException {
 		ArrayList<CompteCourant> alResult = new ArrayList<>();
 
@@ -277,6 +292,13 @@ public class Access_BD_CompteCourant {
 		}
 	}
 	
+	/**
+	 * Supprime toutes les opérations associées à un compte donné de la base de données.
+	 *
+	 * @param compte Le compte pour lequel les opérations doivent être supprimées.
+	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
+	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 */
 	private void deleteOperationsForCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		String query = "DELETE FROM Operation WHERE idNumCompte = ?";
 		try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {

@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.Client;
 
+/**
+ * Contrôleur pour la vue de gestion des clients.
+ */
 public class ClientsManagementViewController {
 
 	// Etat courant de l'application
@@ -29,7 +32,13 @@ public class ClientsManagementViewController {
 	// Données de la fenêtre
 	private ObservableList<Client> oListClients;
 
-	// Manipulation de la fenêtre
+	/**
+     * Initialise le contexte du contrôleur.
+     *
+     * @param _containingStage La fenêtre contenant la scène.
+     * @param _cm              Le contrôleur de dialogue associé.
+     * @param _dbstate         L'état actuel de la banque quotidienne.
+     */
 	public void initContext(Stage _containingStage, ClientsManagement _cm, DailyBankState _dbstate) {
 		this.cmDialogController = _cm;
 		this.containingStage = _containingStage;
@@ -48,6 +57,9 @@ public class ClientsManagementViewController {
 		this.validateComponentState();
 	}
 
+	 /**
+     * Affiche la boîte de dialogue de gestion des clients.
+     */
 	public void displayDialog() {
 		this.containingStage.showAndWait();
 	}

@@ -35,6 +35,9 @@ import model.orm.Access_BD_CompteCourant;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * Contrôleur pour la boîte de dialogue d'édition des opérations.
+ */
 public class OperationEditorPaneViewController {
 
 	// Etat courant de l'application
@@ -192,12 +195,18 @@ public class OperationEditorPaneViewController {
 	@FXML
 	private Button btnCancel;
 
+	/**
+     * Annule l'opération en cours et ferme la fenêtre.
+     */
 	@FXML
 	private void doCancel() {
 		this.operationResultat = null;
 		this.containingStage.close();
 	};
 
+	 /**
+     * Ajoute une nouvelle opération en fonction du mode d'opération sélectionné.
+     */
 	@FXML
 private void doAjouter() {
     switch (this.categorieOperation) {

@@ -10,6 +10,9 @@ import model.orm.Access_BD_Employe;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * Classe contrôleur pour la modification des informations des employés dans l'application.
+ */
 public class ModifyEmployeController {
 
     @FXML
@@ -37,10 +40,20 @@ public class ModifyEmployeController {
     private Employe employe;
     private boolean okClicked = false;
 
+    /**
+     * Définit la fenêtre de dialogue pour ce contrôleur.
+     *
+     * @param dialogStage La fenêtre de dialogue à définir.
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Définit les données de l'employé à modifier.
+     *
+     * @param employe Les données de l'employé à modifier.
+     */
     public void setEmploye(Employe employe) {
         this.employe = employe;
     
@@ -57,6 +70,11 @@ public class ModifyEmployeController {
         }
     }
 
+    /**
+     * Indique si le bouton OK a été cliqué.
+     *
+     * @return Vrai si le bouton OK a été cliqué, faux sinon.
+     */
     public boolean isOkClicked() {
         return okClicked;
     }

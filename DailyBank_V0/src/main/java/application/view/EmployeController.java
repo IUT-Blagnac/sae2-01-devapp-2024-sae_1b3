@@ -19,6 +19,9 @@ import model.orm.exception.DatabaseConnexionException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Contrôleur pour la gestion des employés.
+ */
 public class EmployeController {
 
     @FXML
@@ -41,6 +44,9 @@ public class EmployeController {
 
     private ObservableList<Employe> employeData = FXCollections.observableArrayList();
 
+    /**
+     * Initialise la table des employés avec les colonnes appropriées.
+     */
     @FXML
     private void initialize() {
         // Initialiser la table avec les colonnes
@@ -59,6 +65,9 @@ public class EmployeController {
         employeTable.setItems(employeData);
     }
 
+    /**
+     * Charge les employés depuis la base de données et les affiche dans la table.
+     */
     @FXML
     private void loadEmployes() {
         Access_BD_Employe accessBDEmploye = new Access_BD_Employe();
@@ -70,6 +79,9 @@ public class EmployeController {
         }
     }
 
+    /**
+     * Affiche le formulaire d'ajout d'un employé.
+     */
     @FXML
     private void showAddEmployeForm() {
         try {
@@ -94,6 +106,9 @@ public class EmployeController {
         }
     }
 
+    /**
+     * Affiche le formulaire de modification d'un employé.
+     */
     @FXML
     private void modifierEmploye() {
         // Récupérer l'employé sélectionné dans la table
@@ -135,6 +150,9 @@ public class EmployeController {
     @FXML
     private Button btnSupprimerEmploye;
 
+    /**
+     * Supprime un employé sélectionné de la base de données et de la table.
+     */
     @FXML
     private void supprimerEmploye() {
         // Récupérer l'employé sélectionné dans la table
@@ -162,6 +180,13 @@ public class EmployeController {
         }
     }
 
+    /**
+     * Affiche une alerte avec le type, le titre et le message spécifiés.
+     *
+     * @param alertType Le type d'alerte.
+     * @param title     Le titre de l'alerte.
+     * @param message   Le message de l'alerte.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
