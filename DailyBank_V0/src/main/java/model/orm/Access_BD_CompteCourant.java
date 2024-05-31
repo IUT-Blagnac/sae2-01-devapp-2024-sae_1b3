@@ -234,6 +234,7 @@ public class Access_BD_CompteCourant {
 	 * @return Une liste contenant tous les comptes courants.
 	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
 	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 * @author Théo Raban
 	 */
 	public ArrayList<CompteCourant> getTousLesComptes() throws DataAccessException, DatabaseConnexionException {
 		ArrayList<CompteCourant> alResult = new ArrayList<>();

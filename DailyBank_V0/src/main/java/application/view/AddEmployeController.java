@@ -12,6 +12,7 @@ import model.orm.exception.DatabaseConnexionException;
 
 /**
  * Classe contrôleur pour l'ajout d'un nouvel employé.
+ * @author Théo Raban
  */
 public class AddEmployeController {
 
@@ -43,6 +44,7 @@ public class AddEmployeController {
      * Définit la fenêtre pour le dialogue.
      *
      * @param dialogStage La fenêtre pour le dialogue
+     *  @author Théo Raban
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -52,6 +54,7 @@ public class AddEmployeController {
      * Indique si le bouton "OK" a été cliqué.
      *
      * @return true si le bouton "OK" a été cliqué, sinon false
+     * @author Théo Raban
      */
     public boolean isOkClicked() {
         return okClicked;
@@ -59,6 +62,7 @@ public class AddEmployeController {
 
     /**
      * Gère l'action d'ajouter un nouvel employé.
+     * @author Théo Raban
      */
     @FXML
     private void handleAddEmploye() {
@@ -116,6 +120,7 @@ public class AddEmployeController {
 
     /**
      * Gère l'action d'annuler le dialogue.
+     *  @author Théo Raban
      */
     @FXML
     private void handleCancel() {
@@ -126,6 +131,7 @@ public class AddEmployeController {
      * Valide les champs d'entrée.
      *
      * @return true si l'entrée est valide, sinon false
+     * @author Théo Raban
      */
     private boolean isInputValid() {
         String errorMessage = "";
@@ -162,6 +168,7 @@ public class AddEmployeController {
 
     /**
      * Affiche une alerte.
+     * @author Théo Raban
      *
      * @param alertType Type d'alerte
      * @param title     Titre de l'alerte

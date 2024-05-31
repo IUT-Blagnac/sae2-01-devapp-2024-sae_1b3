@@ -88,6 +88,7 @@ public class Access_BD_Employe {
  	* @return Une liste contenant tous les employés.
  	* @throws DataAccessException Si une erreur d'accès aux données survient.
  	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	* @author Théo Raban
  	*/
 	public List<Employe> getAllEmployes() throws DataAccessException, DatabaseConnexionException {
 		List<Employe> employes = new ArrayList<>();
@@ -125,6 +126,7 @@ public class Access_BD_Employe {
      * @param employe L'employé à ajouter.
      * @throws DataAccessException      Si une erreur d'accès aux données survient.
      * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 * @author Théo Raban
      */
 	public void addEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {
