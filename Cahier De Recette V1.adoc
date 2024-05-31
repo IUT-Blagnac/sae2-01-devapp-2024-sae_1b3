@@ -38,7 +38,7 @@ Le cahier de recette a été rédigé par :
 
 == Scénarios de Test pour la Fonctionnalité "Ajouter Compte"
 
-=== Scénario 1 : Ajouter un compte avec des informations valides
+=== Scénario 1 : Ajouter un compte avec des informations valides ( Theo Raban )
 
 ==== Description
 Ajouter un nouveau compte pour un client existant avec des informations valides.
@@ -85,7 +85,7 @@ public void testCreerNouveauCompte_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Vérifier l'insertion du compte dans la base de données
+=== Scénario 2 : Vérifier l'insertion du compte dans la base de données ( Theo Raban )
 
 ==== Description
 Vérifier que le nouveau compte est correctement inséré dans la base de données après sa création.
@@ -139,7 +139,7 @@ public void testInsertCompte_Valid() throws Exception {
 }
 ----
 
-=== Scénario 3 : Gestion des erreurs lors de la création d'un compte
+=== Scénario 3 : Gestion des erreurs lors de la création d'un compte ( Theo Raban )
 
 ==== Description
 Vérifier la gestion des erreurs lors de la création d'un compte si une exception est levée.
@@ -178,7 +178,7 @@ public void testCreerNouveauCompte_Exception() throws Exception {
 }
 ----
 
-=== Scénario 4 : Création d'un compte avec un numéro de client inexistant
+=== Scénario 4 : Création d'un compte avec un numéro de client inexistant ( Theo Raban )
 
 ==== Description
 Essayer de créer un compte pour un numéro de client qui n'existe pas dans la base de données.
@@ -224,7 +224,7 @@ public void testCreerNouveauCompte_ClientInexistant() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Ajouter Employé"
 
-=== Scénario 1 : Ajouter un employé avec des informations valides
+=== Scénario 1 : Ajouter un employé avec des informations valides ( Theo Raban )
 
 ==== Description
 Ajouter un nouvel employé avec des informations valides.
@@ -285,7 +285,7 @@ public void testCreerEmploye_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Vérifier l'insertion de l'employé dans la base de données
+=== Scénario 2 : Vérifier l'insertion de l'employé dans la base de données ( Theo Raban )
 
 ==== Description
 Vérifier que le nouvel employé est correctement inséré dans la base de données après sa création.
@@ -343,7 +343,7 @@ public void testInsertEmploye_Valid() throws Exception {
 }
 ----
 
-=== Scénario 3 : Gestion des erreurs lors de la création d'un employé
+=== Scénario 3 : Gestion des erreurs lors de la création d'un employé ( Theo Raban )
 
 ==== Description
 Vérifier la gestion des erreurs lors de la création d'un employé si une exception est levée.
@@ -387,7 +387,7 @@ public void testCreerEmploye_Exception() throws Exception {
 }
 ----
 
-=== Scénario 4 : Création d'un employé avec un numéro d'agence inexistant
+=== Scénario 4 : Création d'un employé avec un numéro d'agence inexistant ( Theo Raban )
 
 === Description
 Essayer de créer un employé pour un numéro d'agence qui n'existe pas dans la base de données.
@@ -438,7 +438,7 @@ public void testCreerEmploye_AgenceInexistante() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Afficher la Liste des Employés"
 
-=== Scénario 1 : Afficher la liste des employés avec des employés existants
+=== Scénario 1 : Afficher la liste des employés avec des employés existants ( Theo Raban )
 
 ==== Description
 Afficher la liste des employés lorsque des employés existent dans la base de données.
@@ -510,7 +510,7 @@ public void testGetTousLesEmployes_EmployesExistants() throws Exception {
 }
 ----
 
-=== Scénario 2 : Afficher la liste des employés sans employés existants
+=== Scénario 2 : Afficher la liste des employés sans employés existants ( Theo Raban )
 
 ==== Description
 Afficher la liste des employés lorsque aucun employé n'existe dans la base de données.
@@ -552,7 +552,7 @@ public void testGetTousLesEmployes_AucunEmploye() throws Exception {
 }
 ----
 
-=== Scénario 3 : Gestion des erreurs lors de la récupération des employés
+=== Scénario 3 : Gestion des erreurs lors de la récupération des employés ( Theo Raban )
 
 ==== Description
 Vérifier la gestion des erreurs lorsque la récupération des employés provoque une exception.
@@ -593,7 +593,7 @@ public void testGetTousLesEmployes_Exception() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Modifier Compte"
 
-=== Scénario 1 : Modifier un compte existant avec des informations valides
+=== Scénario 1 : Modifier un compte existant avec des informations valides ( Yahya Magaz ) 
 
 ==== Description
 Modifier un compte existant avec des informations valides.
@@ -636,7 +636,7 @@ public void testModifierCompte_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Gestion des erreurs lors de la modification d'un compte
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un compte  ( Yahya Magaz ) 
 
 ==== Description
 Vérifier la gestion des erreurs lors de la modification d'un compte si une exception est levée.
@@ -676,7 +676,7 @@ public void testModifierCompte_CompteIntrouvable() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Modifier Client"
 
-=== Scénario 1 : Modifier un client existant avec des informations valides
+=== Scénario 1 : Modifier un client existant avec des informations valides  ( Yahya Magaz ) 
 
 ==== Description
 Modifier un client existant avec des informations valides.
@@ -724,7 +724,7 @@ public void testModifierClient_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Gestion des erreurs lors de la modification d'un client
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un client  ( Yahya Magaz ) 
 
 ==== Description
 Vérifier la gestion des erreurs lors de la modification d'un client si une exception est levée.
@@ -770,7 +770,7 @@ public void testModifierClient_ClientIntrouvable() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Supprimer Compte"
 
-=== Scénario 1 : Supprimer un compte existant
+=== Scénario 1 : Supprimer un compte existant  ( Yahya Magaz ) 
 
 ==== Description
 Supprimer un compte existant dans la base de données.
@@ -809,7 +809,7 @@ public void testSupprimerCompte_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Gestion des erreurs lors de la suppression d'un compte
+=== Scénario 2 : Gestion des erreurs lors de la suppression d'un compte  ( Yahya Magaz ) 
 
 ==== Description
 Vérifier la gestion des erreurs lors de la suppression d'un compte si une exception est levée.
@@ -845,9 +845,9 @@ public void testSupprimerCompte_CompteIntrouvable() throws Exception {
 }
 ----
 
-== Scénarios de Test pour la Fonctionnalité "Virement Compte a Compte "
+== Scénarios de Test pour la Fonctionnalité "Virement Compte a Compte " 
 
-=== Scénario 1 : Effectuer un virement entre deux comptes avec des informations valides
+=== Scénario 1 : Effectuer un virement entre deux comptes avec des informations valides  ( Thomas CEOLIN ) 
 
 ==== Description
 Effectuer un virement entre deux comptes bancaires existants avec des informations valides.
@@ -890,7 +890,7 @@ public void testinsertVirement_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Tentative de Virement avec un Montant Invalide
+=== Scénario 2 : Tentative de Virement avec un Montant Invalide ( Thomas CEOLIN ) 
 
 ==== Description
 Tentative de virement entre deux comptes bancaires existants avec un montant invalide et vérification qu'une exception appropriée est levée.
@@ -938,7 +938,7 @@ public void testInsertVirement_InvalidAmount() throws Exception {
 
 == Scénarios de Test pour la Fonctionnalité "Créditer un compte"
 
-=== Scénario 1 : Effectuer un crédit
+=== Scénario 1 : Effectuer un crédit  ( Thomas CEOLIN ) 
 
 ==== Description
 Effectuer un crédit sur un compte bancaire existant avec un montant spécifié et vérifier que le solde du compte est correctement mis à jour.
@@ -977,7 +977,7 @@ public void testinsertCredit_Valid() throws Exception {
 }
 ----
 
-=== Scénario 2 : Tentative de Crédit avec un Montant Invalide
+=== Scénario 2 : Tentative de Crédit avec un Montant Invalide  ( Thomas CEOLIN ) 
 
 ==== Description
 Tentative d'effectuer un crédit sur un compte bancaire existant avec un montant invalide et vérification qu'une exception appropriée est levée.
@@ -1020,7 +1020,7 @@ public void testInsertCredit_InvalidAmount() throws Exception {
 == Scénarios de Test pour la Fonctionnalité "Supprimer un Employer"
 
 
-=== Scénario 1 : Tentative de Suppression d'un Employé sans Sélection
+=== Scénario 1 : Tentative de Suppression d'un Employé sans Sélection  ( Thomas CEOLIN ) 
 
 ==== Description
 Tenter de supprimer un employé sans le sélectionner dans la table et vérifier qu'un message d'erreur approprié est affiché.
@@ -1050,7 +1050,7 @@ public void testSupprimerEmploye_NoSelection() {
 }
 ----
 
-=== Scénario 2 : Tentative de Suppression d'un Employé avec Échec de Suppression en Base de Données
+=== Scénario 2 : Tentative de Suppression d'un Employé avec Échec de Suppression en Base de Données ( Thomas CEOLIN ) 
 
 ==== Description
 Tenter de supprimer un employé sélectionné dans la table et vérifier que le processus de suppression échoue en base de données, puis qu'un message d'erreur approprié est affiché.
