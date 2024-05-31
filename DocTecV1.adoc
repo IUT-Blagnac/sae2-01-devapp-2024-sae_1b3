@@ -590,6 +590,7 @@ Le processus d'effectuer un virement implique plusieurs étapes. Il est essentie
 
 - Le solde des comptes ne doit pas dépasser le découvert autorisé.
 - Le montant maximal autorisé pour un virement est de 999999.
+- Le montant minimal autorisé pour faire un virement est de 1 euros
 
 === Partie du UseCase
 
@@ -609,7 +610,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 - OperationsManagementViewController : Ce contrôleur gère l'action de l'utilisateur pour effectuer un virement en appelant la méthode `doAutre()`.
 
-- OperationEditorPaneViewController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de virement dans l'interface utilisateur ( la méthode *displayDialog* && la méthode *doAjouter* ) 
+- OperationEditorPaneViewController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de virement dans l'interface utilisateur ( la méthode *displayDialog* && la méthode *doAjouter*, Il existe dans ces deux méthodes deux cases, une pour le crédit et une pour le débit, qui gèrent les opérations. ) 
 
 ==== Model.orm
 
@@ -648,7 +649,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 ==== Application.view
 
-- EmployeController : Ce contrôleur gère l'action adu chef d'agence pour supprimer un employé en appelant la méthode `supprimerEmploye()`.
+- EmployeController : Ce contrôleur gère l'action du chef d'agence pour supprimer un employé en appelant la méthode `supprimerEmploye()`.
 
 ==== Model.orm
 
