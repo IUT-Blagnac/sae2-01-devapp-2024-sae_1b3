@@ -46,6 +46,18 @@ L'application DailyBank joue un rôle crucial en tant que plateforme bancaire ce
 
 == Installation et Configuration
 
+Pour commencer, vous devez installer Java et Maven sur votre machine.
+
+1. **Installation de Java :**
+   - Téléchargez la dernière version de Java JDK depuis le site officiel d'[Oracle](https://www.oracle.com/java/technologies/javase-downloads.html).
+   - Suivez les instructions d'installation spécifiques à votre système d'exploitation.
+   - Vérifiez l'installation en ouvrant un terminal ou une invite de commande et en tapant `java -version`. Vous devriez voir la version installée de Java.
+
+2. **Installation de Maven :**
+   - Téléchargez la dernière version de Maven depuis le site officiel d'[Apache Maven](https://maven.apache.org/download.cgi).
+   - Suivez les instructions d'installation spécifiques à votre système d'exploitation.
+   - Vérifiez l'installation en ouvrant un terminal ou une invite de commande et en tapant `mvn -version`. Vous devriez voir la version installée de Maven.
+
 === Mise en place du workspace (1.1)
 
 Pour préparer votre espace de travail :
