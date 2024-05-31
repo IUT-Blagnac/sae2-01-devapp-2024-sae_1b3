@@ -1,1 +1,563 @@
+= Scénarios de Test pour les fonctionnalités de la V1"
+:toc: right
+:toclevels: 4
+
+== Scénarios de Test pour la Fonctionnalité "Ajouter Compte"
+
+=== Scénario 1 : Ajouter un compte avec des informations valides
+
+==== Description
+Ajouter un nouveau compte pour un client existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| IdNumCompte      | 1 (compte déjà existant)
+| IdNumCompte      | 2 (nouveau compte)
+|===
+
+==== Action
+Appeler la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | 2
+| Solde                  | 0.0
+| DecouvertAutorise      | 1000.0
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerNouveauCompte_Valid() throws Exception {
+    // Arrange
+    ArrayList<CompteCourant> comptesExistants = new ArrayList<>();
+    comptesExistants.add(new CompteCourant(1, 100, 500.0, "N", 1));
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenReturn(comptesExistants);
+
+    // Act
+    CompteCourant nouveauCompte = comptesManagement.creerNouveauCompte();
+
+    // Assert
+    assertNotNull(nouveauCompte);
+    assertEquals(2, nouveauCompte.getIdNumCompte());
+    assertEquals(0.0, nouveauCompte.getSolde(), 0.001);
+    assertEquals(1000.0, nouveauCompte.getDecouvertAutorise(), 0.001);
+}
+----
+
+=== Scénario 2 : Vérifier l'insertion du compte dans la base de données
+
+==== Description
+Vérifier que le nouveau compte est correctement inséré dans la base de données après sa création.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | 2
+| Solde                  | 0.0
+| DecouvertAutorise      | 1000.0
+| EstCloture             | "N"
+| IdNumCli               | 2
+|===
+
+==== Action
+Appeler la méthode `insertCompte(CompteCourant compte)`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| SQL exécuté            | INSERT INTO CompteCourant VALUES (2, 200, 0.0, "N", 2)
+| Commit transaction     | Oui
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testInsertCompte_Valid() throws Exception {
+    // Arrange
+    CompteCourant compte = new CompteCourant(2, 200, 0.0, "N", 2);
+    Connection mockConnection = mock(Connection.class);
+    PreparedStatement mockStatement = mock(PreparedStatement.class);
+    when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+    // Act
+    accessBDCompteCourant.insertCompte(compte);
+
+    // Assert
+    verify(mockStatement).setInt(1, 2);
+    verify(mockStatement).setInt(2, 200);
+    verify(mockStatement).setDouble(3, 0.0);
+    verify(mockStatement).setString(4, "N");
+    verify(mockStatement).setInt(5, 2);
+    verify(mockStatement).executeUpdate();
+    verify(mockStatement).close();
+    verify(mockConnection).commit();
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la création d'un compte
+
+==== Description
+Vérifier la gestion des erreurs lors de la création d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | Invalide ou non fourni
+|===
+
+=== Action
+Simuler une exception lors de l'appel à la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Exception levée        | SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testCreerNouveauCompte_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenThrow(new SQLException());
+
+    // Act
+    comptesManagement.creerNouveauCompte();
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+=== Scénario 4 : Création d'un compte avec un numéro de client inexistant
+
+==== Description
+Essayer de créer un compte pour un numéro de client qui n'existe pas dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCli               | 999 (numéro de client inexistant)
+|===
+
+==== Action
+Appeler la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Exception levée        | ClientNotFoundException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerNouveauCompte_ClientInexistant() throws Exception {
+    // Arrange
+    ArrayList<CompteCourant> comptesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenReturn(comptesExistants);
+    Mockito.when(mockAccessBDCompteCourant.getClientById(999)).thenReturn(null); // Client inexistant
+
+    // Act
+    try {
+        comptesManagement.creerNouveauCompte();
+        fail("Expected an Exception to be thrown");
+    } catch (Exception e) {
+        // Assert
+        assertTrue(e instanceof ClientNotFoundException);
+    }
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Ajouter Employé"
+
+=== Scénario 1 : Ajouter un employé avec des informations valides
+
+==== Description
+Ajouter un nouvel employé avec des informations valides.
+
+=== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 1 (employé déjà existant)
+| IdEmploye     | 2 (nouvel employé)
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerEmploye_Valid() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    employesExistants.add(new Employe(1, "Martin", "Paul", "456 Rue Exemple", "0987654321", "paul.martin@example.com", 1));
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    Employe nouvelEmploye = employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+
+    // Assert
+    assertNotNull(nouvelEmploye);
+    assertEquals(2, nouvelEmploye.getIdEmploye());
+    assertEquals("Dupont", nouvelEmploye.getNom());
+    assertEquals("Jean", nouvelEmploye.getPrenom());
+    assertEquals("123 Rue Exemple", nouvelEmploye.getAdresse());
+    assertEquals("0123456789", nouvelEmploye.getNumTel());
+    assertEquals("jean.dupont@example.com", nouvelEmploye.getEmail());
+    assertEquals(1, nouvelEmploye.getIdAgence());
+}
+----
+
+=== Scénario 2 : Vérifier l'insertion de l'employé dans la base de données
+
+==== Description
+Vérifier que le nouvel employé est correctement inséré dans la base de données après sa création.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `insertEmploye(Employe employe)`.
+
+==== Réponse attendue
+
+|===
+| Attribut           | Valeur
+| SQL exécuté        | INSERT INTO Employe VALUES (2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1)
+| Commit transaction | Oui
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testInsertEmploye_Valid() throws Exception {
+    // Arrange
+    Employe employe = new Employe(2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+    Connection mockConnection = mock(Connection.class);
+    PreparedStatement mockStatement = mock(PreparedStatement.class);
+    when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+    // Act
+    accessBDEmploye.insertEmploye(employe);
+
+    // Assert
+    verify(mockStatement).setInt(1, 2);
+    verify(mockStatement).setString(2, "Dupont");
+    verify(mockStatement).setString(3, "Jean");
+    verify(mockStatement).setString(4, "123 Rue Exemple");
+    verify(mockStatement).setString(5, "0123456789");
+    verify(mockStatement).setString(6, "jean.dupont@example.com");
+    verify(mockStatement).setInt(7, 1);
+    verify(mockStatement).executeUpdate();
+    verify(mockStatement).close();
+    verify(mockConnection).commit();
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la création d'un employé
+
+==== Description
+Vérifier la gestion des erreurs lors de la création d'un employé si une exception est levée.
+
+=== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Nom           | null
+| Prénom        | null
+| Adresse       | null
+| NumTel        | null
+| Email         | null
+| IdAgence      | 1
+|===
+
+==== Action
+Simuler une exception lors de l'appel à la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testCreerEmploye_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenThrow(new SQLException());
+
+    // Act
+    employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+=== Scénario 4 : Création d'un employé avec un numéro d'agence inexistant
+
+=== Description
+Essayer de créer un employé pour un numéro d'agence qui n'existe pas dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 999 (numéro d'agence inexistant)
+|===
+
+==== Action
+Appeler la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| AgenceNotFoundException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerEmploye_AgenceInexistante() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+    Mockito.when(mockAccessBDEmploye.getAgenceById(999)).thenReturn(null); // Agence inexistante
+
+    // Act
+    try {
+        employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 999);
+        fail("Expected an Exception to be thrown");
+    } catch (Exception e) {
+        // Assert
+        assertTrue(e instanceof AgenceNotFoundException);
+    }
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Afficher la Liste des Employés"
+
+=== Scénario 1 : Afficher la liste des employés avec des employés existants
+
+==== Description
+Afficher la liste des employés lorsque des employés existent dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 1
+| Nom           | "Martin"
+| Prénom        | "Paul"
+| Adresse       | "456 Rue Exemple"
+| NumTel        | "0987654321"
+| Email         | "paul.martin@example.com"
+| IdAgence      | 1
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Nombre d'employés | 2
+| Employé 1      | {IdEmploye: 1, Nom: "Martin", Prénom: "Paul", Adresse: "456 Rue Exemple", NumTel: "0987654321", Email: "paul.martin@example.com", IdAgence: 1}
+| Employé 2      | {IdEmploye: 2, Nom: "Dupont", Prénom: "Jean", Adresse: "123 Rue Exemple", NumTel: "0123456789", Email: "jean.dupont@example.com", IdAgence: 1}
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testGetTousLesEmployes_EmployesExistants() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    employesExistants.add(new Employe(1, "Martin", "Paul", "456 Rue Exemple", "0987654321", "paul.martin@example.com", 1));
+    employesExistants.add(new Employe(2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1));
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    List<Employe> result = employesManagement.getTousLesEmployes();
+
+    // Assert
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    assertEquals(1, result.get(0).getIdEmploye());
+    assertEquals("Martin", result.get(0).getNom());
+    assertEquals("Paul", result.get(0).getPrenom());
+    assertEquals("456 Rue Exemple", result.get(0).getAdresse());
+    assertEquals("0987654321", result.get(0).getNumTel());
+    assertEquals("paul.martin@example.com", result.get(0).getEmail());
+    assertEquals(1, result.get(0).getIdAgence());
+    assertEquals(2, result.get(1).getIdEmploye());
+    assertEquals("Dupont", result.get(1).getNom());
+    assertEquals("Jean", result.get(1).getPrenom());
+    assertEquals("123 Rue Exemple", result.get(1).getAdresse());
+    assertEquals("0123456789", result.get(1).getNumTel());
+    assertEquals("jean.dupont@example.com", result.get(1).getEmail());
+    assertEquals(1, result.get(1).getIdAgence());
+}
+----
+
+=== Scénario 2 : Afficher la liste des employés sans employés existants
+
+==== Description
+Afficher la liste des employés lorsque aucun employé n'existe dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Aucun employé | 
+|===
+
+==== Action
+Appeler la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut         | Valeur
+| Nombre d'employés| 0
+| Liste d'employés | Vide
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testGetTousLesEmployes_AucunEmploye() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    List<Employe> result = employesManagement.getTousLesEmployes();
+
+    // Assert
+    assertNotNull(result);
+    assertTrue(result.isEmpty());
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la récupération des employés
+
+==== Description
+Vérifier la gestion des erreurs lorsque la récupération des employés provoque une exception.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Aucun employé | 
+|===
+
+==== Action
+Simuler une exception lors de l'appel à la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testGetTousLesEmployes_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenThrow(new SQLException());
+
+    // Act
+    employesManagement.getTousLesEmployes();
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+
+
+
 
