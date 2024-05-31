@@ -684,13 +684,15 @@ Modifier un client existant avec des informations valides.
 ==== Données d'entrée
 
 |===
-| Attribut          | Valeur
-| ID du client      | 1
-| Nouveau nom       | "NouveauNom"
-| Nouveau prénom    | "NouveauPrenom"
-| Nouvelle adresse  | "NouvelleAdresse"
-| Nouveau numéro de téléphone | "0123456789"
-| Nouveau email     | "nouveau.email@example.com"
+| Attribut                        | Valeur
+| ID du client                    | 1
+| Nouveau nom                     | "NouveauNom"
+| Nouveau prénom                  | "NouveauPrenom"
+| Nouvelle adresse postale        | "NouvelleAdresse"
+| Nouveau email                   | "nouveau.email@example.com"
+| Nouveau numéro de téléphone     | "0123456789"
+| Statut d'inactivité             | "Non"
+| Identifiant de l'agence         | 123
 |===
 
 ==== Action
@@ -699,7 +701,7 @@ Appeler la méthode `modifierClient()` avec les informations valides.
 ==== Réponse attendue
 
 |===
-| Attribut               | Valeur
+| Attribut                          | Valeur
 | Le client est mis à jour avec succès dans la base de données.
 | Les nouvelles informations du client sont correctement enregistrées.
 |===
@@ -711,11 +713,11 @@ Appeler la méthode `modifierClient()` avec les informations valides.
 @Test
 public void testModifierClient_Valid() throws Exception {
     // Arrange
-    Client client = new Client(1, "NomActuel", "PrenomActuel", "AdresseActuelle", "0123456789", "email.actuel@example.com");
+    Client client = new Client(1, "NomActuel", "PrenomActuel", "AdresseActuelle", "email.actuel@example.com", "0123456789", "Non", 123);
     Mockito.when(mockAccessBDClient.getClientById(1)).thenReturn(client);
 
     // Act
-    boolean success = clientsManagement.modifierClient(1, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "0123456789", "nouveau.email@example.com");
+    boolean success = clientsManagement.modifierClient(1, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "nouveau.email@example.com", "0123456789", "Non", 123);
 
     // Assert
     assertTrue(success);
@@ -730,13 +732,15 @@ Vérifier la gestion des erreurs lors de la modification d'un client si une exce
 ==== Données d'entrée
 
 |===
-| Attribut          | Valeur
-| ID du client      | 999 (client inexistant)
-| Nouveau nom       | "NouveauNom"
-| Nouveau prénom    | "NouveauPrenom"
-| Nouvelle adresse  | "NouvelleAdresse"
-| Nouveau numéro de téléphone | "0123456789"
-| Nouveau email     | "nouveau.email@example.com"
+| Attribut                        | Valeur
+| ID du client                    | 999 (client inexistant)
+| Nouveau nom                     | "NouveauNom"
+| Nouveau prénom                  | "NouveauPrenom"
+| Nouvelle adresse postale        | "NouvelleAdresse"
+| Nouveau email                   | "nouveau.email@example.com"
+| Nouveau numéro de téléphone     | "0123456789"
+| Statut d'inactivité             | "Non"
+| Identifiant de l'agence         | 123
 |===
 
 ==== Action
@@ -745,7 +749,7 @@ Appeler la méthode `modifierClient()` avec un ID de client inexistant.
 ==== Réponse attendue
 
 |===
-| Attribut               | Valeur
+| Attribut                          | Valeur
 | Une exception de type `ClientIntrouvableException` est levée.
 |===
 
@@ -759,9 +763,10 @@ public void testModifierClient_ClientIntrouvable() throws Exception {
     Mockito.when(mockAccessBDClient.getClientById(999)).thenReturn(null);
 
     // Act
-    clientsManagement.modifierClient(999, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "0123456789", "nouveau.email@example.com");
+    clientsManagement.modifierClient(999, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "nouveau.email@example.com", "0123456789", "Non", 123);
 }
 ----
+
 
 == Scénarios de Test pour la Fonctionnalité "Supprimer Compte"
 
