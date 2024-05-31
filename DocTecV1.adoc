@@ -422,6 +422,99 @@ getEmployeByLogin(String login): Récupère un employé à partir de son login.
 
 Les ajustements effectués permettent d'ajouter la fonctionnalité de création d'un employé à l'application. Le contrôleur gère l'interaction avec l'interface utilisateur et les opérations métier, tandis que les méthodes ajoutées dans Access_BD_Employe facilitent la manipulation des données des employés dans la base de données.
 
+---
+
+
+=== Modifier un compte(Yahya MAGAZ)
+Modification d'un compte existant, son état sera actualisé dans la base de données.
+
+- Conditions : le compte doit être existant et ouvert, le le decouvert autorisé ne peut pas êre supérieur au crédit.
+
+Partie du code qui vérifie les conditions:
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/exemplecode.PNG[]
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ModifierYahya.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGmodifier.PNG[]
+
+Classe utilisées :
+
+package Application.control :
+
+- ComptesManagement ->  méthode 'modifierCompteCourant' appelée par la méthode doModifierCompte (ComptesManagementViewController)
+
+package Application.view :
+
+- ComptesManagementViewController -> la méthode 'doModifierCompte' appelée par comptesmanagement.fxml
+- ComptesEditorPaneViewController -> la case 'SUPPRIMER'
+
+package Model.orm :
+
+- Access_BD_CompteCourant -> la méthode 'updateCompteCourant' appelée par 'modifierCompteCourant' (ComptesManagement)
+
+---
+
+=== Supprimer un compte (Yahya MAGAZ)
+Suppression d'un compte ouvert, son état sera actualisé dans la base de données. 
+
+- Conditions : le solde du compte à cloturer doit supérieur ou égal à 0.
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/supprimerYahya2.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGmodifier.PNG[]
+
+Classe utilisées :
+
+package Application.control :
+
+- ComptesManagement ->  méthode 'supprimerCompteCourant' 
+
+package Application.view :
+
+- ComptesManagementViewController -> la méthode 'doSupprimerCompte' appelée par comptesmanagement.fxml
+- ComptesEditorPaneViewController -> la case 'SUPPRIMER'
+
+package Model.orm :
+
+- Access_BD_CompteCourant -> la méthode 'deleteCompteCourant' appelée par duSupprimerCompte (ComptesManagementViewController)
+
+
+
+
+
+---
+
+=== CRUD Employé - UPDATE (Yahya MAGAZ)
+Permet de mettre à jour les informations d'un employés, les champs mises à jour le seront également dans la base de données.
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/usecasemodifiercompte.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGModifierClient.PNG[]
+
+Classe utilisées :
+
+package Application.view :
+
+- EmployeController -> la méthode 'modifierEmploye' appelée par ModifyEmploye.fxml (bouton modifier sur la scène)
+- ModifyEmployeController -> Création d'une classe qui permet de gérer le fichier fxml
+
+package Model.orm :
+
+- Access_BD_Employe -> la méthode 'updateEmploye' qui permet d'enregistrer les changements dans la base de données
+
 
 
 
