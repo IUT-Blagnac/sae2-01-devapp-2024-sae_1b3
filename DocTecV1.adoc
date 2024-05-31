@@ -1,0 +1,45 @@
+= Document Technique Utilisateur DailyBank - Version : 1.0 - Date : 26 mai 2023 Groupe 1B3 
+:icons: font
+:models: models
+:experimental:
+:incremental:
+:numbered:
+:toc: macro
+:window: _blank
+:correction!:
+
+ifndef::env-github[:icons: font]
+// Specific to GitHub
+ifdef::env-github[]
+:correction:
+:!toc-title:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:icongit: Git
+endif::[]
+
+Équipe de développement :
+- Chef de projet : Théo RABAN
+- Développeurs : Yahya MAGAZ, Thomas Ceolin, Théo RABAN
+
+toc::[]
+
+== Présentation de l'application
+=== Contexte général
+L'application DailyBank a été conçue pour répondre aux besoins de gestion des opérations bancaires courantes des clients et du personnel d'une banque. Ce projet s'inscrit dans le cadre d'un projet pédagogique à l'IUT de Blagnac, visant à fournir une plateforme complète de gestion bancaire. DailyBank permet aux utilisateurs de gérer leurs comptes, de consulter leurs transactions, et aux employés de la banque de gérer les profils des clients ainsi que les différentes opérations bancaires.
+
+=== Description du besoin
+Le besoin principal est de créer une application bancaire qui soit intuitive, sécurisée et efficace pour gérer les opérations financières. Les fonctionnalités nécessaires incluent la gestion des comptes clients, la gestion des transactions (débits, crédits, virements), et la possibilité pour les employés de la banque de créer, modifier et supprimer des profils clients. De plus, l'application doit permettre de générer des rapports et d'assurer la conformité avec les réglementations bancaires.
+
+=== Cas d'utilisation
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/usecase.PNG[]
+L'application DailyBank doit permettre aux guichetiers de créditer ou débiter un compte client, de créer un nouveau compte, d'effectuer des virements entre comptes d'un même client, et de clôturer des comptes en cas de besoin. Les chefs d'agence doivent pouvoir gérer les profils des employés, incluant la création, la consultation, la mise à jour et la suppression de comptes employés. Ces fonctionnalités doivent être intégrées dans la version 1 de l'application pour assurer une gestion efficace des comptes clients et des employés au sein de DailyBank. Les guichetiers se concentrent sur les opérations bancaires, tandis que les chefs d'agence supervisent la gestion des employés.
+
+=== Diagramme de classe des données global
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGclasse.PNG[]
+Le diagramme de classe des données pour l'application DailyBank représente les principales entités et leurs relations. Les classes clés incluent Client, Compte, et Employe. La classe Client contient des attributs comme idNumCli, nom, prenom, adressePostale, email, telephone, estInactif et idAg, permettant de gérer les informations personnelles et l'état d'activité des clients. La classe Compte gère les détails financiers associés aux clients, incluant le solde et l'historique des transactions. La classe Employe distingue les rôles des utilisateurs, spécifiquement les Guichetiers et les Chefs d'agence, chacun ayant des privilèges différents. Les chefs d'agence peuvent gérer les comptes employés, tandis que les guichetiers exécutent les opérations bancaires courantes. Les clients inactifs, marqués par l'attribut estInactif, sont gérés différemment pour les opérations bancaires. Ce diagramme de classe est essentiel pour structurer la base de données et assurer une gestion cohérente et sécurisée des informations au sein de DailyBank.
