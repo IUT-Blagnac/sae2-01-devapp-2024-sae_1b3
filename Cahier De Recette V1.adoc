@@ -845,6 +845,177 @@ public void testSupprimerCompte_CompteIntrouvable() throws Exception {
 }
 ----
 
+== Scénarios de Test pour la Fonctionnalité "Virement Compte a Compte "
+
+=== Scénario : Effectuer un virement entre deux comptes avec des informations valides
+
+==== Description
+Effectuer un virement entre deux comptes bancaires existants avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| CompteSource     | 12345
+| CompteDestination| 67890
+| Montant          | 500.00
+|===
+
+==== Action
+Appeler la méthode `insertVirement()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Le système effectue le virement du montant spécifié du compte source vers le compte de destination.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testinsertVirement_Valid() throws Exception {
+    // Arrange
+    CompteBancaire compteSource = new CompteBancaire(12345, 1000.0);
+    CompteBancaire compteDestination = new CompteBancaire(67890, 200.0);
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compteSource);
+    Mockito.when(mockServiceBancaire.getCompte(67890)).thenReturn(compteDestination);
+
+    // Act
+    boolean virementEffectue = serviceVirement.insertVirement(12345, 67890, 500.00);
+
+    // Assert
+    assertTrue(virementEffectue);
+    assertEquals(500.00, compteSource.getSolde(), 0.001);
+    assertEquals(700.00, compteDestination.getSolde(), 0.001);
+}
+----
+
+=== Scénario : Tentative de Virement avec un Montant Invalide
+
+==== Description
+Tentative de virement entre deux comptes bancaires existants avec un montant invalide et vérification qu'une exception appropriée est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut            | Valeur
+| Compte Source       | 12345
+| Compte Destination  | 67890
+| Montant             | -100.00
+|===
+
+==== Action
+Appeler la méthode `insertVirement()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Une exception de type `ManagementRuleViolation` est levée, indiquant un montant invalide pour le virement.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ManagementRuleViolation.class)
+public void testInsertVirement_InvalidAmount() throws Exception {
+    // Arrange
+    // Créer un compte source
+    CompteBancaire compteSource = new CompteBancaire(12345, 500.0);
+    // Créer un compte destination
+    CompteBancaire compteDestination = new CompteBancaire(67890, 1000.0);
+    // Simuler la récupération des comptes par leurs numéros
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compteSource);
+    Mockito.when(mockServiceBancaire.getCompte(67890)).thenReturn(compteDestination);
+
+    // Act
+    // Appeler la méthode pour effectuer le virement avec un montant invalide
+    serviceVirement.insertVirement(12345, 67890, -100.00);
+
+    // Assert
+    // Vérifier qu'une exception de type ManagementRuleViolation est levée
+}
+----
+
+
+== Scénarios de Test pour la Fonctionnalité "Créditer un compte"
+
+=== Scénario : Effectuer un crédit
+
+==== Description
+Effectuer un crédit sur un compte bancaire existant avec un montant spécifié et vérifier que le solde du compte est correctement mis à jour.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| NuméroCompte  | 12345
+| Montant       | 1000.00
+|===
+
+==== Action
+Appeler la méthode `insertCredit()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Le système effectue le crédit du montant spécifié sur le compte indiqué et met à jour le solde du compte en conséquence.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testinsertCredit_Valid() throws Exception {
+    // Arrange
+    CompteBancaire compte = new CompteBancaire(12345, 500.0);
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compte);
+
+    // Act
+    boolean creditEffectue = serviceCredit.insertCredit(12345, 1000.00);
+
+    // Assert
+    assertTrue(creditEffectue);
+    assertEquals(1500.00, compte.getSolde(), 0.001);
+}
+----
+
+=== Scénario : Tentative de Crédit avec un Montant Invalide
+
+==== Description
+Tentative d'effectuer un crédit sur un compte bancaire existant avec un montant invalide et vérification qu'une exception appropriée est levée.
+
+==== Données d'entrée
+
+|===
+| Compte        | 12345
+| Montant       | -100.00
+|===
+
+==== Action
+Appeler la méthode `insertCredit()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Une exception de type `ManagementRuleViolation` est levée, indiquant un montant invalide pour le crédit.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ManagementRuleViolation.class)
+public void testInsertCredit_InvalidAmount() throws Exception {
+    // Arrange
+    // Créer un compte
+    CompteBancaire compte = new CompteBancaire(12345, 500.0);
+    // Simuler la récupération du compte par son numéro
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compte);
+
+    // Act
+    // Appeler la méthode pour effectuer le crédit avec un montant invalide
+    serviceCredit.insertCredit(12345, -100.00);
+
+    // Assert
+    // Vérifier qu'une exception de type ManagementRuleViolation est levée
+}
+----
 
 
 
