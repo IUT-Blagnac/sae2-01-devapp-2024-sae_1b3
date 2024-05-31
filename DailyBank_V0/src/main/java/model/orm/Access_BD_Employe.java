@@ -165,7 +165,9 @@ public class Access_BD_Employe {
      * @param employe L'employé avec les nouvelles informations.
      * @throws DataAccessException      Si une erreur d'accès aux données survient.
      * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
-     */
+	 *@author Yahya MAGAZ	
+	 */
+
 	public void updateEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {
 			Connection con = LogToDatabase.getConnexion();

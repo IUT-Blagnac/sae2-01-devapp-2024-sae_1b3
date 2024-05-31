@@ -146,6 +146,7 @@ public class Access_BD_CompteCourant {
 	 * @throws ManagementRuleViolation           Erreur sur le solde courant par
 	 *                                           rapport au débitAutorisé (solde <
 	 *                                           débitAutorisé)
+	 * @author Yahya MAGAZ
 	 */
 	public void updateCompteCourant(CompteCourant cc) throws RowNotFoundOrTooManyRowsException, DataAccessException,
         DatabaseConnexionException, ManagementRuleViolation {
@@ -269,6 +270,7 @@ public class Access_BD_CompteCourant {
      * @param compte Le compte à supprimer
      * @throws DataAccessException        Erreur d'accès aux données (requête mal formée ou autre)
      * @throws DatabaseConnexionException Erreur de connexion
+	 * @author Yahya MAGAZ
      */
     public void deleteCompteCourant(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		// Supprimer les opérations associées au compte
@@ -300,6 +302,7 @@ public class Access_BD_CompteCourant {
 	 * @param compte Le compte pour lequel les opérations doivent être supprimées.
 	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
 	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 * @author Yahya MAGAZ
 	 */
 	private void deleteOperationsForCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		String query = "DELETE FROM Operation WHERE idNumCompte = ?";

@@ -281,6 +281,7 @@ public class Access_BD_Client {
 	 * @throws DataAccessException               Erreur d'accès aux données (requête
 	 *                                           mal formée ou autre)
 	 * @throws DatabaseConnexionException        Erreur de connexion
+	 * @author Yahya MAGAZ
 	 */
 	public void updateClient(Client client)
 			throws RowNotFoundOrTooManyRowsException, DataAccessException, DatabaseConnexionException {

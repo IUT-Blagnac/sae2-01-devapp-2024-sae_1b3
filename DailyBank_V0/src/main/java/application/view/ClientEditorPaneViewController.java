@@ -63,6 +63,7 @@ public class ClientEditorPaneViewController {
      * @param client Le client à modifier.
      * @param mode   Le mode d'édition (création, modification, suppression).
      * @return Le client modifié ou null en cas d'annulation.
+	 * @author Yahya MAGAZ
      */
 	public Client displayDialog(Client client, EditionMode mode) {
 

@@ -179,6 +179,17 @@ public class ComptesManagement {
 		return listeCpt;
 	}
 
+
+		/**
+	 * Modifie les détails d'un compte courant existant.
+	 * 
+	 * @param compte Le compte courant à modifier.
+	 * @return Le compte courant modifié.
+	 * @throws RowNotFoundOrTooManyRowsException Si aucune ligne ou trop de lignes sont trouvées lors de la modification.
+	 * @throws ManagementRuleViolation Si une règle de gestion est violée lors de la modification.
+	 * 
+	 * @author Yahya MAGAZ
+	 */
 	public CompteCourant modifierCompteCourant(CompteCourant compte) throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
 		CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
 		CompteCourant result = cep.doCompteEditorDialog(this.clientDesComptes, compte, EditionMode.MODIFICATION);
@@ -200,8 +211,13 @@ public class ComptesManagement {
 	
 	
 	
-
-
+		/**
+	 * Supprime un compte courant existant.
+	 * 
+	 * @param compte Le compte courant à supprimer.
+	 * 
+	 * @author Yahya MAGAZ
+	 */
 	public void supprimerCompteCourant(CompteCourant compte) {
 	if (compte != null) {
 		try {

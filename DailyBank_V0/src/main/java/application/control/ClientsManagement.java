@@ -66,12 +66,14 @@ public class ClientsManagement {
 		this.cmViewController.displayDialog();
 	}
 
-	/**
-     * Modifie les détails d'un client existant.
-     * 
-     * @param c Le client à modifier.
-     * @return Le client modifié.
-     */
+		/**
+	 * Modifie les détails d'un client existant.
+	 * 
+	 * @param c Le client à modifier.
+	 * @return Le client modifié.
+	 * 
+	 * @author Yahya MAGAZ
+	 */
 	public Client modifierClient(Client c) {
 		ClientEditorPane cep = new ClientEditorPane(this.cmStage, this.dailyBankState);
 		Client result = cep.doClientEditorDialog(c, EditionMode.MODIFICATION);
@@ -125,6 +127,7 @@ public class ClientsManagement {
      * Gère les comptes d'un client donné.
      * 
      * @param c Le client dont les comptes doivent être gérés.
+	 * @author Yahya MAGAZ
      */
 	public void gererComptesClient(Client c) {
 		ComptesManagement cm = new ComptesManagement(this.cmStage, this.dailyBankState, c);
