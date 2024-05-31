@@ -1,4 +1,4 @@
-= Document Technique Utilisateur DailyBank - Version : 1.0 - Date : 26 mai 2023 Groupe 1B3 
+= Document Technique Utilisateur DailyBank - Version : 1.0 - Date : 31 Juin 2024 Groupe 1B3 
 :icons: font
 :models: models
 :experimental:
