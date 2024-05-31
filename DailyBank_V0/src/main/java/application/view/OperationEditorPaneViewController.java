@@ -106,34 +106,56 @@ public class OperationEditorPaneViewController {
 			this.cbTypeOpe.getSelectionModel().select(0);
 			break;
 			case VIREMENT:
+			
+			// Définir le titre de la fenêtre
 			this.containingStage.setTitle("Enregistrer un virement");
+
+
 			info = "Compte n°" + this.compteEdite.idNumCompte + "  Solde : " + this.compteEdite.solde
 					+ "  Découvert Autorisé : " + Integer.toString(this.compteEdite.debitAutorise);
 			this.lblMessage.setText(info);
-			// this.lblNomOp.setText("Comptes destinataires\npossible (ouvert)");
-			this.btnOk.setText("Effectuer virement");
-			this.btnCancel.setText("Annuler");
 
+			// Définir le texte des boutons
+    		this.btnOk.setText("Effectuer virement");
+    		this.btnCancel.setText("Annuler");
+
+			// Accéder à la base de données pour obtenir les comptes courants
 			Access_BD_CompteCourant ac = new Access_BD_CompteCourant();
 			ObservableList<String> listTypesComptesPossibles = FXCollections.observableArrayList();
 			ArrayList<CompteCourant> listCompte = new ArrayList<CompteCourant>();
 
 			try {
+				// Tentative de récupération des comptes courants
 				listCompte = ac.getCompteCourants(this.compteEdite.idNumCli, true, this.compteEdite.idNumCompte);
 			} catch (DataAccessException e) {
+				// Gestion de l'exception en cas d'erreur d'accès aux données
+				// Vous pouvez ajouter un message ou d'autres actions de gestion des erreurs ici
+				System.err.println("Erreur d'accès aux données : " + e.getMessage());
 			} catch (DatabaseConnexionException e) {
+				// Gestion de l'exception en cas d'erreur de connexion à la base de données
+				// Vous pouvez ajouter un message ou d'autres actions de gestion des erreurs ici
+				System.err.println("Erreur de connexion à la base de données : " + e.getMessage());
 			}
+			
+			// Parcourir la liste des comptes récupérés
 			for (int i = 0; i < listCompte.size(); i++) {
-				if (listCompte.get(i) != null) {
-					if (listCompte.get(i).estCloture.equals("N")) {
-						listTypesComptesPossibles.add("Numéro du Compte = " + listCompte.get(i).idNumCompte
-								+ "   Solde : " + listCompte.get(i).solde);
-					}
+				// Vérifier si le compte actuel est non nul et non clôturé
+				if (listCompte.get(i) != null && listCompte.get(i).estCloture.equals("N")) {
+					// Construire une chaîne d'informations sur le compte
+					String compteInfo = "Numéro du Compte = " + listCompte.get(i).idNumCompte
+							+ "   Solde : " + listCompte.get(i).solde;
+					// Ajouter l'information sur le compte à la liste des types de comptes possibles
+					listTypesComptesPossibles.add(compteInfo);
 				}
 			}
+			
+			// Définir les éléments de la liste déroulante avec la liste des types de comptes possibles
 			this.cbTypeOpe.setItems(listTypesComptesPossibles);
+			// Sélectionner le premier élément dans la liste déroulante
 			this.cbTypeOpe.getSelectionModel().select(0);
+			// Sortir de la structure switch
 			break;
+			
 	}
 
 		// Paramétrages spécifiques pour les chefs d'agences
@@ -236,48 +258,71 @@ private void doAjouter() {
             this.containingStage.close();
             break;
 
-        case VIREMENT:
-            double montant2;
+			case VIREMENT:
+			// Déclaration des variables
+			double montantVirement;
+		
+			// Supprimer les styles d'erreur des champs
+			this.txtMontant.getStyleClass().remove("borderred");
+			this.lblMontant.getStyleClass().remove("borderred");
+			this.lblMessage.getStyleClass().remove("borderred");
+		
+			// Afficher les informations sur le compte
+			info = "Cpt. : " + this.compteEdite.idNumCompte + "  "
+					+ String.format(Locale.ENGLISH, "%12.02f", this.compteEdite.solde) + "  /  "
+					+ String.format(Locale.ENGLISH, "%8d", this.compteEdite.debitAutorise);
+			this.lblMessage.setText(info);
+		
+			try {
+				// Récupérer le montant du virement depuis le champ de texte et le convertir en double
+				montantVirement = Double.parseDouble(this.txtMontant.getText().trim());
+				// Vérifier si le montant est valide (supérieur à zéro)
+				if (montantVirement <= 0) throw new NumberFormatException();
+			} catch (NumberFormatException nfe) {
+				// Gestion de l'exception en cas de montant invalide
+				// Ajouter des styles d'erreur aux champs et demander le focus sur le champ de montant
+				this.txtMontant.getStyleClass().add("borderred");
+				this.lblMontant.getStyleClass().add("borderred");
+				this.txtMontant.requestFocus();
+				return; // Sortir de la structure switch
+			}
+		
+			// Vérifier si le montant du virement est supérieur à la limite
+			if (montantVirement > 999999) {
+				// Afficher une alerte si le montant dépasse la limite
+				AlertUtilities.showAlert(this.containingStage, "Opération impossible",
+						"Le montant doit être inférieur à 1 000 000 !", "", AlertType.INFORMATION);
+				return; // Sortir de la structure switch
+			}
+		
+			// Récupérer l'identifiant du compte sélectionné dans la liste déroulante
+			String cptChoisi = this.cbTypeOpe.getValue();
+			int idNumCpt = -1;
+			// Parcourir la chaîne de caractères de la valeur sélectionnée
+			for (int i = 0; i < cptChoisi.length(); i++) {
+    		// Vérifier chaque caractère pour déterminer s'il s'agit d'un chiffre
+    		char c = cptChoisi.charAt(i);
+    		if (Character.isDigit(c)) {
+       		 // Si le caractère est un chiffre, sa valeur numérique est assignée à idNumCpt
+       		 idNumCpt = Character.getNumericValue(c);
 
-            this.txtMontant.getStyleClass().remove("borderred");
-            this.lblMontant.getStyleClass().remove("borderred");
-            this.lblMessage.getStyleClass().remove("borderred");
-            info = "Cpt. : " + this.compteEdite.idNumCompte + "  "
-                    + String.format(Locale.ENGLISH, "%12.02f", this.compteEdite.solde) + "  /  "
-                    + String.format(Locale.ENGLISH, "%8d", this.compteEdite.debitAutorise);
-            this.lblMessage.setText(info);
+        	// Gérer les identifiants de compte composés de plusieurs chiffres
+        	if (i + 1 < cptChoisi.length() && Character.isDigit(cptChoisi.charAt(i + 1))) {
+            idNumCpt = idNumCpt * 10 + Character.getNumericValue(cptChoisi.charAt(i + 1));
+        }
+        // Sortir de la boucle une fois que l'identifiant du compte est extrait
+        break;
+    }
+}
+		
+			// Créer une nouvelle opération de virement si l'identifiant du compte est valide
+			if (idNumCpt != -1) {
+				this.operationResultat = new Operation(-1, montantVirement, null, null, idNumCpt, "Virement Compte à Compte");
+				this.containingStage.close(); // Fermer la fenêtre
+			}
+			break; // Sortir de la structure switch
+		
 
-            try {
-                montant2 = Double.parseDouble(this.txtMontant.getText().trim());
-                if (montant2 <= 0) throw new NumberFormatException();
-            } catch (NumberFormatException nfe) {
-                this.txtMontant.getStyleClass().add("borderred");
-                this.lblMontant.getStyleClass().add("borderred");
-                this.txtMontant.requestFocus();
-                return;
-            }
-            if (montant2 > 999999) {
-                AlertUtilities.showAlert(this.containingStage, "Opération impossible",
-                        "Le montant doit être inférieur à 1 000 000 !", "", AlertType.INFORMATION);
-                return;
-            }
-            String cptChoisi = this.cbTypeOpe.getValue();
-            int idNumCpt = -1;
-            for (int i = 0; i < cptChoisi.length(); i++) {
-                char c = cptChoisi.charAt(i);
-                if (Character.isDigit(c)) {
-                    idNumCpt = Character.getNumericValue(c);
-                    if (i + 1 < cptChoisi.length() && Character.isDigit(cptChoisi.charAt(i + 1))) {
-                        idNumCpt = idNumCpt * 10 + Character.getNumericValue(cptChoisi.charAt(i + 1));
-                    }
-                    break;
-                }
-            }
-            if (idNumCpt != -1) {
-                this.operationResultat = new Operation(-1, montant2, null, null, idNumCpt, "Virement Compte à Compte");
-                this.containingStage.close();
-            }
-            break;
     }
 }
 }

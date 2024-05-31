@@ -118,7 +118,7 @@ public class OperationsManagement {
 			try {
 				Access_BD_Operation ao = new Access_BD_Operation();
 
-				ao.insertVirement(this.compteConcerne.idNumCompte, op.idNumCompte, op.montant);
+				ao.insertVirement(this.compteConcerne.idNumCompte, op.idNumCompte, op.montant); // j'utilise la méthode insertVirement qui est dans mon acces bd 
 
 			} catch (DatabaseConnexionException e) {
 				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, e);

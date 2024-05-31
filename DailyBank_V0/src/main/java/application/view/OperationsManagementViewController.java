@@ -113,15 +113,22 @@ public class OperationsManagementViewController {
 		}
 	}	
 
+	// Méthode annotée @FXML, appelée lorsqu'un événement se produit
 	@FXML
 	private void doAutre() {
-		Operation op = this.omDialogController.enregistrerVirement();
-		if (op != null) {
-			this.updateInfoCompteClient();
-			this.validateComponentState();
-		}
+    // Appeler une méthode de contrôleur pour enregistrer un virement
+    Operation op = this.omDialogController.enregistrerVirement();
+    
+    // Vérifier si l'opération a été enregistrée avec succès
+    if (op != null) {
+        // Mettre à jour les informations du compte client
+        this.updateInfoCompteClient();
+        
+        // Valider l'état des composants (par exemple, désactiver certains boutons)
+        this.validateComponentState();
+    }
+}
 
-	}
 
 	private void validateComponentState() {
 		// Non implémenté => désactivé
