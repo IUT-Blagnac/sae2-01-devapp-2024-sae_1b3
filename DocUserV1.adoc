@@ -32,9 +32,17 @@ La Documentation utilisateur a été rédigé par :
 
 == Introduction
 
-Ce document présente le cahier des charges de l'application DailyBank, DailyBank est une plateforme bancaire complète offrant une gamme de fonctionnalités pour les clients et le personnel. 
+Ce document présente le cahier des charges de l'application DailyBank. DailyBank est une plateforme bancaire complète offrant une gamme de fonctionnalités pour les clients et le personnel.
 
 Nous aborderons l'installation, la connexion, et les fonctionnalités existantes telles que la gestion des clients et des comptes. Ensuite, nous explorerons les fonctionnalités à développer pour les versions futures, notamment la gestion des prélèvements automatiques et les simulations financières.
+
+== Présentation Générale
+
+L'application DailyBank est une solution bancaire innovante conçue pour offrir aux utilisateurs une expérience fluide et sécurisée dans la gestion de leurs finances. En combinant des technologies de pointe et une interface utilisateur intuitive, DailyBank répond aux besoins tant des clients que du personnel bancaire. L'application permet une gestion efficace des comptes, des transactions, et offre des outils avancés pour l'analyse et la planification financière.
+
+== Rôle de l'Application
+
+L'application DailyBank joue un rôle crucial en tant que plateforme bancaire centralisée. Elle facilite les interactions bancaires quotidiennes en offrant une interface conviviale pour les utilisateurs finaux et des outils robustes pour le personnel bancaire. Grâce à ses fonctionnalités complètes, DailyBank améliore l'efficacité opérationnelle, réduit les erreurs humaines et permet une gestion proactive des finances personnelles et professionnelles.
 
 == Installation et Configuration
 
@@ -104,7 +112,7 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
 
 === Gestion des clients
 
-==== _Modification des informations client_
+==== _Modification des informations client_ (Yahya MAGAZ)
   * Description : Permet de mettre à jour les informations personnelles d'un client, telles que l'adresse, le numéro de téléphone, etc.
   * Étapes :
 
@@ -125,7 +133,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Auteur : Guichetier
 
 
-==== _Création d'un nouveau client_
+==== _Création d'un nouveau client_ (Théo RABAN)
   * Description : Permet de créer un nouveau profil client dans le système.
   * Étapes :
 
@@ -146,7 +154,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 === Gestion des comptes
 
-==== _Consultation d'un compte_
+==== _Consultation d'un compte_ (Théo RABAN)
   * Description : Permet de visualiser les détails d'un compte client.
   * Étapes :
 
@@ -165,7 +173,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
   * Auteur : Guichetier
 
-==== _Débit d'un compte_
+==== _Débit d'un compte_ (Thomas CEOLIN)
   * Description : Permet de débiter un montant d'un compte client.
   * Étapes :
 
@@ -194,7 +202,7 @@ Voici les fonctionnalités V1:
 
 === Gestion des comptes
 
-==== _Crédit d'un compte (Java et BD avec procédure stockée)_
+==== _Crédit d'un compte (Java et BD avec procédure stockée)_(Thomas CEOLIN)
   * Description : Ajout d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
   * Étapes :
 
@@ -217,7 +225,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 === Transferts et virements
 
-==== Virement de compte à compte
+==== Virement de compte à compte (Thomas Ceolin)
   * Description : Permet de transférer des fonds d'un compte à un autre.
   * Étapes :
 
@@ -235,7 +243,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 
 
-==== _Clôture d'un compte_
+==== _Clôture d'un compte_ (Yahya MAGAZ)
   * Description : Permet de fermer un compte client.
   * Étapes :
 
@@ -248,7 +256,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Auteur : Guichetier
 
 
-==== _Création d'un compte_
+==== _Création d'un compte_ (Théo RABAN)
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
   * Étapes :
 
@@ -265,9 +273,29 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Auteur : Guichetier
 
 
+==== _Modification d'un compte_ (Yahya MAGAZ)
+
+  * Description : Permet de modifier les détails d'un compte existant pour un client.
+  * Étapes :
+
+    1- Sélectionner le client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aper%C3%A7uClient.PNG[]
+
+    2- Cliquer sur Compte.
+    3- Sélectionner le compte à modifier.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
+    4- Modifier les champs nécessaires.
+  * Auteur : Guichetier
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/modifierCompte.PNG[]
+
+
 === Gestion des employés
 
-==== Gestion des employés (CRUD) : guichetier et chef d’agence
+==== Gestion des employés (CRUD) : guichetier et chef d’agence (RABAN / MAGAZ / CEOLIN)
   * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
   * Étapes :
 
