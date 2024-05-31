@@ -113,6 +113,7 @@ public class Access_BD_Client {
 	 * @throws DataAccessException               Erreur d'accès aux données (requête
 	 *                                           mal formée ou autre)
 	 * @throws DatabaseConnexionException        Erreur de connexion
+	 * @author Thomas CEOLIN
 	 */
 	public Client getClient(int idCli)
 			throws RowNotFoundOrTooManyRowsException, DataAccessException, DatabaseConnexionException {
@@ -169,6 +170,7 @@ public class Access_BD_Client {
  * @return Une liste contenant tous les clients récupérés.
  * @throws DataAccessException      Si une erreur d'accès aux données survient.
  * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ * @author Thomas CEOLIN
  */
 	public List<Client> getAllClient() throws DataAccessException, DatabaseConnexionException {
 		List<Client> clients = new ArrayList<>();

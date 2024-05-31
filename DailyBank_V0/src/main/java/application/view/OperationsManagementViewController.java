@@ -45,6 +45,7 @@ public class OperationsManagementViewController {
      * @param _dbstate L'état courant de l'application.
      * @param client Le client associé au compte.
      * @param compte Le compte concerné par les opérations.
+	 * @author Thomas CEOLIN
      */
 	public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
 			CompteCourant compte) {
@@ -103,6 +104,7 @@ public class OperationsManagementViewController {
 
 	/**
      * Enregistre une opération de débit.
+	 * @author Thomas CEOLIN
      */
 	@FXML
 	private void doDebit() {
@@ -116,6 +118,7 @@ public class OperationsManagementViewController {
 
 	/**
      * Enregistre une opération de crédit.
+	 * @author Thomas CEOLIN
      */
 	@FXML
 	private void doCredit() {
@@ -128,6 +131,7 @@ public class OperationsManagementViewController {
 
 	/**
      * Enregistre une autre opération (par exemple, un virement).
+	 * @author Thomas CEOLIN
      */
 	@FXML
 	private void doAutre() {

@@ -158,6 +158,7 @@ public class ComptesManagement {
      * Récupère la liste des comptes d'un client.
      *
      * @return La liste des comptes d'un client.
+	 * @author Thomas CEOLIN
      */
 	public ArrayList<CompteCourant> getComptesDunClient() {
 		ArrayList<CompteCourant> listeCpt = new ArrayList<>();
@@ -201,7 +202,7 @@ public class ComptesManagement {
 	
 
 
-public void supprimerCompteCourant(CompteCourant compte) {
+	public void supprimerCompteCourant(CompteCourant compte) {
 	if (compte != null) {
 		try {
 			Access_BD_CompteCourant acc = new Access_BD_CompteCourant();

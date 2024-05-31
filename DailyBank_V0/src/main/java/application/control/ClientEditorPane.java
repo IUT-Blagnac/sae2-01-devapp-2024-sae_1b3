@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.data.Client;
 
+
 /**
  * Cette classe représente une fenêtre de modification de client dans l'application.
  * Elle permet d'afficher une interface utilisateur pour modifier les détails d'un client existant

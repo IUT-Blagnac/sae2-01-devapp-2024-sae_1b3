@@ -81,6 +81,7 @@ public class OperationsManagement {
 	/**
      * Enregistre une opération de débit.
      * @return L'opération enregistrée.
+	 * @author Thomas CEOLIN
      */
 	public Operation enregistrerDebit() {
 
@@ -109,6 +110,7 @@ public class OperationsManagement {
 	/**
      * Enregistre une opération de virement.
      * @return L'opération enregistrée.
+	 * @author Thomas CEOLIN
      */
 	public Operation enregistrerVirement() {
 
@@ -137,6 +139,7 @@ public class OperationsManagement {
 	 /**
      * Enregistre une opération de crédit.
      * @return L'opération enregistrée.
+	 * @author Thomas CEOLIN
      */
 	public Operation enregistrerCredit() {
 		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
@@ -164,6 +167,7 @@ public class OperationsManagement {
 	 /**
      * Récupère les opérations et le solde d'un compte.
      * @return Une paire contenant le compte et sa liste d'opérations.
+	 * @author Thomas CEOLIN
      */
 	public PairsOfValue<CompteCourant, ArrayList<Operation>> operationsEtSoldeDunCompte() {
 		ArrayList<Operation> listeOP = new ArrayList<>();

@@ -33,6 +33,7 @@ public class Access_BD_CompteCourant {
 	 * @throws DataAccessException        Erreur d'accès aux données (requête mal
 	 *                                    formée ou autre)
 	 * @throws DatabaseConnexionException Erreur de connexion
+	 * @author Thomas CEOLIN
 	 */
 	public ArrayList<CompteCourant> getCompteCourants(int idNumCli, boolean isVirement, int idNumCpt)
 			throws DataAccessException, DatabaseConnexionException {

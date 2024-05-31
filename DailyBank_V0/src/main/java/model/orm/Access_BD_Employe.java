@@ -248,6 +248,7 @@ public class Access_BD_Employe {
  	* @param employe L'employé à supprimer.
  	* @throws DataAccessException Si une erreur d'accès aux données survient.
  	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	* @author Thomas CEOLIN
  	*/
 	public void deleteEmploye(Employe employe) throws DataAccessException, DatabaseConnexionException {
 		try {

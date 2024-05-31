@@ -74,6 +74,7 @@ public class Access_BD_Operation {
 	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
 	 * @throws ManagementRuleViolation    Si une règle de gestion n'est pas respectée lors de l'insertion du virement.
 	 * @throws DataAccessException       Si une erreur d'accès aux données survient.
+	 * @author Thomas CEOLIN
 	 */
 	public  void insertVirement(int idNumCompte, int pfNumCptVir, double montant) throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
 		try {
@@ -176,6 +177,7 @@ public class Access_BD_Operation {
 	 *                                    formée ou autre)
 	 * @throws DatabaseConnexionException Erreur de connexion
 	 * @throws ManagementRuleViolation    Si dépassement découvert autorisé
+	 * @author Thomas CEOLIN
 	 */
 	public void insertDebit(int idNumCompte, double montant, String typeOp)
 			throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
@@ -216,6 +218,7 @@ public class Access_BD_Operation {
  	* @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
  	* @throws ManagementRuleViolation Si une violation des règles de gestion est détectée.
  	* @throws DataAccessException Si une erreur d'accès à la base de données survient.
+	* @author Thomas CEOLIN
  	*/
 	public void insertCredit(int idNumCompte, double montant, String typeOp)
         throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {

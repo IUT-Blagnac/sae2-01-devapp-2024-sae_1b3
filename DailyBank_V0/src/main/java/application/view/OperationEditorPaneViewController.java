@@ -37,6 +37,7 @@ import model.orm.exception.DatabaseConnexionException;
 
 /**
  * Contrôleur pour la boîte de dialogue d'édition des opérations.
+ * @author Thomas CEOLIN
  */
 public class OperationEditorPaneViewController {
 
@@ -55,6 +56,7 @@ public class OperationEditorPaneViewController {
      * Initialise le contexte de la fenêtre.
      * @param _containingStage La fenêtre contenant la scène.
      * @param _dbstate L'état courant de l'application.
+	 * @author Thomas CEOLIN
      */
 	public void initContext(Stage _containingStage, DailyBankState _dbstate) {
 		this.containingStage = _containingStage;
@@ -71,6 +73,7 @@ public class OperationEditorPaneViewController {
      * @param cpte Le compte concerné par l'opération.
      * @param mode Le mode d'opération (débit, crédit, virement).
      * @return L'opération effectuée.
+	 * @author Thomas CEOLIN
      */
 	public Operation displayDialog(CompteCourant cpte, CategorieOperation mode) {
 		this.categorieOperation = mode;
@@ -206,6 +209,7 @@ public class OperationEditorPaneViewController {
 
 	 /**
      * Ajoute une nouvelle opération en fonction du mode d'opération sélectionné.
+	 * @author Thomas CEOLIN
      */
 	@FXML
 private void doAjouter() {

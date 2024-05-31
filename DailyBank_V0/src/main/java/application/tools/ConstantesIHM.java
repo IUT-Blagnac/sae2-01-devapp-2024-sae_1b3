@@ -35,6 +35,7 @@ public class ConstantesIHM {
 
 	/*
 	 * Libellés (en BD) des différents types d'opérations existants.
+	 * @author Thomas CEOLIN
 	 */
 	public static final String TYPE_OP_1 = "Dépôt Espèces";
 	public static final String TYPE_OP_2 = "Retrait Espèces";
