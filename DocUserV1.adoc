@@ -187,6 +187,48 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 Voici les fonctionnalités V1:
 
+
+=== Gestion des comptes
+
+==== _Crédit d'un compte (Java et BD avec procédure stockée)_
+  * Description : Ajout d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
+  * Étapes :
+    1. Accéder à la section de gestion des comptes.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
+    2. Sélectionner le compte à créditer.
+    3. Cliquer sur voir opération.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Operations.PNG[]
+
+    4. Cliquer sur enregistrer crédit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Crédit.PNG[]
+
+    5. Choisissez chèque ou espèce et saisir montant
+    6. Confirmer transaction.
+  * Auteur : Guichetier
+
+=== Transferts et virements
+
+==== Virement de compte à compte
+  * Description : Permet de transférer des fonds d'un compte à un autre.
+  * Étapes :
+    1. Sélectionner les comptes source et destination.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Virement_page_P.png[]
+
+
+    2. Entrer le montant à transférer.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Montant_virement.png[]
+
+    3. Confirmer le virement.
+  * Auteur : Guichetier
+
+
+
 ==== _Création d'un compte_
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
   * Étapes :
@@ -201,3 +243,5 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
     4. Remplissez les champs.
   * Auteur : Guichetier
+
+
