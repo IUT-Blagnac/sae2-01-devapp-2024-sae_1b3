@@ -516,6 +516,139 @@ package Model.orm :
 - Access_BD_Employe -> la méthode 'updateEmploye' qui permet d'enregistrer les changements dans la base de données
 
 
+== Documentation Technique : Créditer / Débiter un compte bancaire (Thomas CEOLIN)
+
+=== Introduction
+
+Cette partie du document technique décrit le processus de crédit et de débit d'un compte bancaire dans le système bancaire. L'objectif est de permettre aux utilisateurs de créditer ou débiter un compte, tout en garantissant que le solde du compte est correctement mis à jour dans la base de données.
+
+=== Description du processus
+
+Le processus de crédit ou de débit d'un compte bancaire implique plusieurs étapes. Il est essentiel de respecter certaines conditions pour garantir l'intégrité des données et la sécurité des transactions.
+
+=== Conditions
+
+- Le solde du compte ne doit pas dépasser le découvert autorisé lors d'un débit.
+- Le montant maximal autorisé pour un crédit ou un débit est de 999999.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ThomasCréditer.PNG[]
+
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CréditerUMLThomas.PNG[]
+
+=== Classes utilisées
+
+==== Application.control
+
+- OperationsManagement : Cette classe contient les méthodes `enregistrerCredit()` et `enregistrerDebit()` qui sont appelées respectivement par `doCredit()` et `doDebit()` dans `OperationsManagementViewController`.
+
+- OperationEditorPane : Cette classe gère les modifications dans la méthode `OperationEditorPane`.
+
+==== Application.view
+
+- OperationsManagementViewController : Ce contrôleur gère les actions de l'utilisateur telles que le crédit ou le débit, en appelant les méthodes `doCredit()` et `doDebit()`.
+
+- OperationEditorPaneController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de crédit ou de débit dans l'interface utilisateur.
+
+==== Model.orm
+
+- Access_BD_Operation : Cette classe gère l'insertion des opérations de crédit et de débit dans la base de données en appelant les méthodes `insertCredit()` et `insertDebit()`. elle utilise deux procédure qui sont dans la base de donnée 
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus de crédit/débit dans le système bancaire, en détaillant les conditions, les interactions entre les classes et les actions de l'utilisateur. Il sert de guide pour le développement et la maintenance du système.
+
+
+== Documentation Technique : Effectuer un virement  (Thomas CEOLIN)
+
+=== Introduction
+
+Cette partie du document technique décrit le processus d'effectuer un virement entre deux comptes bancaires dans le système bancaire. L'objectif est de débiter le compte source et créditer le compte destinataire du virement, tout en garantissant que les soldes des deux comptes sont correctement mis à jour dans la base de données.
+
+=== Description du processus
+
+Le processus d'effectuer un virement implique plusieurs étapes. Il est essentiel de respecter certaines conditions pour garantir l'intégrité des données et la sécurité des transactions.
+
+=== Conditions
+
+- Le solde des comptes ne doit pas dépasser le découvert autorisé.
+- Le montant maximal autorisé pour un virement est de 999999.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/virementThomas.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/VirementThomasUML.PNG[]
+
+=== Classes utilisées
+
+==== Application.control
+
+- OperationsManagement : Cette classe contient la méthode `enregistrerVirement()` qui est appelée par `doAutre()` dans `OperationsManagementViewController`.
+
+==== Application.view
+
+- OperationsManagementViewController : Ce contrôleur gère l'action de l'utilisateur pour effectuer un virement en appelant la méthode `doAutre()`.
+
+- OperationEditorPaneViewController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de virement dans l'interface utilisateur ( la méthode *displayDialog* && la méthode *doAjouter* ) 
+
+==== Model.orm
+
+- Access_BD_Operation : Cette classe gère l'insertion des opérations de virement dans la base de données en appelant la méthode `insertVirement()`.
+elle utilise une procédure virer qui est dans la base de donnée 
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus d'effectuer un virement entre deux comptes bancaires dans le système, en détaillant les conditions, les interactions entre les classes et les actions de l'utilisateur. Il sert de guide pour le développement et la maintenance du système.
+
+
+== Documentation Technique : Supprimer un Employé  (Thomas CEOLIN)
+
+=== Introduction
+
+Ce document technique décrit le processus de suppression d'un employé de la base de données du système. L'objectif est de permettre aux chef d'agence de supprimer des employés de manière sécurisée et efficace.
+
+=== Description du processus
+
+Le processus de suppression d'un employé comprend plusieurs étapes pour garantir l'intégrité des données et la sécurité du système.
+
+=== Conditions
+
+- Seuls les chefs d'agence sont autorisés à supprimer des employés.
+- L'employé sélectionné doit être présent dans la base de données.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CruduseCase.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/autreFonctions.PNG[]
+
+=== Classes utilisées
+
+==== Application.view
+
+- EmployeController : Ce contrôleur gère l'action adu chef d'agence pour supprimer un employé en appelant la méthode `supprimerEmploye()`.
+
+==== Model.orm
+
+- Access_BD_Employe : Cette classe gère la suppression de l'employé de la base de données en appelant la méthode `deleteEmploye()`.
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus de suppression d'un employé dans le système, en détaillant les conditions, les interactions entre les classes et les actions du chef d'agence. Il sert de guide pour le développement et la maintenance du système.
+
+
+
+
+
 
 
 
