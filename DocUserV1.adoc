@@ -8,7 +8,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 == Auteurs
 
-Le cahier des charges a été rédigé par :
+La Documentation utilisateur a été rédigé par :
 
     Théo RABAN
     Yahya MAGAZ
@@ -108,11 +108,17 @@ Dans la version existante (V0), les fonctionnalités disponibles sont les suivan
   * Description : Permet de mettre à jour les informations personnelles d'un client, telles que l'adresse, le numéro de téléphone, etc.
   * Étapes :
     1. Accéder au profil du client via le système.
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.PNG[]
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.png[]
+
     2. Sélectionner l'option de modification des informations.
+
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
     3. Mettre à jour les champs requis (adresse, téléphone, etc.).
+
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/modifierClient.PNG[]
+
     4. Sauvegarder les modifications.
   * Remarques : Assurez-vous que toutes les informations sont correctes avant de sauvegarder.
   * Auteur : Guichetier
@@ -122,30 +128,37 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Description : Permet de créer un nouveau profil client dans le système.
   * Étapes :
     1. Accéder à l'option de création de client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
     2. Remplir les informations nécessaires (nom, adresse, téléphone, etc.).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/AjoutClient.PNG[]
+
     3. Vérifier les informations saisies.
     4. Confirmer la création du profil client.
   * Remarques : Toutes les informations obligatoires doivent être remplies avant la création du compte.
   * Auteur : Guichetier
 
 
-==== _Mise en inactivité d'un client_
-  * Description : Permet de désactiver temporairement un client.
-  * Étapes :
-    1. Accéder au profil du client.
-    2. Sélectionner l'option de mise en inactivité.
-    3. Confirmer la mise en inactivité.
-  * Remarques : La réactivation du client peut être effectuée via la même procédure.
-  * Auteur : Chef d’agence
 
 === Gestion des comptes
 
 ==== _Consultation d'un compte_
   * Description : Permet de visualiser les détails d'un compte client.
   * Étapes :
-    1. Accéder à la section de consultation des comptes.
+    1. Lorsque vous êtes sur la liste des client séléctionnez en un et appuyer sur "Comptes".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
     2. Entrer l'identifiant du compte ou du client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
     3. Afficher les informations du compte (solde, transactions récentes, etc.).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
   * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
   * Auteur : Guichetier
 
@@ -153,9 +166,18 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
   * Description : Permet de débiter un montant d'un compte client.
   * Étapes :
     1. Accéder à la section de gestion des comptes.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
     2. Sélectionner le compte à débiter.
     3. Cliquer sur voir opération.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Operations.PNG[]
+
     4. Cliquer sur enregistrer débit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Débit.PNG[]
+
     5. Choisissez chèque ou espèce et saisir montant
     6. Confirmer transaction.
   * Remarques : Vérifiez toujours le solde du compte avant de débiter.
@@ -175,9 +197,18 @@ Cas d’utilisation à développer dans la Version 1 :
   * Description : Ajout d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
   * Étapes :
     1. Accéder à la section de gestion des comptes.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
     2. Sélectionner le compte à créditer.
     3. Cliquer sur voir opération.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Operations.PNG[]
+
     4. Cliquer sur enregistrer crédit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Crédit.PNG[]
+
     5. Choisissez chèque ou espèce et saisir montant
     6. Confirmer transaction.
   * Auteur : Guichetier
@@ -186,8 +217,15 @@ Cas d’utilisation à développer dans la Version 1 :
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
   * Étapes :
     1. Sélectionner le client.
-    2. Entrer les détails du compte (type de compte, dépôt initial, etc.).
-    3. Confirmer la création du compte.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
+    2. Cliquer sur Compte.
+    3. Cliquer sur nouveauCompte.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/nouveauCompte.PNG[]
+
+    4. Remplissez les champs.
   * Auteur : Guichetier
 
 ==== _Clôture d'un compte_
@@ -214,7 +252,13 @@ Cas d’utilisation à développer dans la Version 1 :
   * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
   * Étapes :
     1. Accéder à la gestion des employés.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.png[]
+
     2. Sélectionner l'action souhaitée (charger, modifier, supprimer).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/gestionEmploye.PNG[]
+
     3. Remplir ou modifier les informations nécessaires.
     4. Confirmer l'action.
   * Auteur : Chef d’agence
