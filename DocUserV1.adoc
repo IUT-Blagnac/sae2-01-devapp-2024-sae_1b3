@@ -229,6 +229,18 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 
 
+==== _Clôture d'un compte_
+  * Description : Permet de fermer un compte client.
+  * Étapes :
+    1. Sélectionner le compte à clôturer.
+    2. Vérifier les soldes et les transactions en cours.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/captureSupprimerCompte.PNG[]
+
+    3. Confirmer la supression du compte.
+  * Auteur : Guichetier
+
+
 ==== _Création d'un compte_
   * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
   * Étapes :
@@ -243,5 +255,24 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
     4. Remplissez les champs.
   * Auteur : Guichetier
+
+
+=== Gestion des employés
+
+==== Gestion des employés (CRUD) : guichetier et chef d’agence
+  * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
+  * Étapes :
+    1. Accéder à la gestion des employés.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.png[]
+
+    2. Sélectionner l'action souhaitée (charger, modifier, supprimer).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/gestionEmploye.PNG[]
+
+    3. Remplir ou modifier les informations nécessaires.
+    4. Confirmer l'action.
+  * Auteur : Chef d’agence
+
 
 
