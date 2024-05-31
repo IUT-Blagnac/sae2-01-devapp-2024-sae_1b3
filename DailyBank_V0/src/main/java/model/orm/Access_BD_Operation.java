@@ -64,6 +64,37 @@ public class Access_BD_Operation {
 			throw new DataAccessException(Table.Operation, Order.SELECT, "Erreur accès", e);
 		}
 	}
+	public  void insertVirement(int idNumCompte, int pfNumCptVir, double montant) throws DatabaseConnexionException, ManagementRuleViolation, DataAccessException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			CallableStatement call;
+	
+			String q = "{call VIRER (?, ?, ?, ?)}";
+			call = con.prepareCall(q);
+			call.setInt(1, idNumCompte);
+			call.setInt(2, pfNumCptVir);
+			call.setDouble(3, montant);
+			call.registerOutParameter(4, java.sql.Types.INTEGER);
+	
+			System.out.println("Exécution de la procédure stockée avec les paramètres : idNumCompte=" + idNumCompte +
+					", pfNumVir=" + pfNumCptVir  + ", montant=" + montant);
+	
+	
+			call.execute();
+	
+			int res = call.getInt(4);
+			System.out.println("La procédure stockée a retourné : " + res);
+	
+			if (res != 0) {
+				throw new ManagementRuleViolation(Table.Operation, Order.INSERT,
+						"Erreur de règle de gestion : crédit non autorisé", null);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DataAccessException(Table.Operation, Order.INSERT, "Erreur d'accès à la base de données", e);
+		}
+	}
+	
 
 	/**
 	 * Recherche d'une opération par son id.

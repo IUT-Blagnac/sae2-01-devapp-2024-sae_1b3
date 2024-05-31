@@ -116,6 +116,20 @@ public class OperationsManagementViewController {
 	@FXML
 	private void doAutre() {
 		Operation op = this.omDialogController.enregistrerVirement();
+		if (op != null) {
+			this.updateInfoCompteClient();
+			this.validateComponentState();
+		}
+
+	}
+
+	@FXML
+	private void do2() {
+		Operation op = this.omDialogController.enregistrerVirement2();
+		if (op != null) {
+			this.updateInfoCompteClient();
+			this.validateComponentState();
+		}
 
 	}
 

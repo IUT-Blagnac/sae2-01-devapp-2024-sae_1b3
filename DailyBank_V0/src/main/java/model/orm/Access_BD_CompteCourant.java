@@ -24,7 +24,8 @@ public class Access_BD_CompteCourant {
 	public Access_BD_CompteCourant() {
 	}
 
-	/**
+	
+/**
 	 * Recherche des CompteCourant d'un client à partir de son id.
 	 *
 	 * @param idNumCli id du client dont on cherche les comptes
@@ -33,19 +34,27 @@ public class Access_BD_CompteCourant {
 	 *                                    formée ou autre)
 	 * @throws DatabaseConnexionException Erreur de connexion
 	 */
-	public ArrayList<CompteCourant> getCompteCourants(int idNumCli)
+	public ArrayList<CompteCourant> getCompteCourants(int idNumCli, boolean isVirement, int idNumCpt)
 			throws DataAccessException, DatabaseConnexionException {
 
 		ArrayList<CompteCourant> alResult = new ArrayList<>();
-
+		PreparedStatement pst;
+		
 		try {
 			Connection con = LogToDatabase.getConnexion();
-			String query = "SELECT * FROM CompteCourant where idNumCli = ?";
-			query += " ORDER BY idNumCompte";
-
-			PreparedStatement pst = con.prepareStatement(query);
-			pst.setInt(1, idNumCli);
-			System.err.println(query);
+			String query;
+			if(isVirement && idNumCpt != -1) {
+				query = "SELECT * FROM CompteCourant where IDNUMCLI = ? AND IDNUMCOMPTE <> ?";
+				query += " ORDER BY idNumCompte";
+				pst = con.prepareStatement(query);
+				pst.setInt(1, idNumCli);
+				pst.setInt(2, idNumCpt);
+			} else {
+				query = "SELECT * FROM CompteCourant where idNumCli = ?";
+				query += " ORDER BY idNumCompte";
+				pst = con.prepareStatement(query);
+				pst.setInt(1, idNumCli);
+			}
 
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
@@ -65,6 +74,8 @@ public class Access_BD_CompteCourant {
 
 		return alResult;
 	}
+
+
 
 	/**
 	 * Recherche d'un CompteCourant à partir de son id (idNumCompte).

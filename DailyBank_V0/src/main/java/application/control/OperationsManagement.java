@@ -114,6 +114,52 @@ public class OperationsManagement {
 
 		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
 		Operation op = oep.doOperationEditorDialog(this.compteConcerne, CategorieOperation.VIREMENT);
+		if (op != null) {
+			try {
+				Access_BD_Operation ao = new Access_BD_Operation();
+
+				ao.insertVirement(this.compteConcerne.idNumCompte, op.idNumCompte, op.montant);
+
+			} catch (DatabaseConnexionException e) {
+				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, e);
+				ed.doExceptionDialog();
+				this.omStage.close();
+				op = null;
+			} catch (ApplicationException ae) {
+				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, ae);
+				ed.doExceptionDialog();
+				op = null;
+			}
+		}
+		return op;
+	}
+
+
+	/**
+     * Enregistre une opération de virement.
+     * @return L'opération enregistrée.
+     */
+	public Operation enregistrerVirement2() {
+
+		OperationEditorPane oep = new OperationEditorPane(this.omStage, this.dailyBankState);
+		Operation op = oep.doOperationEditorDialog(this.compteConcerne, CategorieOperation.VIREMENT2);
+		if (op != null) {
+			try {
+				Access_BD_Operation ao = new Access_BD_Operation();
+
+				ao.insertDebit(this.compteConcerne.idNumCompte, op.montant, op.idTypeOp);
+
+			} catch (DatabaseConnexionException e) {
+				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, e);
+				ed.doExceptionDialog();
+				this.omStage.close();
+				op = null;
+			} catch (ApplicationException ae) {
+				ExceptionDialog ed = new ExceptionDialog(this.omStage, this.dailyBankState, ae);
+				ed.doExceptionDialog();
+				op = null;
+			}
+		}
 		return op;
 	}
 
