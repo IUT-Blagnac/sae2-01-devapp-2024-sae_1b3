@@ -18,7 +18,7 @@ import javafx.stage.WindowEvent;
 import model.data.Client;
 import model.data.CompteCourant;
 import model.data.Operation;
-
+import application.tools.ConstantesIHM;
 /**
  * Contrôleur pour la gestion des opérations dans l'application.
  */
@@ -60,7 +60,7 @@ public class OperationsManagementViewController {
 
 	private void configure() {
 		this.containingStage.setOnCloseRequest(e -> this.closeWindow(e));
-
+	
 		this.oListOperations = FXCollections.observableArrayList();
 		this.lvOperations.setItems(this.oListOperations);
 		this.lvOperations.setSelectionModel(new NoSelectionModel<Operation>());
@@ -93,6 +93,9 @@ public class OperationsManagementViewController {
 	private Button btnDebit;
 	@FXML
 	private Button btnCredit;
+
+	@FXML 
+	private Button btnDebitExceptionel;
 
 	/**
      * Annule la gestion des opérations et ferme la fenêtre.
@@ -166,31 +169,33 @@ public class OperationsManagementViewController {
 		// Non implémenté => désactivé
 		this.btnCredit.setDisable(false);
 		this.btnDebit.setDisable(false);
+	
+		// Définir la visibilité du bouton btnDebitExceptionel en fonction des droits d'accès
+		this.btnDebitExceptionel.setVisible(ConstantesIHM.isAdmin(this.dailyBankState.getEmployeActuel()));
 	}
 
 	private void updateInfoCompteClient() {
-
 		PairsOfValue<CompteCourant, ArrayList<Operation>> opesEtCompte;
-
+	
 		opesEtCompte = this.omDialogController.operationsEtSoldeDunCompte();
-
+	
 		ArrayList<Operation> listeOP;
 		this.compteConcerne = opesEtCompte.getLeft();
 		listeOP = opesEtCompte.getRight();
-
+	
 		String info;
 		info = this.clientDuCompte.nom + "  " + this.clientDuCompte.prenom + "  (id : " + this.clientDuCompte.idNumCli
 				+ ")";
 		this.lblInfosClient.setText(info);
-
+	
 		info = "Cpt. : " + this.compteConcerne.idNumCompte + "  "
 				+ String.format(Locale.ENGLISH, "%12.02f", this.compteConcerne.solde) + "  /  "
 				+ String.format(Locale.ENGLISH, "%8d", this.compteConcerne.debitAutorise);
 		this.lblInfosCompte.setText(info);
-
+	
 		this.oListOperations.clear();
 		this.oListOperations.addAll(listeOP);
-
+	
 		this.validateComponentState();
 	}
 }
