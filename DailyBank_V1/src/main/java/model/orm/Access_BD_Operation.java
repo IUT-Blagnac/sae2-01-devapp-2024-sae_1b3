@@ -211,6 +211,50 @@ public class Access_BD_Operation {
 	}
 
 	/**
+	 * Enregistrement d'un débit Exceptionnel.
+	 *
+	 * Se fait par procédure stockée : - Vérifie que le débitAutorisé n'est pas
+	 * dépassé <BR />
+	 * - Enregistre l'opération <BR />
+	 * - Met à jour le solde du compte. <BR />
+	 *
+	 * @param idNumCompte compte débité
+	 * @param montant     montant débité
+	 * @param typeOp      libellé de l'opération effectuée (cf TypeOperation)
+	 * @throws DataAccessException        Erreur d'accès aux données (requête mal
+	 *                                    formée ou autre)
+	 * @throws DatabaseConnexionException Erreur de connexion
+	 * @author Thomas CEOLIN
+	 */
+	public void insertDebitExceptionnel(int idNumCompte, double montant, String typeOp)
+			throws DatabaseConnexionException, DataAccessException {
+		try {
+			Connection con = LogToDatabase.getConnexion();
+			CallableStatement call;
+
+			String q = "{call CreerDebitExceptionnel (?, ?, ?, ?)}";
+			// les ? correspondent aux paramètres : cf. déf procédure (4 paramètres)
+			call = con.prepareCall(q);
+			// Paramètres in
+			call.setInt(1, idNumCompte);
+			// 1 -> valeur du premier paramètre, cf. déf procédure
+			call.setDouble(2, montant);
+			call.setString(3, typeOp);
+			// Paramètres out
+			call.registerOutParameter(4, java.sql.Types.INTEGER);
+			// 4 type du quatrième paramètre qui est déclaré en OUT, cf. déf procédure
+
+			call.execute();
+						
+		} catch (SQLException e) {
+			throw new DataAccessException(Table.Operation, Order.INSERT, "Erreur accès", e);
+		}
+	}
+
+
+
+
+	/**
  	* Insère une opération de crédit dans la base de données.
  	* @param idNumCompte L'identifiant du compte.
  	* @param montant Le montant de l'opération.

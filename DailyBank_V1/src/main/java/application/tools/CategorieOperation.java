@@ -8,5 +8,5 @@ package application.tools;
  * @author Thomas CEOLIN
  */
 public enum CategorieOperation {
-	DEBIT, CREDIT,VIREMENT
+	DEBIT, CREDIT,VIREMENT, DEBITExceptionnel
 }

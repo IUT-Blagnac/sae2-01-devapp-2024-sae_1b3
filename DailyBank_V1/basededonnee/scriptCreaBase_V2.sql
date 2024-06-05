@@ -469,6 +469,48 @@ PRINT ret;
 SELECT * FROM Operation WHERE idNumCompte = 1;
 SELECT * FROM CompteCourant WHERE idNumCompte = 1;
 
+----------------------------------------------------
+------------ DEBIT EXCEPTIONNEL --------------------
+----------------------------------------------------
+
+
+
+CREATE OR REPLACE PROCEDURE CreerDebitExceptionnel(
+	vidNumCompte CompteCourant.idNumCompte%TYPE,
+	vMontantOp Operation.montant%TYPE,
+	vTypeOp TypeOperation.idTypeOp%TYPE,
+	retour OUT NUMBER
+)
+IS
+    vSolde CompteCourant.solde%TYPE;
+    vNouveauSolde CompteCourant.solde%TYPE;
+BEGIN
+    -- On suppose que le traitement des exceptions est géré au niveau de l'application cliente.
+
+    -- Récupération du solde actuel du compte
+    SELECT solde INTO vSolde FROM CompteCourant WHERE idNumCompte = vidNumCompte;
+
+    -- Calcul du nouveau solde après débit exceptionnel
+    vNouveauSolde := vSolde - vMontantOp;
+
+    -- Insertion de l'opération de débit exceptionnel
+    INSERT INTO Operation (idOperation, montant, dateValeur, idNumCompte, idTypeOp)
+    VALUES (seq_id_operation.NEXTVAL, vMontantOp, SYSDATE + 2, vidNumCompte, vTypeOp);
+
+    -- Mise à jour du solde du compte
+    UPDATE CompteCourant
+    SET solde = vNouveauSolde
+    WHERE idNumCompte = vidNumCompte;
+
+    -- Validation de la transaction
+    COMMIT;
+    retour := 0;
+EXCEPTION
+    WHEN OTHERS THEN
+        -- En cas d'erreur, retourne -1
+        retour := -1;
+END;
+/
 
 
 

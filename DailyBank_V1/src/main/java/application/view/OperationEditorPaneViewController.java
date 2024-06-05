@@ -161,6 +161,27 @@ public class OperationEditorPaneViewController {
 			this.cbTypeOpe.getSelectionModel().select(0);
 			// Sortir de la structure switch
 			break;
+			case DEBITExceptionnel:
+			System.out.println("Début du traitement du cas DEBITExceptionnel");
+			
+			String infoo = "Cpt. : " + this.compteEdite.idNumCompte + "  "
+						+ String.format(Locale.ENGLISH, "%12.02f", this.compteEdite.solde);
+			System.out.println("Info: " + infoo); // Vérifiez les informations du compte
+			this.lblMessage.setText(infoo);
+
+			this.btnOk.setText("Effectuer DébitExceptionnel");
+			this.btnCancel.setText("Annuler DébitExceptionnel");
+
+			ObservableList<String> listTypesOpesPossibless = FXCollections.observableArrayList();
+			listTypesOpesPossibless.addAll(ConstantesIHM.OPERATIONS_DEBIT_GUICHET);
+			System.out.println("Types d'opérations possibles: " + listTypesOpesPossibless); // Vérifiez les types d'opérations possibles
+			
+			this.cbTypeOpe.setItems(listTypesOpesPossibless);
+			this.cbTypeOpe.getSelectionModel().select(0);
+			System.out.println("Type d'opération sélectionné: " + this.cbTypeOpe.getSelectionModel().getSelectedItem()); // Vérifiez le type d'opération sélectionné
+			
+			break;
+
 			
 	}
 
@@ -270,6 +291,38 @@ private void doAjouter() {
             this.operationResultat = new Operation(-1, montantCredit, null, null, this.compteEdite.idNumCli, typeOpCredit);
             this.containingStage.close();
             break;
+			case DEBITExceptionnel:
+			System.out.println("Début du traitement du cas DEBITExceptionnel");
+			
+			double montantExceptionnel;
+
+			this.txtMontant.getStyleClass().remove("borderred");
+			this.lblMontant.getStyleClass().remove("borderred");
+			this.lblMessage.getStyleClass().remove("borderred");
+			String infoo = "Cpt. : " + this.compteEdite.idNumCompte + "  "
+					+ String.format(Locale.ENGLISH, "%12.02f", this.compteEdite.solde);
+			System.out.println("Info: " + infoo); // Vérifiez les informations du compte
+			this.lblMessage.setText(infoo);
+
+			try {
+				montant = Double.parseDouble(this.txtMontant.getText().trim());
+				System.out.println("Montant entré: " + montant); // Vérifiez le montant entré
+				if (montant <= 0) throw new NumberFormatException();
+			} catch (NumberFormatException nfe) {
+				this.txtMontant.getStyleClass().add("borderred");
+				this.lblMontant.getStyleClass().add("borderred");
+				this.txtMontant.requestFocus();
+				System.out.println("Erreur: Le montant entré n'est pas valide"); // Vérifiez l'erreur de format du montant
+				return;
+			}
+
+			String typeOExceptionnel = this.cbTypeOpe.getValue();
+			System.out.println("Type d'opération exceptionnelle: " + typeOExceptionnel); // Vérifiez le type d'opération exceptionnelle
+			this.operationResultat = new Operation(-1, montant, null, null, this.compteEdite.idNumCli, typeOExceptionnel);
+			this.containingStage.close();
+			System.out.println("Fin du traitement du cas DEBITExceptionnel");
+			break;
+
 
 			case VIREMENT:
 			// Déclaration des variables
@@ -325,6 +378,7 @@ private void doAjouter() {
         }
         // Sortir de la boucle une fois que l'identifiant du compte est extrait
         break;
+		
     }
 }
 		

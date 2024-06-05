@@ -45,6 +45,11 @@
                               <Insets bottom="10.0" top="10.0" />
                            </GridPane.margin>
                         </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#doDebitExceptionnel" text="Enregistrer Virement" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
+                        </Button>
                      </children>
                   </GridPane>
                </children>

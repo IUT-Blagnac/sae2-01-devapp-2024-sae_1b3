@@ -148,6 +148,19 @@ public class OperationsManagementViewController {
     }
 }
 
+/**
+     * Enregistre une opération de crédit.
+	 * @author Thomas CEOLIN
+     */
+	@FXML
+	private void doDebitExceptionnel() {
+		Operation op = this.omDialogController.enregistrerDEBITExceptionnel();
+		if (op != null) {
+			this.updateInfoCompteClient();
+			this.validateComponentState();
+		}
+	}	
+
 
 	private void validateComponentState() {
 		// Non implémenté => désactivé
