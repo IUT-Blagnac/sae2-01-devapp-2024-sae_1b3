@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.TableauAmortissementViewController">
+    <center>
+        <TableView fx:id="tableAmortissement" prefHeight="400.0" prefWidth="600.0">
+            <columns>
+                <TableColumn text="Mois" fx:id="colMois" />
+                <TableColumn text="Capital restant dû" fx:id="colCapitalRestant" />
+                <TableColumn text="Intérêts" fx:id="colInterets" />
+                <TableColumn text="Capital remboursé" fx:id="colCapitalRembourse" />
+                <TableColumn text="Mensualité" fx:id="colMensualite" />
+                <TableColumn fx:id="colAssurance" text="Assurance"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

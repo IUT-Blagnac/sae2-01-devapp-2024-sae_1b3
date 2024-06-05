@@ -1,5 +1,6 @@
 package application.view;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import application.DailyBankState;
@@ -7,6 +8,9 @@ import application.control.ClientsManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -183,4 +187,33 @@ public class ClientsManagementViewController {
 			this.btnComptesClient.setDisable(true);
 		}
 	}
+
+		/**
+	 	* Ouvre la fenêtre de simulation de crédit lorsqu'on clique sur le bouton "Simuler Emprunt".
+ 		* Cette méthode charge le fichier FXML correspondant, crée une nouvelle scène et un nouveau stage,
+ 		* puis affiche cette nouvelle fenêtre.
+ 		*/
+	    @FXML
+    private void doSimulerEmprunt() {
+        try {
+            // Charge le fichier FXML pour la vue de simulation de crédit
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("simulationCredit.fxml"));
+            Parent root = loader.load();
+
+            // Crée une nouvelle scène avec le contenu chargé
+            Scene scene = new Scene(root);
+
+            // Crée une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Simulation de Crédit");
+            stage.setScene(scene);
+
+            // Affiche la nouvelle fenêtre
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
