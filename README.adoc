@@ -50,12 +50,14 @@ Dans sa colonne il doit remplir la ligne correspondant à chaque partie qu'il a 
 |         | Doc User V0    |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/DocUserV0.adoc     |Doc à reprendre dans son intégralité. Il manque la page de garde, le sommaire, la structure du document, la description des premières fonctionnalités, la procédure d'installation, de connexion. Reprenez l'attendu pour repartir sur une bonne base.
 |         | Recette V0  |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Cahier%20De%20Recette%20V0.adoc                   | 
 |         |Chiffrage prévisionnel |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Chiffrage%20pr%C3%A9visionnel.ods      |
-| 31/05   | Gantt V1  réalisé    |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V1_R%C3%A9alis%C3%A9.pdf     | 
-|         | Doc. Util. V1 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/DocUserV1.adoc       |         
+| 31/05   | Gantt V1  réalisé    |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V1_R%C3%A9alis%C3%A9.pdf     | Les activités ne sont pas ventilées par fonctionnalité, il aurait fallu rentrer un peu plus dans le détail. Il manque les milestone (les semaines n’en sont pas)
+|         | Doc. Util. V1 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/DocUserV1.adoc       |  l’utilisateur doit installer l’intégralité de l’environement de dev pour lancer l’applicatiion ? bizarre. a reprendre. Indiquer les credentials de connexion. Les description textuelle des fonctionnalités est trop succiente. Il manque beaucoup de scenario d’erreur décrit, pour que l’utilisateur puisse comprendre l’erreur, et manque les explications pour  faire disparaitre l’erreur. Etoffer les exemples dans les screenshots.
+GPO: le repo GIT n’est pas structuré, difficile de s’y retrouver. Structurez par version d’application. La repartition des taches dans le readme est incomplète. Il manque le KanBan présentant la vue d’ensemble des issues (to / in progress / done), à ajouter impérativement. Le nom du repo GIT ne respecte pas la convention de nommage demandée.
+        
 |         | Doc. Tec. V1 |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/DocTecV1.adoc             |     
 |         | Code V1    |        https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V1             | 
 |         | Recette V1 |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Cahier%20De%20Recette%20V1.adoc                | 
-|         | Gantt V2 prévu |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V2_Pr%C3%A9vu.pdf  | 
+|         | Gantt V2 prévu |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V2_Pr%C3%A9vu.pdf  |  Il n’y a aucune différence avec le GANTT V1, n’y a t il pas eu des ajustements ? une revu des taches. Il manque des taches de fin de projet.
 | 14/06   | Gantt V2  réalisé    |       | 
 |         | Doc. Util. V2 |         |         
 |         | Doc. Tec. V2 |                |     
