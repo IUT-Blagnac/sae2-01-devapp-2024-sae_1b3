@@ -1,5 +1,6 @@
 package application.control;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.itextpdf.text.List;
@@ -13,6 +14,7 @@ import application.view.ComptesManagementViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -234,6 +236,9 @@ public class ComptesManagement {
 		}
 	}
 }
+
+
+
 
 
 
