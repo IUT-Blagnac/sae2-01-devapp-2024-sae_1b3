@@ -62,7 +62,7 @@
                         <Button layoutX="10.0" layoutY="20.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" visible="false" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text="Simuler Emprunt" onAction="#doSimulerEmprunt"/>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text="Simuler Emprunt" onAction="#doSimulerEmprunt" fx:id="btnSimulerEmprunt"/>
                </children>
                <BorderPane.margin>
                   <Insets right="10.0" />

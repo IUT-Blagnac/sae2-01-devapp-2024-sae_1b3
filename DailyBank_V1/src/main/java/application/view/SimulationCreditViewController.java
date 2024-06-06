@@ -90,14 +90,28 @@ public class SimulationCreditViewController {
         double capitalRestant = capital;
         for (int mois = 1; mois <= duree; mois++) {
             double interet = capitalRestant * taux;
-            double capitalRembourse = mensualite - interet;
+            double capitalRembourse;
+
+            if (mois == duree) {
+                // Pour le dernier mois, ajuster le remboursement du capital pour éviter un montant négatif
+                capitalRembourse = capitalRestant;
+            } else {
+                capitalRembourse = mensualite - interet;
+            }
+
             capitalRestant -= capitalRembourse;
+
+            // S'assurer que le capital restant ne soit pas négatif (pour le cas où on aurait des arrondis)
+            if (capitalRestant < 0) {
+                capitalRestant = 0;
+            }
 
             amortissements.add(new Amortissement(mois, capitalRestant, interet, capitalRembourse, mensualite, assuranceMensuelle));
         }
 
         return amortissements;
     }
+
 
     /**
      * Affiche le tableau d'amortissement dans une nouvelle fenêtre.
