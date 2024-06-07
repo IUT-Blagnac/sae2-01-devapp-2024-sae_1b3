@@ -1,5 +1,8 @@
 package model.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Représente un compte courant d'un client.
  */
@@ -19,6 +22,9 @@ public class CompteCourant {
 
     /** L'identifiant unique du client associé au compte courant. */
     public int idNumCli;
+    
+    /** Liste des opérations associées au compte courant. */
+    private List<Operation> operations;
 
     /**
      * Constructeur avec tous les attributs.
@@ -35,6 +41,7 @@ public class CompteCourant {
         this.solde = solde;
         this.estCloture = estCloture;
         this.idNumCli = idNumCli;
+        this.operations = new ArrayList<>();
     }
 
     /**
@@ -43,11 +50,13 @@ public class CompteCourant {
      */
     public CompteCourant(CompteCourant cc) {
         this(cc.idNumCompte, cc.debitAutorise, cc.solde, cc.estCloture, cc.idNumCli);
+        this.operations = new ArrayList<>(cc.operations);
     }
 
     /** Constructeur par défaut, initialise les attributs à des valeurs par défaut. */
     public CompteCourant() {
         this(0, 0, 0, "N", -1000);
+        this.operations = new ArrayList<>();
     }
 
     /**
@@ -106,4 +115,19 @@ public class CompteCourant {
         return idNumCli;
     }
 
+    /**
+     * Renvoie la liste des opérations associées au compte courant.
+     * @return La liste des opérations associées au compte courant.
+     */
+    public List<Operation> getOperations() {
+        return operations;
+    }
+
+    /**
+     * Ajoute une opération à la liste des opérations du compte courant.
+     * @param operation L'opération à ajouter.
+     */
+    public void addOperation(Operation operation) {
+        this.operations.add(operation);
+    }
 }
