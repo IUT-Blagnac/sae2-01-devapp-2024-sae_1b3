@@ -95,9 +95,11 @@ public class ComptesManagement {
 	}
 
 	public void gererOperationsDUnCompte2(CompteCourant cpt) {
+		int numeroCompte = cpt.getIdNumCompte(); // Récupérer le numéro de compte du compte courant
 		PrelevementManagement om = new PrelevementManagement(this.cmStage, this.dailyBankState);
-		om.doPrelevementManagementDialog();
+		om.doPrelevementManagementDialog(numeroCompte); // Passer le numéro de compte lors de l'ouverture de la fenêtre
 	}
+	
 
 	/**
      * Crée un nouveau compte.

@@ -59,7 +59,6 @@ public class EmployeController {
         // Mettre la liste d'employé sur la table pour l'affichage
         employeTable.setItems(employeData);
     }
-
     public void setEmployeData(ObservableList<Employe> employeData) {
         this.employeData = employeData;
         employeTable.setItems(employeData);

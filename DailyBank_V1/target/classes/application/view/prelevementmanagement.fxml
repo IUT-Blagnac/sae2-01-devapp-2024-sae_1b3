@@ -24,7 +24,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btnRechercher" mnemonicParsing="false" onAction="#doRechercher" prefHeight="31.0" prefWidth="230.0" text="Charger prélèvement" GridPane.rowIndex="1" />
+                  <Button fx:id="btnRechercher" mnemonicParsing="false" onAction="#loadPrelevements" prefHeight="31.0" prefWidth="230.0" text="Charger prélèvement" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </center>

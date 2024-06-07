@@ -1,7 +1,6 @@
 package application.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import application.DailyBankState;
@@ -9,17 +8,16 @@ import application.control.PrelevementManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.data.CompteCourant;
 import model.data.PrelevementAutomatique;
+import model.orm.Access_BD_PrelevementAutomatiques;
+import model.orm.exception.DataAccessException;
+import model.orm.exception.DatabaseConnexionException;
 
 /**
  * Contrôleur pour la vue de gestion des prélèvements automatiques.
@@ -37,8 +35,6 @@ public class PrelevementManagementViewController {
 
     // Données de la fenêtre
     private ObservableList<PrelevementAutomatique> oListPrelevements;
-
-   
 
     /**
      * Initialise le contexte du contrôleur.
@@ -69,15 +65,16 @@ public class PrelevementManagementViewController {
     /**
      * Affiche la boîte de dialogue de gestion des prélèvements automatiques.
      */
-    public void displayDialog() {
+    public void displayDialog(int numeroCompte) {
+        this.txtIdNumCompte.setText(String.valueOf(numeroCompte));
         this.containingStage.showAndWait();
     }
+    
 
     // Gestion du stage
-    private Object closeWindow(WindowEvent e) {
+    private void closeWindow(WindowEvent e) {
         this.doCancel();
         e.consume();
-        return null;
     }
 
     // Attributs de la scène + actions
@@ -88,7 +85,6 @@ public class PrelevementManagementViewController {
     private ListView<PrelevementAutomatique> lvPrelevements;
     @FXML
     private Button btnRechercher;
-    
 
     @FXML
     private void doCancel() {
@@ -96,35 +92,26 @@ public class PrelevementManagementViewController {
     }
 
     @FXML
-    private void doRechercher() {
-        int idNumCompte;
+private void loadPrelevements() {
+    String idNumCompteText = txtIdNumCompte.getText();
+    if (!idNumCompteText.isEmpty()) {
+        int idNumCompte = Integer.parseInt(idNumCompteText);
+        Access_BD_PrelevementAutomatiques accessBDPrelevements = new Access_BD_PrelevementAutomatiques();
         try {
-            String nc = this.txtIdNumCompte.getText();
-            if (nc.equals("")) {
-                idNumCompte = -1;
-            } else {
-                idNumCompte = Integer.parseInt(nc);
-                if (idNumCompte < 0) {
-                    this.txtIdNumCompte.setText("");
-                    idNumCompte = -1;
-                }
-            }
-        } catch (NumberFormatException nfe) {
-            this.txtIdNumCompte.setText("");
-            idNumCompte = -1;
+            System.out.println("ppp");
+            List<PrelevementAutomatique> prelevementAutomatiques = accessBDPrelevements.getPrelevements(idNumCompte);
+            oListPrelevements.setAll(prelevementAutomatiques);
+        } catch (DataAccessException | DatabaseConnexionException e) {
+            e.printStackTrace();
         }
-
-        List<PrelevementAutomatique> listePrelev;
-        listePrelev = this.pmDialogController.getListePrelevements(idNumCompte);
-
-        this.oListPrelevements.clear();
-        this.oListPrelevements.addAll(listePrelev);
-        this.validateComponentState();
+    } else {
+        System.out.println("ID du compte est vide !");
     }
+}
+
 
     private void validateComponentState() {
         // Gérer l'état des composants si nécessaire
     }
 
-    
 }
