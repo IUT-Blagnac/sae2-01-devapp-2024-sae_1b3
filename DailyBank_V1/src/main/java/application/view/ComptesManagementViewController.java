@@ -125,6 +125,19 @@ public class ComptesManagementViewController {
     }
 
     @FXML
+    private void doVoirPrelevements(){
+        int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+        if (selectedIndice >= 0) {
+            CompteCourant cpt = this.oListCompteCourant.get(selectedIndice);
+            this.cmDialogController.gererOperationsDUnCompte2(cpt);
+        }
+        this.loadList();
+        this.validateComponentState();
+
+
+    }
+
+    @FXML
     private void doModifierCompte() throws RowNotFoundOrTooManyRowsException, ManagementRuleViolation {
         int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
         if (selectedIndice >= 0) {
@@ -179,15 +192,7 @@ private void doNouveauCompte() {
 }
 
 
-@FXML
-private void doVoirPrelevements() {
-    int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
-    if (selectedIndice >= 0) {
-        CompteCourant cpt = this.oListCompteCourant.get(selectedIndice);
-        this.pmController=new PrelevementManagement(containingStage, dailyBankState);
-        this.pmController.gererPrelevementsDUnCompte(cpt);
-    }
-}
+
 
 private void loadList() {
     ArrayList<CompteCourant> listeCpt;

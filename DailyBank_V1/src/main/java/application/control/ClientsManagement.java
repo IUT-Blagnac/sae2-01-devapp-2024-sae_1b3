@@ -145,10 +145,6 @@ public class ClientsManagement {
 	public ArrayList<Client> getlisteComptes(int _numCompte, String _debutNom, String _debutPrenom) {
 		ArrayList<Client> listeCli = new ArrayList<>();
 		try {
-			// Recherche des clients en BD. cf. AccessClient > getClients(.)
-			// numCompte != -1 => recherche sur numCompte
-			// numCompte == -1 et debutNom non vide => recherche nom/prenom
-			// numCompte == -1 et debutNom vide => recherche tous les clients
 
 			Access_BD_Client ac = new Access_BD_Client();
 			listeCli = ac.getClients(this.dailyBankState.getEmployeActuel().idAg, _numCompte, _debutNom, _debutPrenom);

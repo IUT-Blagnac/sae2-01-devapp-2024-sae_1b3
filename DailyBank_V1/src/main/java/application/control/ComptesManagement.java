@@ -94,6 +94,11 @@ public class ComptesManagement {
 		om.doOperationsManagementDialog();
 	}
 
+	public void gererOperationsDUnCompte2(CompteCourant cpt) {
+		PrelevementManagement om = new PrelevementManagement(this.cmStage, this.dailyBankState);
+		om.doPrelevementManagementDialog();
+	}
+
 	/**
      * Crée un nouveau compte.
      *

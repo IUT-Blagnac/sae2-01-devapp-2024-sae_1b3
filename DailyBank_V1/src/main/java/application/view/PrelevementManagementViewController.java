@@ -38,9 +38,7 @@ public class PrelevementManagementViewController {
     // Données de la fenêtre
     private ObservableList<PrelevementAutomatique> oListPrelevements;
 
-    // Nouveaux attributs
-    private Stage dialogStage;
-    private CompteCourant compteCourant;
+   
 
     /**
      * Initialise le contexte du contrôleur.
@@ -54,6 +52,7 @@ public class PrelevementManagementViewController {
         this.containingStage = _containingStage;
         this.dailyBankState = _dbstate;
         this.configure();
+        this.validateComponentState();
     }
 
     private void configure() {
@@ -127,21 +126,5 @@ public class PrelevementManagementViewController {
         // Gérer l'état des composants si nécessaire
     }
 
-    /**
-     * Méthode pour définir le stage de la boîte de dialogue.
-     * 
-     * @param stage Le stage de la boîte de dialogue.
-     */
-    public void setDialogStage(Stage stage) {
-        this.dialogStage = stage;
-    }
-
-    /**
-     * Méthode pour définir le compte courant à gérer.
-     * 
-     * @param compte Le compte courant à gérer.
-     */
-    public void setCompteCourant(CompteCourant compte) {
-        this.compteCourant = compte;
-    }
+    
 }

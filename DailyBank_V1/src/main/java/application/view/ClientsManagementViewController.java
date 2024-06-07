@@ -147,10 +147,7 @@ public class ClientsManagementViewController {
             }
         }
 
-        // Recherche des clients en BD. cf. AccessClient > getClients(.)
-        // numCompte != -1 => recherche sur numCompte
-        // numCompte != -1 et debutNom non vide => recherche nom/prenom
-        // numCompte != -1 et debutNom vide => recherche tous les clients
+  
         ArrayList<Client> listeCli;
         listeCli = this.cmDialogController.getlisteComptes(numCompte, debutNom, debutPrenom);
 

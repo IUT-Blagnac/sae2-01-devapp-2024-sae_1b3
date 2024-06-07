@@ -1,6 +1,7 @@
 package application.control;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import application.view.PrelevementManagementViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.data.Client;
 import model.data.CompteCourant;
 import model.data.PrelevementAutomatique;
 import model.orm.Access_BD_PrelevementAutomatiques;
@@ -40,7 +43,7 @@ public class PrelevementManagement {
         this.dailyBankState = _dbstate;
         try {
             FXMLLoader loader = new FXMLLoader(PrelevementManagementViewController.class.getResource("prelevementmanagement.fxml"));
-            AnchorPane root = loader.load();
+            BorderPane root = loader.load();
 
             Scene scene = new Scene(root, root.getPrefWidth() + 50, root.getPrefHeight() + 10);
             scene.getStylesheets().add(DailyBankApp.class.getResource("application.css").toExternalForm());
@@ -68,17 +71,23 @@ public class PrelevementManagement {
         this.pmViewController.displayDialog();
     }
 
+
+    public void gererPrelevementsDUnCompte(Client c){
+        ComptesManagement cm = new ComptesManagement(this.pmStage, this.dailyBankState, null);
+        cm.doComptesManagementDialog();
+    }
+
     /**
      * Récupère une liste de prélèvements automatiques en fonction des paramètres de recherche.
      * 
      * @param idNumCompte L'ID du compte associé aux prélèvements.
      * @return La liste des prélèvements automatiques correspondant aux critères de recherche.
      */
-    public List<PrelevementAutomatique> getListePrelevements(int idNumCompte) {
-        List<PrelevementAutomatique> listePrelev = new ArrayList<>();
+    public ArrayList<PrelevementAutomatique> getListePrelevements(int idNumCompte) {
+        ArrayList<PrelevementAutomatique> listePrelev = new ArrayList<>();
         try {
             Access_BD_PrelevementAutomatiques ap = new Access_BD_PrelevementAutomatiques();
-            listePrelev = ap.getPrelevements(idNumCompte);
+            listePrelev = (ArrayList<PrelevementAutomatique>) ap.getPrelevements(idNumCompte);
         } catch (DatabaseConnexionException e) {
             ExceptionDialog ed = new ExceptionDialog(this.pmStage, this.dailyBankState, e);
             ed.doExceptionDialog();
@@ -90,34 +99,6 @@ public class PrelevementManagement {
             listePrelev = new ArrayList<>();
         }
         return listePrelev;
-    }
-
-    /**
-     * Méthode pour gérer les prélèvements d'un compte.
-     * 
-     * @param cpt Le compte courant dont les prélèvements doivent être gérés.
-     */
-    public void gererPrelevementsDUnCompte(CompteCourant cpt) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(DailyBankApp.class.getResource("prelevementmanagement.fxml")); 
-            AnchorPane page = (AnchorPane) loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Gestion des Prélèvements");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(pmStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            PrelevementManagementViewController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setCompteCourant(cpt);
-            
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
