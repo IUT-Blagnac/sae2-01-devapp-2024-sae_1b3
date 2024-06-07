@@ -36,6 +36,7 @@ public class ComptesManagementViewController {
 
     // Contrôleur de Prélèvement associé à PrelevementManagement
     private PrelevementManagement pmController;
+    
 
     // Fenêtre physique où est la scène contenant le fichier XML contrôlé par this
     private Stage containingStage;
@@ -60,14 +61,7 @@ public class ComptesManagementViewController {
         this.configure();
     }
 
-    /**
-     * Initialise le contrôleur de prélèvement associé.
-     *
-     * @param _pmController Le contrôleur de prélèvement.
-     */
-    public void setPrelevementManagementController(PrelevementManagement _pmController) {
-        this.pmController = _pmController;
-    }
+    
 
     private void configure() {
         String info;
@@ -111,7 +105,7 @@ public class ComptesManagementViewController {
     private Button btnModifierCompte;
     @FXML
     private Button btnSupprCompte;
-	 @FXML
+	@FXML
     private Button btnVoirPrelevements;
 
     @FXML
@@ -173,53 +167,55 @@ public class ComptesManagementViewController {
         error.setHeaderText(message);
         error.setContentText(details);
         error.showAndWait();
+}
+
+@FXML
+private void doNouveauCompte() {
+    CompteCourant compte;
+    compte = this.cmDialogController.creerNouveauCompte();
+    if (compte != null) {
+        this.oListCompteCourant.add(compte);
     }
+}
 
-    @FXML
-    private void doNouveauCompte() {
-        CompteCourant compte;
-        compte = this.cmDialogController.creerNouveauCompte();
-        if (compte != null) {
-            this.oListCompteCourant.add(compte);
-        }
+
+@FXML
+private void doVoirPrelevements() {
+    int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+    if (selectedIndice >= 0) {
+        CompteCourant cpt = this.oListCompteCourant.get(selectedIndice);
+        this.pmController=new PrelevementManagement(containingStage, dailyBankState);
+        this.pmController.gererPrelevementsDUnCompte(cpt);
     }
+}
 
+private void loadList() {
+    ArrayList<CompteCourant> listeCpt;
+    listeCpt = this.cmDialogController.getComptesDunClient();
+    this.oListCompteCourant.clear();
+    this.oListCompteCourant.addAll(listeCpt);
+}
 
-    @FXML
-    private void doVoirPrelevements() {
-        int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
-        if (selectedIndice >= 0) {
-            CompteCourant cpt = this.oListCompteCourant.get(selectedIndice);
-            this.pmController.gererPrelevementsDUnCompte(cpt);
-        }
-    }
+private void validateComponentState() {
+    // Non implémenté => désactivé
+    this.btnModifierCompte.setDisable(true);
+    this.btnSupprCompte.setDisable(true);
+    this.btnVoirPrelevements.setDisable(true);
 
-    private void loadList() {
-        ArrayList<CompteCourant> listeCpt;
-        listeCpt = this.cmDialogController.getComptesDunClient();
-        this.oListCompteCourant.clear();
-        this.oListCompteCourant.addAll(listeCpt);
-    }
+    int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
+    if (selectedIndice >= 0) {
+        this.btnVoirOpes.setDisable(false);
+        this.btnModifierCompte.setDisable(false);
+        this.btnSupprCompte.setDisable(false);
+        this.btnVoirPrelevements.setDisable(false);
 
-    private void validateComponentState() {
-        // Non implémenté => désactivé
+    } else {
+        this.btnVoirOpes.setDisable(true);
         this.btnModifierCompte.setDisable(true);
         this.btnSupprCompte.setDisable(true);
         this.btnVoirPrelevements.setDisable(true);
 
-        int selectedIndice = this.lvComptes.getSelectionModel().getSelectedIndex();
-        if (selectedIndice >= 0) {
-            this.btnVoirOpes.setDisable(false);
-            this.btnModifierCompte.setDisable(false);
-            this.btnSupprCompte.setDisable(false);
-            this.btnVoirPrelevements.setDisable(false);
-
-        } else {
-            this.btnVoirOpes.setDisable(true);
-            this.btnModifierCompte.setDisable(true);
-            this.btnSupprCompte.setDisable(true);
-            this.btnVoirPrelevements.setDisable(true);
-
-        }
     }
 }
+}
+

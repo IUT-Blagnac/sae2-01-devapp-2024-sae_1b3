@@ -11,7 +11,6 @@ import application.view.PrelevementManagementViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.data.CompteCourant;
@@ -41,7 +40,7 @@ public class PrelevementManagement {
         this.dailyBankState = _dbstate;
         try {
             FXMLLoader loader = new FXMLLoader(PrelevementManagementViewController.class.getResource("prelevementmanagement.fxml"));
-            BorderPane root = loader.load();
+            AnchorPane root = loader.load();
 
             Scene scene = new Scene(root, root.getPrefWidth() + 50, root.getPrefHeight() + 10);
             scene.getStylesheets().add(DailyBankApp.class.getResource("application.css").toExternalForm());
@@ -94,31 +93,31 @@ public class PrelevementManagement {
     }
 
     /**
- * Méthode pour gérer les prélèvements d'un compte.
- * 
- * @param cpt Le compte courant dont les prélèvements doivent être gérés.
- */
-public void gererPrelevementsDUnCompte(CompteCourant cpt) {
-    try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PrelevementManagementViewController.class.getResource("prelevementmanagement.fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
+     * Méthode pour gérer les prélèvements d'un compte.
+     * 
+     * @param cpt Le compte courant dont les prélèvements doivent être gérés.
+     */
+    public void gererPrelevementsDUnCompte(CompteCourant cpt) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(DailyBankApp.class.getResource("prelevementmanagement.fxml")); 
+            AnchorPane page = (AnchorPane) loader.load();
 
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Gestion des Prélèvements");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(pmStage);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Gestion des Prélèvements");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(pmStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
-        PrelevementManagementViewController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
-        controller.setCompteCourant(cpt);
-        
-        dialogStage.showAndWait();
-    } catch (IOException e) {
-        e.printStackTrace();
+            PrelevementManagementViewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCompteCourant(cpt);
+            
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
 }
