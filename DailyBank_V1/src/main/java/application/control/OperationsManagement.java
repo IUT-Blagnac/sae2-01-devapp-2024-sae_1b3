@@ -19,9 +19,8 @@ import model.data.Operation;
 import model.orm.Access_BD_CompteCourant;
 import model.orm.Access_BD_Operation;
 import model.orm.exception.ApplicationException;
-import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
-import model.orm.exception.ManagementRuleViolation;
+
 
 /**
  * La classe OperationsManagement contrôle la gestion des opérations.

@@ -1,21 +1,28 @@
 package application.view;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.List;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import application.DailyBankState;
 import application.control.OperationsManagement;
+import application.tools.ConstantesIHM;
 import application.tools.NoSelectionModel;
 import application.tools.PairsOfValue;
-import application.tools.ConstantesIHM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,14 +56,15 @@ public class OperationsManagementViewController {
 
     /**
      * Initialise le contexte de la fenêtre.
+     * 
      * @param _containingStage La fenêtre contenant la scène.
-     * @param _om Le contrôleur d'opérations.
-     * @param _dbstate L'état courant de l'application.
-     * @param client Le client associé au compte.
-     * @param compte Le compte concerné par les opérations.
+     * @param _om              Le contrôleur d'opérations.
+     * @param _dbstate         L'état courant de l'application.
+     * @param client           Le client associé au compte.
+     * @param compte           Le compte concerné par les opérations.
      */
     public void initContext(Stage _containingStage, OperationsManagement _om, DailyBankState _dbstate, Client client,
-                            CompteCourant compte) {
+            CompteCourant compte) {
         this.containingStage = _containingStage;
         this.dailyBankState = _dbstate;
         this.omDialogController = _om;
@@ -65,6 +73,9 @@ public class OperationsManagementViewController {
         this.configure();
     }
 
+    /**
+     * Configure la fenêtre et initialise les composants.
+     */
     private void configure() {
         this.containingStage.setOnCloseRequest(this::closeWindow);
         this.oListOperations = FXCollections.observableArrayList();
@@ -81,7 +92,11 @@ public class OperationsManagementViewController {
         this.containingStage.showAndWait();
     }
 
-    // Gestion du stage
+    /**
+     * Gère la fermeture de la fenêtre.
+     * 
+     * @param e L'événement de fermeture de la fenêtre.
+     */
     private void closeWindow(WindowEvent e) {
         this.doCancel();
         e.consume();
@@ -112,6 +127,7 @@ public class OperationsManagementViewController {
 
     /**
      * Enregistre une opération de débit.
+     * @author Thomas
      */
     @FXML
     private void doDebit() {
@@ -148,6 +164,7 @@ public class OperationsManagementViewController {
 
     /**
      * Enregistre une opération de débit exceptionnel.
+     * @author Thomas
      */
     @FXML
     private void doDebitExceptionnel() {
@@ -158,31 +175,28 @@ public class OperationsManagementViewController {
         }
     }
 
+    /**
+     * Valide l'état des composants de l'interface.
+     */
     private void validateComponentState() {
-        // Non implémenté => désactivé
         this.btnCredit.setDisable(false);
         this.btnDebit.setDisable(false);
-
-        // Définir la visibilité du bouton btnDebitExceptionnel en fonction des droits d'accès
         this.btnDebitExceptionnel.setVisible(ConstantesIHM.isAdmin(this.dailyBankState.getEmployeActuel()));
     }
 
+    /**
+     * Met à jour les informations du compte client affichées dans l'interface.
+     */
     private void updateInfoCompteClient() {
-        PairsOfValue<CompteCourant, ArrayList<Operation>> opesEtCompte;
-        opesEtCompte = this.omDialogController.operationsEtSoldeDunCompte();
-
-        ArrayList<Operation> listeOP;
+        PairsOfValue<CompteCourant, ArrayList<Operation>> opesEtCompte = this.omDialogController.operationsEtSoldeDunCompte();
+        ArrayList<Operation> listeOP = opesEtCompte.getRight();
         this.compteConcerne = opesEtCompte.getLeft();
-        listeOP = opesEtCompte.getRight();
 
-        String info;
-        info = this.clientDuCompte.nom + "  " + this.clientDuCompte.prenom + "  (id : " + this.clientDuCompte.idNumCli + ")";
-        this.lblInfosClient.setText(info);
+        String infoClient = String.format("%s %s (id : %d)", this.clientDuCompte.nom, this.clientDuCompte.prenom, this.clientDuCompte.idNumCli);
+        this.lblInfosClient.setText(infoClient);
 
-        info = "Cpt. : " + this.compteConcerne.idNumCompte + "  "
-                + String.format(Locale.ENGLISH, "%12.02f", this.compteConcerne.solde) + "  /  "
-                + String.format(Locale.ENGLISH, "%8d", this.compteConcerne.debitAutorise);
-        this.lblInfosCompte.setText(info);
+        String infoCompte = String.format(Locale.ENGLISH, "Cpt. : %d  %.2f € / %d", this.compteConcerne.idNumCompte, this.compteConcerne.solde, this.compteConcerne.debitAutorise);
+        this.lblInfosCompte.setText(infoCompte);
 
         this.oListOperations.clear();
         this.oListOperations.addAll(listeOP);
@@ -190,6 +204,10 @@ public class OperationsManagementViewController {
         this.validateComponentState();
     }
 
+    /**
+     * Génère un relevé de compte PDF pour le compte client.
+     * @author Théo
+     */
     @FXML
     public void generatePDF() {
         try {
@@ -197,6 +215,7 @@ public class OperationsManagementViewController {
             String clientName = this.clientDuCompte.nom;
             String clientSurname = this.clientDuCompte.prenom;
             String accountNumber = String.valueOf(this.compteConcerne.idNumCompte);
+            double accountBalance = this.compteConcerne.solde;
             List<Operation> operations = this.oListOperations;
 
             // Créez le document PDF
@@ -205,16 +224,48 @@ public class OperationsManagementViewController {
 
             document.open();
 
-            // Ajoutez le contenu au document
-            document.add(new Paragraph("Relevé de compte"));
-            document.add(new Paragraph("Client : " + clientName + " " + clientSurname));
-            document.add(new Paragraph("Numéro de compte : " + accountNumber));
+            // Ajoutez le contenu au document avec des titres plus gros et en gras
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+            Font subTitleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
+            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+
+            document.add(new Paragraph("Relevé de compte", titleFont));
+            document.add(new Paragraph("Client : " + clientName + " " + clientSurname, subTitleFont));
+            document.add(new Paragraph("Numéro de compte : " + accountNumber, subTitleFont));
+            document.add(new Paragraph("Solde du compte : " + String.format(Locale.ENGLISH, "%.2f", accountBalance) + " €", subTitleFont));
             document.add(new Paragraph(" ")); // ligne vide pour l'espacement
 
+            // Création du tableau pour les opérations
+            PdfPTable table = new PdfPTable(3);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+
+            // Définition des en-têtes de colonne
+            PdfPCell cell1 = new PdfPCell(new Phrase("Type d'Opération", subTitleFont));
+            cell1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell1);
+
+            PdfPCell cell2 = new PdfPCell(new Phrase("Montant", subTitleFont));
+            cell2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell2);
+
+            PdfPCell cell3 = new PdfPCell(new Phrase("Date", subTitleFont));
+            cell3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell3);
+
+            // Ajout des opérations dans le tableau
             for (Operation op : operations) {
                 String dateValeurStr = op.dateValeur != null ? op.dateValeur.toString() : "Date non définie";
-                document.add(new Paragraph("Opération : " + op.idTypeOp + " | Montant : " + op.montant + " | Date : " + dateValeurStr));
+                table.addCell(new PdfPCell(new Phrase(op.idTypeOp, normalFont)));
+                table.addCell(new PdfPCell(new Phrase(String.format(Locale.ENGLISH, "%.2f", op.montant) + " €", normalFont)));
+                table.addCell(new PdfPCell(new Phrase(dateValeurStr, normalFont)));
             }
+
+            document.add(table);
 
             document.close();
 
