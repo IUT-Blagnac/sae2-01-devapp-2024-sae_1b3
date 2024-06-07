@@ -58,6 +58,7 @@ GPO: le repo GIT n’est pas structuré, difficile de s’y retrouver. Structure
 |         | Code V1    |        https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V1             | 
 |         | Recette V1 |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Cahier%20De%20Recette%20V1.adoc                | 
 |         | Gantt V2 prévu |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V2_Pr%C3%A9vu.pdf  |  Il n’y a aucune différence avec le GANTT V1, n’y a t il pas eu des ajustements ? une revu des taches. Il manque des taches de fin de projet.
+| 07/06   | Code V1    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V1      |
 | 14/06   | Gantt V2  réalisé    |       | 
 |         | Doc. Util. V2 |         |         
 |         | Doc. Tec. V2 |                |     
