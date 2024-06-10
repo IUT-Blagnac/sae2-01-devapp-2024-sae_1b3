@@ -1090,6 +1090,8 @@ public void testSupprimerEmploye_DatabaseError() throws DataAccessException, Dat
 }
 ---- 
 
+== Scénarios de Test pour les fonctionnalités de la V2"
+
 == Scénarios de Test pour la Fonctionnalité "Simuler Crédit" / "Simuler Assurance" fonctionnalités connexes (Théo RABAN)
 
 === Scénario 1 : Calculer le crédit avec des valeurs valides
