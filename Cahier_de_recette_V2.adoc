@@ -1,1 +1,1091 @@
 
+= Cahier De Recette
+:toc: right
+:toclevels: 4
+
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
+
+
+== Projet développement d'application bancaire
+
+|===
+| Client: | Bank Univ
+| Date: | Semaine 24
+|===
+
+== Auteurs
+
+Le cahier de recette a été rédigé par :
+
+    Théo RABAN
+    Yahya MAGAZ
+    Thomas CEOLIN
+
+== Révision
+
+|===
+| Date | Version
+| [Semaine 20] | [Version 0.0]
+| [Semaine 22] | [Version 1.0]
+|===
+
+== Scénarios de Test pour les fonctionnalités de la V1"
+:toc: right
+:toclevels: 4
+
+== Scénarios de Test pour la Fonctionnalité "Ajouter Compte" ( Theo Raban )
+
+=== Scénario 1 : Ajouter un compte avec des informations valides 
+
+==== Description
+Ajouter un nouveau compte pour un client existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| IdNumCompte      | 1 (compte déjà existant)
+| IdNumCompte      | 2 (nouveau compte)
+|===
+
+==== Action
+Appeler la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | 2
+| Solde                  | 0.0
+| DecouvertAutorise      | 1000.0
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerNouveauCompte_Valid() throws Exception {
+    // Arrange
+    ArrayList<CompteCourant> comptesExistants = new ArrayList<>();
+    comptesExistants.add(new CompteCourant(1, 100, 500.0, "N", 1));
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenReturn(comptesExistants);
+
+    // Act
+    CompteCourant nouveauCompte = comptesManagement.creerNouveauCompte();
+
+    // Assert
+    assertNotNull(nouveauCompte);
+    assertEquals(2, nouveauCompte.getIdNumCompte());
+    assertEquals(0.0, nouveauCompte.getSolde(), 0.001);
+    assertEquals(1000.0, nouveauCompte.getDecouvertAutorise(), 0.001);
+}
+----
+
+=== Scénario 2 : Vérifier l'insertion du compte dans la base de données 
+
+==== Description
+Vérifier que le nouveau compte est correctement inséré dans la base de données après sa création.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | 2
+| Solde                  | 0.0
+| DecouvertAutorise      | 1000.0
+| EstCloture             | "N"
+| IdNumCli               | 2
+|===
+
+==== Action
+Appeler la méthode `insertCompte(CompteCourant compte)`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| SQL exécuté            | INSERT INTO CompteCourant VALUES (2, 200, 0.0, "N", 2)
+| Commit transaction     | Oui
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testInsertCompte_Valid() throws Exception {
+    // Arrange
+    CompteCourant compte = new CompteCourant(2, 200, 0.0, "N", 2);
+    Connection mockConnection = mock(Connection.class);
+    PreparedStatement mockStatement = mock(PreparedStatement.class);
+    when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+    // Act
+    accessBDCompteCourant.insertCompte(compte);
+
+    // Assert
+    verify(mockStatement).setInt(1, 2);
+    verify(mockStatement).setInt(2, 200);
+    verify(mockStatement).setDouble(3, 0.0);
+    verify(mockStatement).setString(4, "N");
+    verify(mockStatement).setInt(5, 2);
+    verify(mockStatement).executeUpdate();
+    verify(mockStatement).close();
+    verify(mockConnection).commit();
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la création d'un compte 
+
+==== Description
+Vérifier la gestion des erreurs lors de la création d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCompte            | Invalide ou non fourni
+|===
+
+=== Action
+Simuler une exception lors de l'appel à la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Exception levée        | SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testCreerNouveauCompte_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenThrow(new SQLException());
+
+    // Act
+    comptesManagement.creerNouveauCompte();
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+=== Scénario 4 : Création d'un compte avec un numéro de client inexistant 
+
+==== Description
+Essayer de créer un compte pour un numéro de client qui n'existe pas dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut               | Valeur
+| IdNumCli               | 999 (numéro de client inexistant)
+|===
+
+==== Action
+Appeler la méthode `creerNouveauCompte()`.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Exception levée        | ClientNotFoundException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerNouveauCompte_ClientInexistant() throws Exception {
+    // Arrange
+    ArrayList<CompteCourant> comptesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDCompteCourant.getTousLesComptes()).thenReturn(comptesExistants);
+    Mockito.when(mockAccessBDCompteCourant.getClientById(999)).thenReturn(null); // Client inexistant
+
+    // Act
+    try {
+        comptesManagement.creerNouveauCompte();
+        fail("Expected an Exception to be thrown");
+    } catch (Exception e) {
+        // Assert
+        assertTrue(e instanceof ClientNotFoundException);
+    }
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Ajouter Employé" ( Theo Raban )
+
+=== Scénario 1 : Ajouter un employé avec des informations valides 
+
+==== Description
+Ajouter un nouvel employé avec des informations valides.
+
+=== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 1 (employé déjà existant)
+| IdEmploye     | 2 (nouvel employé)
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerEmploye_Valid() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    employesExistants.add(new Employe(1, "Martin", "Paul", "456 Rue Exemple", "0987654321", "paul.martin@example.com", 1));
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    Employe nouvelEmploye = employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+
+    // Assert
+    assertNotNull(nouvelEmploye);
+    assertEquals(2, nouvelEmploye.getIdEmploye());
+    assertEquals("Dupont", nouvelEmploye.getNom());
+    assertEquals("Jean", nouvelEmploye.getPrenom());
+    assertEquals("123 Rue Exemple", nouvelEmploye.getAdresse());
+    assertEquals("0123456789", nouvelEmploye.getNumTel());
+    assertEquals("jean.dupont@example.com", nouvelEmploye.getEmail());
+    assertEquals(1, nouvelEmploye.getIdAgence());
+}
+----
+
+=== Scénario 2 : Vérifier l'insertion de l'employé dans la base de données 
+
+==== Description
+Vérifier que le nouvel employé est correctement inséré dans la base de données après sa création.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `insertEmploye(Employe employe)`.
+
+==== Réponse attendue
+
+|===
+| Attribut           | Valeur
+| SQL exécuté        | INSERT INTO Employe VALUES (2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1)
+| Commit transaction | Oui
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testInsertEmploye_Valid() throws Exception {
+    // Arrange
+    Employe employe = new Employe(2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+    Connection mockConnection = mock(Connection.class);
+    PreparedStatement mockStatement = mock(PreparedStatement.class);
+    when(mockConnection.prepareStatement(anyString())).thenReturn(mockStatement);
+
+    // Act
+    accessBDEmploye.insertEmploye(employe);
+
+    // Assert
+    verify(mockStatement).setInt(1, 2);
+    verify(mockStatement).setString(2, "Dupont");
+    verify(mockStatement).setString(3, "Jean");
+    verify(mockStatement).setString(4, "123 Rue Exemple");
+    verify(mockStatement).setString(5, "0123456789");
+    verify(mockStatement).setString(6, "jean.dupont@example.com");
+    verify(mockStatement).setInt(7, 1);
+    verify(mockStatement).executeUpdate();
+    verify(mockStatement).close();
+    verify(mockConnection).commit();
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la création d'un employé 
+
+==== Description
+Vérifier la gestion des erreurs lors de la création d'un employé si une exception est levée.
+
+=== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Nom           | null
+| Prénom        | null
+| Adresse       | null
+| NumTel        | null
+| Email         | null
+| IdAgence      | 1
+|===
+
+==== Action
+Simuler une exception lors de l'appel à la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testCreerEmploye_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenThrow(new SQLException());
+
+    // Act
+    employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1);
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+=== Scénario 4 : Création d'un employé avec un numéro d'agence inexistant 
+
+=== Description
+Essayer de créer un employé pour un numéro d'agence qui n'existe pas dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 999 (numéro d'agence inexistant)
+|===
+
+==== Action
+Appeler la méthode `creerEmploye()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| AgenceNotFoundException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testCreerEmploye_AgenceInexistante() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+    Mockito.when(mockAccessBDEmploye.getAgenceById(999)).thenReturn(null); // Agence inexistante
+
+    // Act
+    try {
+        employesManagement.creerEmploye("Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 999);
+        fail("Expected an Exception to be thrown");
+    } catch (Exception e) {
+        // Assert
+        assertTrue(e instanceof AgenceNotFoundException);
+    }
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Afficher la Liste des Employés" ( Theo Raban )
+
+=== Scénario 1 : Afficher la liste des employés avec des employés existants 
+
+==== Description
+Afficher la liste des employés lorsque des employés existent dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| IdEmploye     | 1
+| Nom           | "Martin"
+| Prénom        | "Paul"
+| Adresse       | "456 Rue Exemple"
+| NumTel        | "0987654321"
+| Email         | "paul.martin@example.com"
+| IdAgence      | 1
+| IdEmploye     | 2
+| Nom           | "Dupont"
+| Prénom        | "Jean"
+| Adresse       | "123 Rue Exemple"
+| NumTel        | "0123456789"
+| Email         | "jean.dupont@example.com"
+| IdAgence      | 1
+|===
+
+==== Action
+Appeler la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Nombre d'employés | 2
+| Employé 1      | {IdEmploye: 1, Nom: "Martin", Prénom: "Paul", Adresse: "456 Rue Exemple", NumTel: "0987654321", Email: "paul.martin@example.com", IdAgence: 1}
+| Employé 2      | {IdEmploye: 2, Nom: "Dupont", Prénom: "Jean", Adresse: "123 Rue Exemple", NumTel: "0123456789", Email: "jean.dupont@example.com", IdAgence: 1}
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testGetTousLesEmployes_EmployesExistants() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    employesExistants.add(new Employe(1, "Martin", "Paul", "456 Rue Exemple", "0987654321", "paul.martin@example.com", 1));
+    employesExistants.add(new Employe(2, "Dupont", "Jean", "123 Rue Exemple", "0123456789", "jean.dupont@example.com", 1));
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    List<Employe> result = employesManagement.getTousLesEmployes();
+
+    // Assert
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    assertEquals(1, result.get(0).getIdEmploye());
+    assertEquals("Martin", result.get(0).getNom());
+    assertEquals("Paul", result.get(0).getPrenom());
+    assertEquals("456 Rue Exemple", result.get(0).getAdresse());
+    assertEquals("0987654321", result.get(0).getNumTel());
+    assertEquals("paul.martin@example.com", result.get(0).getEmail());
+    assertEquals(1, result.get(0).getIdAgence());
+    assertEquals(2, result.get(1).getIdEmploye());
+    assertEquals("Dupont", result.get(1).getNom());
+    assertEquals("Jean", result.get(1).getPrenom());
+    assertEquals("123 Rue Exemple", result.get(1).getAdresse());
+    assertEquals("0123456789", result.get(1).getNumTel());
+    assertEquals("jean.dupont@example.com", result.get(1).getEmail());
+    assertEquals(1, result.get(1).getIdAgence());
+}
+----
+
+=== Scénario 2 : Afficher la liste des employés sans employés existants 
+
+==== Description
+Afficher la liste des employés lorsque aucun employé n'existe dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Aucun employé | 
+|===
+
+==== Action
+Appeler la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut         | Valeur
+| Nombre d'employés| 0
+| Liste d'employés | Vide
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testGetTousLesEmployes_AucunEmploye() throws Exception {
+    // Arrange
+    ArrayList<Employe> employesExistants = new ArrayList<>();
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenReturn(employesExistants);
+
+    // Act
+    List<Employe> result = employesManagement.getTousLesEmployes();
+
+    // Assert
+    assertNotNull(result);
+    assertTrue(result.isEmpty());
+}
+----
+
+=== Scénario 3 : Gestion des erreurs lors de la récupération des employés 
+
+==== Description
+Vérifier la gestion des erreurs lorsque la récupération des employés provoque une exception.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| Aucun employé | 
+|===
+
+==== Action
+Simuler une exception lors de l'appel à la méthode `getTousLesEmployes()`.
+
+==== Réponse attendue
+
+|===
+| Attribut       | Valeur
+| Exception levée| SQLException
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = SQLException.class)
+public void testGetTousLesEmployes_Exception() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDEmploye.getTousLesEmployes()).thenThrow(new SQLException());
+
+    // Act
+    employesManagement.getTousLesEmployes();
+
+    // Assert
+    // Une exception SQLException est attendue
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Modifier Compte" ( Yahya Magaz ) 
+
+=== Scénario 1 : Modifier un compte existant avec des informations valides 
+
+==== Description
+Modifier un compte existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 1
+| Nouveau solde    | 1500.0
+| Nouveau découvert autorisé | 2000.0
+|===
+
+==== Action
+Appeler la méthode `modifierCompte()` avec les informations valides.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Le compte est mis à jour avec succès dans la base de données.
+| Les nouvelles informations du compte sont correctement enregistrées.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testModifierCompte_Valid() throws Exception {
+    // Arrange
+    CompteCourant compte = new CompteCourant(1, 100, 500.0, "N", 1);
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(1)).thenReturn(compte);
+
+    // Act
+    boolean success = comptesManagement.modifierCompte(1, 1500.0, 2000.0);
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un compte  
+
+==== Description
+Vérifier la gestion des erreurs lors de la modification d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 999 (compte inexistant)
+| Nouveau solde    | 1500.0
+| Nouveau découvert autorisé | 2000.0
+|===
+
+==== Action
+Appeler la méthode `modifierCompte()` avec un ID de compte inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Une exception de type `CompteIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = CompteIntrouvableException.class)
+public void testModifierCompte_CompteIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(999)).thenReturn(null);
+
+    // Act
+    comptesManagement.modifierCompte(999, 1500.0, 2000.0);
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Modifier Client" ( Yahya Magaz ) 
+
+=== Scénario 1 : Modifier un client existant avec des informations valides  
+
+==== Description
+Modifier un client existant avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut                        | Valeur
+| ID du client                    | 1
+| Nouveau nom                     | "NouveauNom"
+| Nouveau prénom                  | "NouveauPrenom"
+| Nouvelle adresse postale        | "NouvelleAdresse"
+| Nouveau email                   | "nouveau.email@example.com"
+| Nouveau numéro de téléphone     | "0123456789"
+| Statut d'inactivité             | "Non"
+| Identifiant de l'agence         | 123
+|===
+
+==== Action
+Appeler la méthode `modifierClient()` avec les informations valides.
+
+==== Réponse attendue
+
+|===
+| Attribut                          | Valeur
+| Le client est mis à jour avec succès dans la base de données.
+| Les nouvelles informations du client sont correctement enregistrées.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testModifierClient_Valid() throws Exception {
+    // Arrange
+    Client client = new Client(1, "NomActuel", "PrenomActuel", "AdresseActuelle", "email.actuel@example.com", "0123456789", "Non", 123);
+    Mockito.when(mockAccessBDClient.getClientById(1)).thenReturn(client);
+
+    // Act
+    boolean success = clientsManagement.modifierClient(1, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "nouveau.email@example.com", "0123456789", "Non", 123);
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la modification d'un client  
+
+==== Description
+Vérifier la gestion des erreurs lors de la modification d'un client si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut                        | Valeur
+| ID du client                    | 999 (client inexistant)
+| Nouveau nom                     | "NouveauNom"
+| Nouveau prénom                  | "NouveauPrenom"
+| Nouvelle adresse postale        | "NouvelleAdresse"
+| Nouveau email                   | "nouveau.email@example.com"
+| Nouveau numéro de téléphone     | "0123456789"
+| Statut d'inactivité             | "Non"
+| Identifiant de l'agence         | 123
+|===
+
+==== Action
+Appeler la méthode `modifierClient()` avec un ID de client inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut                          | Valeur
+| Une exception de type `ClientIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ClientIntrouvableException.class)
+public void testModifierClient_ClientIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDClient.getClientById(999)).thenReturn(null);
+
+    // Act
+    clientsManagement.modifierClient(999, "NouveauNom", "NouveauPrenom", "NouvelleAdresse", "nouveau.email@example.com", "0123456789", "Non", 123);
+}
+----
+
+
+== Scénarios de Test pour la Fonctionnalité "Supprimer Compte" ( Yahya Magaz ) 
+
+=== Scénario 1 : Supprimer un compte existant  
+
+==== Description
+Supprimer un compte existant dans la base de données.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| ID du compte     | 1
+|===
+
+==== Action
+Appeler la méthode `supprimerCompte()` avec l'ID du compte existant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Le compte est supprimé avec succès de la base de données.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testSupprimerCompte_Valid() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(1)).thenReturn(new CompteCourant(1, 100, 500.0, "N", 1));
+
+    // Act
+    boolean success = comptesManagement.supprimerCompte(1);
+
+    // Assert
+    assertTrue(success);
+}
+----
+
+=== Scénario 2 : Gestion des erreurs lors de la suppression d'un compte  
+
+==== Description
+Vérifier la gestion des erreurs lors de la suppression d'un compte si une exception est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut          | Valeur
+| ID du compte      | 999 (compte inexistant)
+|===
+
+==== Action
+Appeler la méthode `supprimerCompte()` avec un ID de compte inexistant.
+
+==== Réponse attendue
+
+|===
+| Attribut               | Valeur
+| Une exception de type `CompteIntrouvableException` est levée.
+|===
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = CompteIntrouvableException.class)
+public void testSupprimerCompte_CompteIntrouvable() throws Exception {
+    // Arrange
+    Mockito.when(mockAccessBDCompteCourant.getCompteById(999)).thenReturn(null);
+
+    // Act
+    comptesManagement.supprimerCompte(999);
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Virement Compte a Compte "  ( Thomas CEOLIN ) 
+
+=== Scénario 1 : Effectuer un virement entre deux comptes avec des informations valides  
+
+==== Description
+Effectuer un virement entre deux comptes bancaires existants avec des informations valides.
+
+==== Données d'entrée
+
+|===
+| Attribut         | Valeur
+| CompteSource     | 12345
+| CompteDestination| 67890
+| Montant          | 500.00
+|===
+
+==== Action
+Appeler la méthode `insertVirement()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Le système effectue le virement du montant spécifié du compte source vers le compte de destination.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testinsertVirement_Valid() throws Exception {
+    // Arrange
+    CompteBancaire compteSource = new CompteBancaire(12345, 1000.0);
+    CompteBancaire compteDestination = new CompteBancaire(67890, 200.0);
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compteSource);
+    Mockito.when(mockServiceBancaire.getCompte(67890)).thenReturn(compteDestination);
+
+    // Act
+    boolean virementEffectue = serviceVirement.insertVirement(12345, 67890, 500.00);
+
+    // Assert
+    assertTrue(virementEffectue);
+    assertEquals(500.00, compteSource.getSolde(), 0.001);
+    assertEquals(700.00, compteDestination.getSolde(), 0.001);
+}
+----
+
+=== Scénario 2 : Tentative de Virement avec un Montant Invalide 
+
+==== Description
+Tentative de virement entre deux comptes bancaires existants avec un montant invalide et vérification qu'une exception appropriée est levée.
+
+==== Données d'entrée
+
+|===
+| Attribut            | Valeur
+| Compte Source       | 12345
+| Compte Destination  | 67890
+| Montant             | -100.00
+|===
+
+==== Action
+Appeler la méthode `insertVirement()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Une exception de type `ManagementRuleViolation` est levée, indiquant un montant invalide pour le virement.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ManagementRuleViolation.class)
+public void testInsertVirement_InvalidAmount() throws Exception {
+    // Arrange
+    // Créer un compte source
+    CompteBancaire compteSource = new CompteBancaire(12345, 500.0);
+    // Créer un compte destination
+    CompteBancaire compteDestination = new CompteBancaire(67890, 1000.0);
+    // Simuler la récupération des comptes par leurs numéros
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compteSource);
+    Mockito.when(mockServiceBancaire.getCompte(67890)).thenReturn(compteDestination);
+
+    // Act
+    // Appeler la méthode pour effectuer le virement avec un montant invalide
+    serviceVirement.insertVirement(12345, 67890, -100.00);
+
+    // Assert
+    // Vérifier qu'une exception de type ManagementRuleViolation est levée
+}
+----
+
+
+== Scénarios de Test pour la Fonctionnalité "Créditer un compte"  ( Thomas CEOLIN ) 
+
+=== Scénario 1 : Effectuer un crédit  
+
+==== Description
+Effectuer un crédit sur un compte bancaire existant avec un montant spécifié et vérifier que le solde du compte est correctement mis à jour.
+
+==== Données d'entrée
+
+|===
+| Attribut      | Valeur
+| NuméroCompte  | 12345
+| Montant       | 1000.00
+|===
+
+==== Action
+Appeler la méthode `insertCredit()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Le système effectue le crédit du montant spécifié sur le compte indiqué et met à jour le solde du compte en conséquence.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test
+public void testinsertCredit_Valid() throws Exception {
+    // Arrange
+    CompteBancaire compte = new CompteBancaire(12345, 500.0);
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compte);
+
+    // Act
+    boolean creditEffectue = serviceCredit.insertCredit(12345, 1000.00);
+
+    // Assert
+    assertTrue(creditEffectue);
+    assertEquals(1500.00, compte.getSolde(), 0.001);
+}
+----
+
+=== Scénario 2 : Tentative de Crédit avec un Montant Invalide   
+
+==== Description
+Tentative d'effectuer un crédit sur un compte bancaire existant avec un montant invalide et vérification qu'une exception appropriée est levée.
+
+==== Données d'entrée
+
+|===
+| Compte        | 12345
+| Montant       | -100.00
+|===
+
+==== Action
+Appeler la méthode `insertCredit()` avec les données d'entrée fournies.
+
+==== Réponse attendue
+
+Une exception de type `ManagementRuleViolation` est levée, indiquant un montant invalide pour le crédit.
+
+==== Réponse réelle
+
+[source,java]
+----
+@Test(expected = ManagementRuleViolation.class)
+public void testInsertCredit_InvalidAmount() throws Exception {
+    // Arrange
+    // Créer un compte
+    CompteBancaire compte = new CompteBancaire(12345, 500.0);
+    // Simuler la récupération du compte par son numéro
+    Mockito.when(mockServiceBancaire.getCompte(12345)).thenReturn(compte);
+
+    // Act
+    // Appeler la méthode pour effectuer le crédit avec un montant invalide
+    serviceCredit.insertCredit(12345, -100.00);
+
+    // Assert
+    // Vérifier qu'une exception de type ManagementRuleViolation est levée
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Supprimer un Employer"  ( Thomas CEOLIN ) 
+
+
+=== Scénario 1 : Tentative de Suppression d'un Employé sans Sélection  
+
+==== Description
+Tenter de supprimer un employé sans le sélectionner dans la table et vérifier qu'un message d'erreur approprié est affiché.
+
+==== Données d'entrée
+Aucun employé sélectionné dans la table.
+
+==== Action
+Cliquer sur le bouton de suppression d'employé sans sélectionner aucun employé dans la table.
+
+==== Réponse attendue
+Aucune action de suppression n'est effectuée.
+Un message d'erreur indiquant qu'aucun employé n'est sélectionné est affiché.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testSupprimerEmploye_NoSelection() {
+    // Arrange: Aucun employé sélectionné dans la table
+
+    // Act: Cliquer sur le bouton de suppression d'employé sans sélectionner aucun employé
+    controller.supprimerEmploye();
+
+    // Assert: Vérifier qu'aucune action de suppression n'est effectuée et qu'un message d'erreur est affiché
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Aucune sélection", "Veuillez sélectionner un employé dans la table.");
+}
+----
+
+=== Scénario 2 : Tentative de Suppression d'un Employé avec Échec de Suppression en Base de Données ( Thomas CEOLIN ) 
+
+==== Description
+Tenter de supprimer un employé sélectionné dans la table et vérifier que le processus de suppression échoue en base de données, puis qu'un message d'erreur approprié est affiché.
+
+==== Données d'entrée
+Un employé est sélectionné dans la table.
+
+==== Action
+Cliquer sur le bouton de suppression d'employé après avoir sélectionné un employé dans la table.
+
+==== Réponse attendue
+Le système tente de supprimer l'employé sélectionné en base de données.
+L'opération de suppression échoue en raison d'une erreur de connexion ou d'une autre erreur.
+Un message d'erreur indiquant l'échec de la suppression est affiché.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testSupprimerEmploye_DatabaseError() throws DataAccessException, DatabaseConnexionException {
+    // Arrange: Sélectionner un employé dans la table
+    Employe employe = new Employe(1, "Nom", "Prénom", "Droits", "login", "motdepasse", 1);
+    when(tableMock.getSelectionModel().getSelectedItem()).thenReturn(employe);
+    
+    // Simuler une exception lors de la suppression de l'employé en base de données
+    doThrow(new DataAccessException(Table.Employe, Order.DELETE, "Erreur accès", null))
+            .when(accessBDEmployeMock).deleteEmploye(employe);
+
+    // Act: Cliquer sur le bouton de suppression d'employé après sélectionner un employé
+    controller.supprimerEmploye();
+
+    // Assert: Vérifier qu'un message d'erreur est affiché indiquant l'échec de la suppression
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Erreur de suppression", "Une erreur est survenue lors de la suppression de l'employé.");
+    // Vérifier que l'employé n'est pas supprimé de la table
+    verify(tableMock, never()).getItems().remove(employe);
+}
+---- 
