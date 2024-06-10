@@ -7,10 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.control.PrelevementManagement;
+import model.data.CompteCourant;
 import model.data.Employe;
 import model.data.PrelevementAutomatique;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
+import model.orm.exception.Order;
+import model.orm.exception.Table;
 import model.orm.LogToDatabase;
 
 public class Access_BD_PrelevementAutomatiques {
@@ -48,4 +52,29 @@ public class Access_BD_PrelevementAutomatiques {
         System.out.println("nb prelevements: " + prelevements.size());
         return prelevements;
     }
-}
+
+    public void deleteprelevementAutomatique(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
+
+        String query = "DELETE FROM PrelevementAutomatique WHERE idPrelev = ?";
+        try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setInt(1, prelevement.getIdPrelev()); // Utiliser l'identifiant unique du prélèvement
+    
+            // Ajout de logs pour le débogage
+            System.out.println("Tentative de suppression du prélèvement automatique avec idPrelevement : " + prelevement.getIdPrelev());
+    
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new DataAccessException(Table.PrelevementAutomatique, Order.DELETE, "Aucune ligne affectée par la suppression", null);
+            } else {
+                System.out.println("Prélèvement automatique supprimé avec succès, idPrelevement : " + prelevement.getIdPrelev());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Affiche la pile d'appels pour le débogage
+            throw new DataAccessException(Table.PrelevementAutomatique, Order.DELETE, "Erreur lors de la suppression du prélèvement automatique", e);
+        }
+    }
+    
+    
+    }
+
+

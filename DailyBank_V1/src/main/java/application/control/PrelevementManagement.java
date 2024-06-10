@@ -1,25 +1,28 @@
 package application.control;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import application.DailyBankApp;
 import application.DailyBankState;
+import application.tools.AlertUtilities;
 import application.tools.StageManagement;
 import application.view.PrelevementManagementViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import model.data.Client;
 import model.data.PrelevementAutomatique;
 import model.orm.Access_BD_PrelevementAutomatiques;
 import model.orm.exception.ApplicationException;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * La classe PrelevementManagement représente un contrôleur pour gérer la fenêtre de gestion des prélèvements automatiques.
+ */
 public class PrelevementManagement {
 
     private Stage pmStage;
@@ -27,6 +30,12 @@ public class PrelevementManagement {
     private PrelevementManagementViewController pmViewController;
     private Access_BD_PrelevementAutomatiques prelevementAutomatiquesDB;
 
+    /**
+     * Construit une nouvelle instance de PrelevementManagement.
+     *
+     * @param _parentStage Le stage parent pour la fenêtre de gestion des prélèvements automatiques.
+     * @param _dbstate     L'instance de DailyBankState pour gérer l'état de l'application.
+     */
     public PrelevementManagement(Stage _parentStage, DailyBankState _dbstate) {
         this.dailyBankState = _dbstate;
         this.prelevementAutomatiquesDB = new Access_BD_PrelevementAutomatiques();
@@ -53,16 +62,36 @@ public class PrelevementManagement {
         }
     }
 
+    /**
+     * Affiche la fenêtre de gestion des prélèvements automatiques.
+     *
+     * @param numeroCompte Le numéro de compte pour lequel les prélèvements sont gérés.
+     */
     public void doPrelevementManagementDialog(int numeroCompte) {
         this.pmViewController.displayDialog(numeroCompte);
     }
 
-
-    public void gererPrelevementsDUnCompte(Client c){
-        ComptesManagement cm = new ComptesManagement(this.pmStage, this.dailyBankState, null);
-        cm.doComptesManagementDialog();
+    /**
+     * Supprime un prélèvement automatique existant.
+     *
+     * @param prelevement Le prélèvement automatique à supprimer.
+     */
+    public void supprimerPrelevementAutomatique(PrelevementAutomatique prelevement) {
+        if (prelevement != null) {
+            try {
+                this.prelevementAutomatiquesDB.deleteprelevementAutomatique(prelevement);
+                AlertUtilities.showAlert(this.pmStage, "Suppression réussie", "Prélèvement supprimé",
+                        "Le prélèvement automatique a été supprimé avec succès", AlertType.INFORMATION);
+            } catch (DatabaseConnexionException e) {
+                ExceptionDialog ed = new ExceptionDialog(this.pmStage, this.dailyBankState, e);
+                ed.doExceptionDialog();
+            } catch (DataAccessException ae) {
+                ExceptionDialog ed = new ExceptionDialog(this.pmStage, this.dailyBankState, ae);
+                ed.doExceptionDialog();
+            }
+        }
     }
-
+    
     public List<PrelevementAutomatique> getPrelevementsAutomatiques(int idNumCompte) {
         List<PrelevementAutomatique> listeCli = new ArrayList<>();
         try {
@@ -78,5 +107,4 @@ public class PrelevementManagement {
         }
         return listeCli;
     }
-    
 }

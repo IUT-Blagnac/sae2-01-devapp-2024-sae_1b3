@@ -8,13 +8,21 @@ import application.control.PrelevementManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.data.CompteCourant;
+import model.data.Employe;
 import model.data.PrelevementAutomatique;
+import model.orm.Access_BD_CompteCourant;
+import model.orm.Access_BD_Employe;
 import model.orm.Access_BD_PrelevementAutomatiques;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
@@ -26,6 +34,9 @@ public class PrelevementManagementViewController {
 
     // Etat courant de l'application
     private DailyBankState dailyBankState;
+
+    @FXML
+    private ListView lvPrelevement;
 
     // Contrôleur de Dialogue associé à PrelevementManagementController
     private PrelevementManagement pmDialogController;
@@ -113,5 +124,50 @@ private void loadPrelevements() {
     private void validateComponentState() {
         // Gérer l'état des composants si nécessaire
     }
+
+
+
+    private ObservableList<PrelevementAutomatique> oListPrelevementAutomatiques;
+
+
+    @FXML
+    private Button btnSupprimerPrelevement;
+
+    @FXML
+private void doSupprimerPrelevement() {
+    int selectedIndice = this.lvPrelevements.getSelectionModel().getSelectedIndex();
+    if (selectedIndice >= 0) {
+        PrelevementAutomatique prelevement = this.oListPrelevements.get(selectedIndice);
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Suppression de prélèvement automatique");
+        confirm.setHeaderText("Voulez-vous réellement supprimer ce prélèvement automatique?");
+        confirm.initOwner(this.containingStage);
+        confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+        if (confirm.showAndWait().orElse(null) == ButtonType.YES) {
+            try {
+                new Access_BD_PrelevementAutomatiques().deleteprelevementAutomatique(prelevement);
+                this.oListPrelevements.remove(selectedIndice);
+            } catch (Exception e) {
+                showAlert("Erreur", "Erreur lors de la suppression du prélèvement automatique", e.getMessage());
+            }
+        }
+    }
+}
+
+    
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (title != null) {
+            alert.setTitle(title);
+        }
+        if (header != null) {
+            alert.setHeaderText(header);
+        }
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    
 
 }
