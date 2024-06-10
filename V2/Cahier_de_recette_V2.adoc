@@ -1089,3 +1089,257 @@ public void testSupprimerEmploye_DatabaseError() throws DataAccessException, Dat
     verify(tableMock, never()).getItems().remove(employe);
 }
 ---- 
+
+== Scénarios de Test pour la Fonctionnalité "Simuler Crédit" / "Simuler Assurance" fonctionnalités connexes (Théo RABAN)
+
+=== Scénario 1 : Calculer le crédit avec des valeurs valides
+
+==== Description
+Tester la fonctionnalité de calcul du crédit en fournissant des valeurs valides pour le capital, la durée, le taux et l'assurance.
+
+==== Données d'entrée
+- Capital : 100000
+- Durée : 20 (années)
+- Taux : 5
+- Assurance : 0.5 (option sélectionnée)
+
+==== Action
+Entrer les valeurs dans les champs de texte correspondants et cliquer sur le bouton "Valider".
+
+==== Réponse attendue
+Le système calcule les amortissements et affiche le tableau d'amortissement sans erreurs.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testCalculerCredit_ValidInput() {
+    // Arrange
+    when(txtCapital.getText()).thenReturn("100000");
+    when(txtDuree.getText()).thenReturn("20");
+    when(txtTaux.getText()).thenReturn("5");
+    when(txtAssurance.getText()).thenReturn("0.5");
+    when(chkAssurance.isSelected()).thenReturn(true);
+
+    // Act
+    controller.doCalculer();
+
+    // Assert
+    // Vérifier que le tableau d'amortissement est affiché sans erreurs
+    verify(tableauAmortissementViewControllerMock).setAmortissements(anyList());
+    verify(alertMock, never()).showAlert(any(), any(), any());
+}
+----
+
+=== Scénario 2 : Calculer le crédit avec des valeurs non numériques
+
+==== Description
+Tester la fonctionnalité de calcul du crédit en fournissant des valeurs non numériques pour le capital, la durée, le taux ou l'assurance.
+
+==== Données d'entrée
+- Capital : "abc"
+- Durée : "xyz"
+- Taux : "pqr"
+- Assurance : "lmn" (option sélectionnée)
+
+==== Action
+Entrer les valeurs non numériques dans les champs de texte correspondants et cliquer sur le bouton "Valider".
+
+==== Réponse attendue
+Le système affiche un message d'erreur indiquant que les valeurs doivent être numériques.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testCalculerCredit_InvalidInput() {
+    // Arrange
+    when(txtCapital.getText()).thenReturn("abc");
+    when(txtDuree.getText()).thenReturn("xyz");
+    when(txtTaux.getText()).thenReturn("pqr");
+    when(txtAssurance.getText()).thenReturn("lmn");
+    when(chkAssurance.isSelected()).thenReturn(true);
+
+    // Act
+    controller.doCalculer();
+
+    // Assert
+    // Vérifier qu'un message d'erreur est affiché
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez entrer des valeurs numériques valides.");
+}
+----
+
+=== Scénario 3 : Calculer le crédit sans assurance
+
+==== Description
+Tester la fonctionnalité de calcul du crédit sans inclure l'assurance.
+
+==== Données d'entrée
+- Capital : 100000
+- Durée : 20 (années)
+- Taux : 5
+- Assurance : non sélectionnée
+
+==== Action
+Entrer les valeurs dans les champs de texte correspondants, ne pas sélectionner l'option d'assurance et cliquer sur le bouton "Valider".
+
+==== Réponse attendue
+Le système calcule les amortissements sans inclure le coût de l'assurance et affiche le tableau d'amortissement sans erreurs.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testCalculerCredit_NoAssurance() {
+    // Arrange
+    when(txtCapital.getText()).thenReturn("100000");
+    when(txtDuree.getText()).thenReturn("20");
+    when(txtTaux.getText()).thenReturn("5");
+    when(txtAssurance.getText()).thenReturn("0.5");
+    when(chkAssurance.isSelected()).thenReturn(false);
+
+    // Act
+    controller.doCalculer();
+
+    // Assert
+    // Vérifier que le tableau d'amortissement est affiché sans erreurs et sans inclure l'assurance
+    verify(tableauAmortissementViewControllerMock).setAmortissements(anyList());
+    verify(alertMock, never()).showAlert(any(), any(), any());
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Générer un Relevé de Compte PDF" (Théo RABAN)
+
+=== Scénario 1 : Génération de PDF avec des données valides
+
+==== Description
+Tester la génération d'un relevé de compte PDF en fournissant des données valides pour le client et le compte.
+
+==== Données d'entrée
+- Nom du client : "Doe"
+- Prénom du client : "John"
+- Numéro de compte : 12345
+- Solde du compte : 1500.75
+- Opérations :
+  - Type : "Débit", Montant : 100.50, Date : "2023-01-01"
+  - Type : "Crédit", Montant : 200.00, Date : "2023-02-01"
+
+==== Action
+Appeler la méthode `generatePDF` avec les données valides.
+
+==== Réponse attendue
+Un fichier PDF est créé avec les informations du client, du compte et des opérations, sans erreurs.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testGeneratePDF_ValidData() {
+    // Arrange
+    when(clientDuCompte.nom).thenReturn("Doe");
+    when(clientDuCompte.prenom).thenReturn("John");
+    when(compteConcerne.idNumCompte).thenReturn(12345);
+    when(compteConcerne.solde).thenReturn(1500.75);
+
+    List<Operation> operations = new ArrayList<>();
+    operations.add(new Operation("Débit", 100.50, LocalDate.parse("2023-01-01")));
+    operations.add(new Operation("Crédit", 200.00, LocalDate.parse("2023-02-01")));
+    when(oListOperations).thenReturn(operations);
+
+    // Act
+    controller.generatePDF();
+
+    // Assert
+    // Vérifier que le fichier PDF est créé (nécessite un mock ou une vérification du fichier)
+    verify(fileSystemMock).createPDF("releve_compte_12345.pdf");
+    verify(alertMock, never()).showAlert(any(), any(), any());
+}
+----
+
+=== Scénario 2 : Erreur lors de la génération du PDF (IOException)
+
+==== Description
+Simuler une erreur d'entrée/sortie lors de la génération du PDF pour vérifier que le message d'erreur approprié est affiché.
+
+==== Données d'entrée
+- Nom du client : "Doe"
+- Prénom du client : "John"
+- Numéro de compte : 12345
+- Solde du compte : 1500.75
+- Opérations :
+  - Type : "Débit", Montant : 100.50, Date : "2023-01-01"
+  - Type : "Crédit", Montant : 200.00, Date : "2023-02-01"
+
+==== Action
+Simuler une IOException lors de l'appel à `PdfWriter.getInstance`.
+
+==== Réponse attendue
+Un message d'erreur indiquant qu'une erreur est survenue lors de la génération du relevé de compte est affiché.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testGeneratePDF_IOException() throws DocumentException, IOException {
+    // Arrange
+    when(clientDuCompte.nom).thenReturn("Doe");
+    when(clientDuCompte.prenom).thenReturn("John");
+    when(compteConcerne.idNumCompte).thenReturn(12345);
+    when(compteConcerne.solde).thenReturn(1500.75);
+
+    List<Operation> operations = new ArrayList<>();
+    operations.add(new Operation("Débit", 100.50, LocalDate.parse("2023-01-01")));
+    operations.add(new Operation("Crédit", 200.00, LocalDate.parse("2023-02-01")));
+    when(oListOperations).thenReturn(operations);
+
+    doThrow(new IOException()).when(PdfWriter.getInstance(any(Document.class), any(FileOutputStream.class)));
+
+    // Act
+    controller.generatePDF();
+
+    // Assert
+    // Vérifier que le message d'erreur est affiché
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur est survenue lors de la génération du relevé de compte.");
+}
+----
+
+=== Scénario 3 : Génération de PDF sans opérations
+
+==== Description
+Tester la génération d'un relevé de compte PDF pour un compte sans aucune opération.
+
+==== Données d'entrée
+- Nom du client : "Doe"
+- Prénom du client : "John"
+- Numéro de compte : 12345
+- Solde du compte : 1500.75
+- Opérations : Aucune
+
+==== Action
+Appeler la méthode `generatePDF` avec un compte sans opérations.
+
+==== Réponse attendue
+Un fichier PDF est créé avec les informations du client et du compte, et un tableau d'opérations vide est affiché sans erreurs.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testGeneratePDF_NoOperations() {
+    // Arrange
+    when(clientDuCompte.nom).thenReturn("Doe");
+    when(clientDuCompte.prenom).thenReturn("John");
+    when(compteConcerne.idNumCompte).thenReturn(12345);
+    when(compteConcerne.solde).thenReturn(1500.75);
+    when(oListOperations).thenReturn(new ArrayList<>());
+
+    // Act
+    controller.generatePDF();
+
+    // Assert
+    // Vérifier que le fichier PDF est créé avec un tableau d'opérations vide
+    verify(fileSystemMock).createPDF("releve_compte_12345.pdf");
+    verify(alertMock, never()).showAlert(any(), any(), any());
+}
+----
+
