@@ -1,0 +1,660 @@
+= Document Technique Utilisateur DailyBank - Version : 1.0 - Date : 31 Mai 2024 Groupe 1B3 
+:icons: font
+:models: models
+:experimental:
+:incremental:
+:numbered:
+:toc: macro
+:window: _blank
+:correction!:
+
+ifndef::env-github[:icons: font]
+// Specific to GitHub
+ifdef::env-github[]
+:correction:
+:!toc-title:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+:icongit: Git
+endif::[]
+
+Équipe de développement :
+- Chef de projet : Théo RABAN
+- Développeurs : Yahya MAGAZ, Thomas Ceolin, Théo RABAN
+
+toc::[]
+
+== Présentation de l'application
+=== Contexte général
+L'application DailyBank a été conçue pour répondre aux besoins de gestion des opérations bancaires courantes des clients et du personnel d'une banque. Ce projet s'inscrit dans le cadre d'un projet pédagogique à l'IUT de Blagnac, visant à fournir une plateforme complète de gestion bancaire. DailyBank permet aux utilisateurs de gérer leurs comptes, de consulter leurs transactions, et aux employés de la banque de gérer les profils des clients ainsi que les différentes opérations bancaires.
+
+=== Description du besoin
+Le besoin principal est de créer une application bancaire qui soit intuitive, sécurisée et efficace pour gérer les opérations financières. Les fonctionnalités nécessaires incluent la gestion des comptes clients, la gestion des transactions (débits, crédits, virements), et la possibilité pour les employés de la banque de créer, modifier et supprimer des profils clients. De plus, l'application doit permettre de générer des rapports et d'assurer la conformité avec les réglementations bancaires.
+
+=== Cas d'utilisation
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/usecase.PNG[]
+L'application DailyBank doit permettre aux guichetiers de créditer ou débiter un compte client, de créer un nouveau compte, d'effectuer des virements entre comptes d'un même client, et de clôturer des comptes en cas de besoin. Les chefs d'agence doivent pouvoir gérer les profils des employés, incluant la création, la consultation, la mise à jour et la suppression de comptes employés. Ces fonctionnalités doivent être intégrées dans la version 1 de l'application pour assurer une gestion efficace des comptes clients et des employés au sein de DailyBank. Les guichetiers se concentrent sur les opérations bancaires, tandis que les chefs d'agence supervisent la gestion des employés.
+
+=== Diagramme de classe des données global
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGclasse.PNG[]
+Le diagramme de classe des données pour l'application DailyBank représente les principales entités et leurs relations. Les classes clés incluent Client, Compte, et Employe. La classe Client contient des attributs comme idNumCli, nom, prenom, adressePostale, email, telephone, estInactif et idAg, permettant de gérer les informations personnelles et l'état d'activité des clients. La classe Compte gère les détails financiers associés aux clients, incluant le solde et l'historique des transactions. La classe Employe distingue les rôles des utilisateurs, spécifiquement les Guichetiers et les Chefs d'agence, chacun ayant des privilèges différents. Les chefs d'agence peuvent gérer les comptes employés, tandis que les guichetiers exécutent les opérations bancaires courantes. Les clients inactifs, marqués par l'attribut estInactif, sont gérés différemment pour les opérations bancaires. Ce diagramme de classe est essentiel pour structurer la base de données et assurer une gestion cohérente et sécurisée des informations au sein de DailyBank.
+
+
+== Architecture de l'application DailyBank
+
+L'architecture de l'application DailyBank est organisée en plusieurs packages :
+
+=== application
+Ce package contient le main permettant de lancer l'application ainsi que la classe qui permet de connaître l’état de l’application.
+
+=== application.control
+Ce package regroupe les contrôleurs et l’accès aux données. Ils sont responsables de la gestion des fonctionnalités de l’application, traitent les requêtes des utilisateurs, et assurent la liaison avec la base de données Oracle via les classes du package `model.orm`.
+
+=== application.tools
+Ce package fournit des outils supplémentaires qui facilitent le développement et la maintenance de l’application.
+
+=== application.view
+Ce package contient les vues de l’application, basées sur des fichiers FXML et leurs contrôleurs associés. Chaque fichier FXML possède sa propre vue, garantissant une interface utilisateur claire et intuitive.
+
+=== model.data
+Ce package contient des classes Java qui correspondent directement aux tables de la base de données. Chaque table est associée à une classe, permettant une gestion efficace des données et une cohérence entre l’application et la base de données.
+
+=== model.orm
+Ce package contient les classes par lesquelles l’accès à la base de données est établi.
+
+=== model.orm.exception
+Ce package rassemble les classes d’exceptions liées à l’accès à la base de données. Ces classes permettent de gérer les erreurs et les situations exceptionnelles lors des opérations avec la base de données, assurant ainsi une gestion appropriée des problèmes d’accès aux données.
+
+=== Les ressources utilisées par ce projet sont multiples :
+
+* *Maven* : Utilisé pour la compilation, la génération du JAR, la documentation Javadoc, et pour gérer les dépendances définies dans le fichier `pom.xml`.
+* *JDK version 17* : Nécessaire pour exécuter l’application.
+* *FXML* : Fichiers produits avec le logiciel SceneBuilder pour la conception des interfaces utilisateur.
+* *Base de données Oracle* : Utilisée pour stocker et gérer les données de l’application.
+
+==  Fonctionnalités
+
+= Documentation Technique des Fonctionnalités
+
+== Fonctionnalité : Ajouter Compte (Théo Raban)
+
+=== Introduction
+
+Cette documentation couvre les modifications apportées le 22/05/2024 concernant la création de nouveaux comptes dans l'application de gestion bancaire. Les changements incluent la mise à jour de la méthode `creerNouveauCompte` dans la classe `ComptesManagement`, ainsi que l'ajout des méthodes `insertCompte` et `getTousLesComptes` dans la classe `Access_BD_CompteCourant`.
+
+=== Use Case associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CreateUseCase.PNG[]
+
+=== Diagramme de Classe associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/creerEmployé.PNG[]
+
+=== Modifications dans `ComptesManagement`
+
+==== Méthode `creerNouveauCompte`
+
+[source,java]
+----
+public CompteCourant creerNouveauCompte() {
+    CompteCourant compte;
+    CompteEditorPane cep = new CompteEditorPane(this.cmStage, this.dailyBankState);
+
+    ArrayList<CompteCourant> tousLesComptes = new ArrayList<>();
+    try {
+        Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+        tousLesComptes = acc.getTousLesComptes();
+    } catch (DatabaseConnexionException e) {
+        handleException(e);
+        return null;
+    } catch (ApplicationException ae) {
+        handleException(ae);
+        return null;
+    }
+
+    int dernierNumeroCompte = tousLesComptes.stream().mapToInt(c -> c.idNumCompte).max().orElse(0);
+    int nouveauNumeroCompte = dernierNumeroCompte + 1;
+
+    compte = cep.doCompteEditorDialog(this.clientDesComptes, null, EditionMode.CREATION);
+    if (compte != null) {
+        compte.idNumCompte = nouveauNumeroCompte;
+        try {
+            Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
+            acc.insertCompte(compte);
+            AlertUtilities.showAlert(this.cmStage, "Création réussie", "Compte créé",
+                "Le nouveau compte a été créé avec succès", AlertType.INFORMATION);
+        } catch (DatabaseConnexionException | ApplicationException e) {
+            handleException(e);
+        }
+    }
+    return compte;
+}
+----
+
+.Description des étapes de la méthode `creerNouveauCompte`
+- *Initialisation et ouverture de l'éditeur de compte*: Initialisation d'un objet `CompteEditorPane` pour afficher la fenêtre de dialogue de création de compte.
+- *Récupération de tous les comptes existants*: Utilisation de `getTousLesComptes` pour obtenir la liste des comptes courants existants. En cas d'exception, un dialogue d'exception est affiché.
+- *Détermination du nouveau numéro de compte*: Parcours de la liste des comptes existants pour trouver le plus grand numéro de compte, puis incrémentation pour obtenir le nouveau numéro.
+- *Création du nouveau compte*: Utilisation de l'éditeur de compte pour entrer les détails du nouveau compte et mise à jour de son numéro.
+- *Insertion du nouveau compte dans la base de données*: Utilisation de `insertCompte` pour enregistrer le nouveau compte dans la base de données. Affichage d'une alerte de confirmation en cas de succès.
+
+=== Modifications dans `Access_BD_CompteCourant`
+
+==== Méthode `insertCompte`
+
+[source,java]
+----
+public void insertCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+    try {
+        Connection con = LogToDatabase.getConnexion();
+        String query = "INSERT INTO CompteCourant (idNumCompte, debitAutorise, solde, estCloture, idNumCli) VALUES (?, ?, ?, ?, ?)";
+
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setInt(1, compte.idNumCompte);
+        pst.setInt(2, compte.debitAutorise);
+        pst.setDouble(3, compte.solde);
+        pst.setString(4, compte.estCloture);
+        pst.setInt(5, compte.idNumCli);
+
+        pst.executeUpdate();
+        pst.close();
+        con.commit();
+    } catch (SQLException e) {
+        throw new DataAccessException(Table.CompteCourant, Order.INSERT, "Erreur lors de l'insertion du compte", e);
+    }
+}
+----
+
+.Description de la méthode `insertCompte`
+- *Connexion à la base de données*: Utilisation de `LogToDatabase.getConnexion()` pour établir une connexion.
+- *Préparation et exécution de la requête SQL*: Préparation d'une requête SQL `INSERT` pour ajouter un nouveau compte à la table `CompteCourant`.
+- *Gestion des erreurs*: En cas d'exception SQL, lancement d'une `DataAccessException` avec des détails sur l'erreur.
+
+==== Méthode `getTousLesComptes`
+
+[source,java]
+----
+public ArrayList<CompteCourant> getTousLesComptes() throws DataAccessException, DatabaseConnexionException {
+    ArrayList<CompteCourant> alResult = new ArrayList<>();
+
+    try {
+        Connection con = LogToDatabase.getConnexion();
+        String query = "SELECT * FROM CompteCourant ORDER BY idNumCompte";
+
+        PreparedStatement pst = con.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            int idNumCompte = rs.getInt("idNumCompte");
+            int debitAutorise = rs.getInt("debitAutorise");
+            double solde = rs.getDouble("solde");
+            String estCloture = rs.getString("estCloture");
+            int idNumCli = rs.getInt("idNumCli");
+
+            alResult.add(new CompteCourant(idNumCompte, debitAutorise, solde, estCloture, idNumCli));
+        }
+        rs.close();
+        pst.close();
+    } catch (SQLException e) {
+        throw new DataAccessException(Table.CompteCourant, Order.SELECT, "Erreur lors de l'accès aux données", e);
+    }
+
+    return alResult;
+}
+----
+
+.Description de la méthode `getTousLesComptes`
+- *Connexion à la base de données*: Utilisation de `LogToDatabase.getConnexion()` pour établir une connexion.
+- *Préparation et exécution de la requête SQL*: Préparation d'une requête SQL `SELECT` pour récupérer tous les comptes courants, ordonnés par `idNumCompte`.
+- *Gestion des erreurs*: En cas d'exception SQL, lancement d'une `DataAccessException` avec des détails sur l'erreur.
+
+=== Conclusion
+
+Ces modifications permettent d'assurer la création de nouveaux comptes courants avec un numéro de compte unique, en récupérant d'abord tous les comptes existants pour déterminer le nouveau numéro de compte. Les méthodes ajoutées dans `Access_BD_CompteCourant` garantissent l'insertion correcte des nouveaux comptes dans la base de données et la récupération de tous les comptes existants.
+
+== Fonctionnalité : Lecture Chef d'agence (Théo Raban)
+
+
+=== Introduction
+
+Cette documentation technique couvre les modifications apportées le 22/05/2024 concernant la gestion des employés dans l'application de gestion bancaire. Les changements incluent l'ajout de getters dans la classe `Employe`, la modification de la méthode `doEmployeOption` dans `DailyBankMainFrameController`, la création d'un nouveau contrôleur pour gérer la liste des employés, et la mise en place d'un fichier FXML associé.
+
+=== Use case associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CruduseCase.PNG[]
+
+=== Diagramme de Classe associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/autreFonctions.PNG[]
+
+=== Modifications dans `Employe`
+
+==== Ajout des Getters
+
+[source,java]
+----
+public class Employe {
+    private int idEmploye;
+    private String nom;
+    private String prenom;
+    private String droitsAccess;
+    private String login;
+
+    public int getIdEmploye() {
+        return idEmploye;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getDroitsAccess() {
+        return droitsAccess;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+}
+----
+
+.Description des modifications dans `Employe`
+- *Ajout des méthodes getter*: Les getters pour les attributs `idEmploye`, `nom`, `prenom`, `droitsAccess`, et `login` ont été ajoutés pour permettre l’accès sécurisé à ces propriétés.
+
+=== Modifications dans `DailyBankMainFrameController`
+
+==== Méthode `doEmployeOption`
+
+[source,java]
+----
+@FXML
+private void doEmployeOption() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/employesmanagement.fxml"));
+        VBox employeListPane = loader.load();
+        Scene scene = new Scene(employeListPane);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Liste des Employés");
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        AlertUtilities.showAlert(this.containingStage, "Erreur", null, "Impossible de charger la vue des employés.", AlertType.ERROR);
+    }
+}
+----
+
+.Description des modifications dans `doEmployeOption`
+- *Chargement de la vue des employés*: La méthode charge la vue FXML pour afficher la liste des employés.
+- *Gestion des erreurs*: En cas d'exception, une alerte d'erreur est affichée indiquant que la vue des employés n'a pas pu être chargée.
+
+=== Création du Contrôleur `EmployeController`
+
+==== Code du Contrôleur
+
+[source,java]
+----
+package application.view;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.data.Employe;
+import model.orm.Access_BD_Employe;
+import model.orm.exception.DataAccessException;
+import model.orm.exception.DatabaseConnexionException;
+import java.util.List;
+
+public class EmployeController {
+    @FXML
+    private TableView<Employe> employeTableView;
+    @FXML
+    private TableColumn<Employe, Integer> idColumn;
+    @FXML
+    private TableColumn<Employe, String> nomColumn;
+    @FXML
+    private TableColumn<Employe, String> prenomColumn;
+    @FXML
+    private TableColumn<Employe, String> droitsColumn;
+    @FXML
+    private TableColumn<Employe, String> loginColumn;
+
+    public void initialize() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("idEmploye"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        droitsColumn.setCellValueFactory(new PropertyValueFactory<>("droitsAccess"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
+
+        loadEmployes();
+    }
+
+    private void loadEmployes() {
+        try {
+            Access_BD_Employe acc = new Access_BD_Employe();
+            List<Employe> employeList = acc.getAllEmployes();
+            ObservableList<Employe> observableList = FXCollections.observableArrayList(employeList);
+            employeTableView.setItems(observableList);
+        } catch (DatabaseConnexionException | DataAccessException e) {
+            e.printStackTrace();
+            AlertUtilities.showAlert(null, "Erreur", null, "Impossible de charger les employés.", AlertType.ERROR);
+        }
+    }
+}
+----
+
+.Description du Contrôleur
+- *Initialisation des colonnes de la TableView*: Les colonnes sont configurées pour afficher les propriétés des employés.
+- *Chargement des employés*: La méthode `loadEmployes` utilise `Access_BD_Employe` pour récupérer la liste des employés et les afficher dans la `TableView`.
+
+=== Fichier FXML `employesmanagement.fxml`
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="application.view.EmployeController">
+    <TableView fx:id="employeTableView">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID Employé"/>
+            <TableColumn fx:id="nomColumn" text="Nom"/>
+            <TableColumn fx:id="prenomColumn" text="Prénom"/>
+            <TableColumn fx:id="droitsColumn" text="Droits"/>
+            <TableColumn fx:id="loginColumn" text="Login"/>
+        </columns>
+    </TableView>
+</VBox>
+----
+
+.Description du fichier FXML
+- *Définition de la TableView*: Le fichier FXML définit une `TableView` avec des colonnes pour afficher les détails des employés.
+- *Lien avec le contrôleur*: Le fichier est lié à `EmployeController` pour gérer l'initialisation et le chargement des données.
+
+=== Conclusion
+
+Ces modifications permettent une gestion efficace des employés en affichant une liste complète des employés avec leurs détails. Le contrôleur gère le chargement des données depuis la base de données et les affiche dans une `TableView` définie dans le fichier FXML.
+
+
+== Fonctionnalité Création d'employé (Théo Raban)
+
+=== Introduction
+
+Cette documentation technique couvre les adaptations nécessaires pour intégrer la fonctionnalité de création d'un nouvel employé dans l'application de gestion bancaire. Ces changements impliquent l'ajout d'un nouveau contrôleur et de son fichier FXML correspondant, ainsi que l'extension de la classe Access_BD_Employe pour intégrer les opérations de gestion des employés dans la base de données.
+
+=== Use case associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CruduseCase.PNG[]
+
+
+=== Diagramme de Classe associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/autreFonctions.PNG[]
+
+
+=== Contrôleur de Création d'Employé
+
+Le contrôleur AddEmployeController gère l'interface utilisateur et la logique métier pour ajouter un nouvel employé.
+
+==== Description des Méthodes
+
+setDialogStage(Stage dialogStage): Configure la fenêtre de dialogue.
+isOkClicked(): Indique si l'utilisateur a confirmé l'ajout.
+handleAddEmploye(): Gère l'ajout d'un nouvel employé après validation des saisies utilisateur.
+handleCancel(): Ferme la fenêtre de dialogue.
+isInputValid(): Valide les saisies utilisateur.
+showAlert(Alert.AlertType alertType, String title, String message): Affiche une alerte.
+=== Vue FXML pour AddEmployeController
+
+Le fichier FXML fournit l'interface utilisateur pour la création d'un nouvel employé.
+
+=== Modifications dans Access_BD_Employe
+
+Les méthodes suivantes sont ajoutées pour intégrer les opérations de gestion des employés dans la base de données.
+
+==== Description des Méthodes
+
+getAllEmployes(): Récupère tous les employés de la base de données.
+addEmploye(Employe employe): Ajoute un nouvel employé à la base de données.
+getEmployeByLogin(String login): Récupère un employé à partir de son login.
+=== Conclusion
+
+Les ajustements effectués permettent d'ajouter la fonctionnalité de création d'un employé à l'application. Le contrôleur gère l'interaction avec l'interface utilisateur et les opérations métier, tandis que les méthodes ajoutées dans Access_BD_Employe facilitent la manipulation des données des employés dans la base de données.
+
+---
+
+
+=== Modifier un compte(Yahya MAGAZ)
+Modification d'un compte existant, son état sera actualisé dans la base de données.
+
+- Conditions : le compte doit être existant et ouvert, le le decouvert autorisé ne peut pas êre supérieur au crédit.
+
+Partie du code qui vérifie les conditions:
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/exemplecode.PNG[]
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ModifierYahya.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGmodifier.PNG[]
+
+Classe utilisées :
+
+package Application.control :
+
+- ComptesManagement ->  méthode 'modifierCompteCourant' appelée par la méthode doModifierCompte (ComptesManagementViewController)
+
+package Application.view :
+
+- ComptesManagementViewController -> la méthode 'doModifierCompte' appelée par comptesmanagement.fxml
+- ComptesEditorPaneViewController -> la case 'SUPPRIMER'
+
+package Model.orm :
+
+- Access_BD_CompteCourant -> la méthode 'updateCompteCourant' appelée par 'modifierCompteCourant' (ComptesManagement)
+
+---
+
+=== Supprimer un compte (Yahya MAGAZ)
+Suppression d'un compte ouvert, son état sera actualisé dans la base de données. 
+
+- Conditions : le solde du compte à cloturer doit supérieur ou égal à 0.
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/supprimerYahya2.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGmodifier.PNG[]
+
+Classe utilisées :
+
+package Application.control :
+
+- ComptesManagement ->  méthode 'supprimerCompteCourant' 
+
+package Application.view :
+
+- ComptesManagementViewController -> la méthode 'doSupprimerCompte' appelée par comptesmanagement.fxml
+- ComptesEditorPaneViewController -> la case 'SUPPRIMER'
+
+package Model.orm :
+
+- Access_BD_CompteCourant -> la méthode 'deleteCompteCourant' appelée par duSupprimerCompte (ComptesManagementViewController)
+
+
+
+
+
+---
+
+=== CRUD Employé - UPDATE (Yahya MAGAZ)
+Permet de mettre à jour les informations d'un employés, les champs mises à jour le seront également dans la base de données.
+
+Partie du UseCase :
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/usecasemodifiercompte.PNG[]
+
+Partie du diagramme de classe : 
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/DGModifierClient.PNG[]
+
+Classe utilisées :
+
+package Application.view :
+
+- EmployeController -> la méthode 'modifierEmploye' appelée par ModifyEmploye.fxml (bouton modifier sur la scène)
+- ModifyEmployeController -> Création d'une classe qui permet de gérer le fichier fxml
+
+package Model.orm :
+
+- Access_BD_Employe -> la méthode 'updateEmploye' qui permet d'enregistrer les changements dans la base de données
+
+
+== Documentation Technique : Créditer / Débiter un compte bancaire (Thomas CEOLIN)
+
+=== Introduction
+
+Cette partie du document technique décrit le processus de crédit et de débit d'un compte bancaire dans le système bancaire. L'objectif est de permettre aux utilisateurs de créditer ou débiter un compte, tout en garantissant que le solde du compte est correctement mis à jour dans la base de données.
+
+=== Description du processus
+
+Le processus de crédit ou de débit d'un compte bancaire implique plusieurs étapes. Il est essentiel de respecter certaines conditions pour garantir l'intégrité des données et la sécurité des transactions.
+
+=== Conditions
+
+- Le solde du compte ne doit pas dépasser le découvert autorisé lors d'un débit.
+- Le montant maximal autorisé pour un crédit ou un débit est de 999999.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ThomasCréditer.PNG[]
+
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CréditerUMLThomas.PNG[]
+
+=== Classes utilisées
+
+==== Application.control
+
+- OperationsManagement : Cette classe contient les méthodes `enregistrerCredit()` et `enregistrerDebit()` qui sont appelées respectivement par `doCredit()` et `doDebit()` dans `OperationsManagementViewController`.
+
+- OperationEditorPane : Cette classe gère les modifications dans la méthode `OperationEditorPane`.
+
+==== Application.view
+
+- OperationsManagementViewController : Ce contrôleur gère les actions de l'utilisateur telles que le crédit ou le débit, en appelant les méthodes `doCredit()` et `doDebit()`.
+
+- OperationEditorPaneController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de crédit ou de débit dans l'interface utilisateur.
+
+==== Model.orm
+
+- Access_BD_Operation : Cette classe gère l'insertion des opérations de crédit et de débit dans la base de données en appelant les méthodes `insertCredit()` et `insertDebit()`. elle utilise deux procédure qui sont dans la base de donnée 
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus de crédit/débit dans le système bancaire, en détaillant les conditions, les interactions entre les classes et les actions de l'utilisateur. Il sert de guide pour le développement et la maintenance du système.
+
+
+== Documentation Technique : Effectuer un virement  (Thomas CEOLIN)
+
+=== Introduction
+
+Cette partie du document technique décrit le processus d'effectuer un virement entre deux comptes bancaires dans le système bancaire. L'objectif est de débiter le compte source et créditer le compte destinataire du virement, tout en garantissant que les soldes des deux comptes sont correctement mis à jour dans la base de données.
+
+=== Description du processus
+
+Le processus d'effectuer un virement implique plusieurs étapes. Il est essentiel de respecter certaines conditions pour garantir l'intégrité des données et la sécurité des transactions.
+
+=== Conditions
+
+- Le solde des comptes ne doit pas dépasser le découvert autorisé.
+- Le montant maximal autorisé pour un virement est de 999999.
+- Le montant minimal autorisé pour faire un virement est de 1 euros
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/virementThomas.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/VirementThomasUML.PNG[]
+
+=== Classes utilisées
+
+==== Application.control
+
+- OperationsManagement : Cette classe contient la méthode `enregistrerVirement()` qui est appelée par `doAutre()` dans `OperationsManagementViewController`.
+
+==== Application.view
+
+- OperationsManagementViewController : Ce contrôleur gère l'action de l'utilisateur pour effectuer un virement en appelant la méthode `doAutre()`.
+
+- OperationEditorPaneViewController : Ce contrôleur est responsable de l'affichage et de l'ajout des opérations de virement dans l'interface utilisateur ( la méthode *displayDialog* && la méthode *doAjouter*, Il existe dans ces deux méthodes deux cases, une pour le crédit et une pour le débit, qui gèrent les opérations. ) 
+
+==== Model.orm
+
+- Access_BD_Operation : Cette classe gère l'insertion des opérations de virement dans la base de données en appelant la méthode `insertVirement()`.
+elle utilise une procédure virer qui est dans la base de donnée 
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus d'effectuer un virement entre deux comptes bancaires dans le système, en détaillant les conditions, les interactions entre les classes et les actions de l'utilisateur. Il sert de guide pour le développement et la maintenance du système.
+
+
+== Documentation Technique : Supprimer un Employé  (Thomas CEOLIN)
+
+=== Introduction
+
+Ce document technique décrit le processus de suppression d'un employé de la base de données du système. L'objectif est de permettre aux chef d'agence de supprimer des employés de manière sécurisée et efficace.
+
+=== Description du processus
+
+Le processus de suppression d'un employé comprend plusieurs étapes pour garantir l'intégrité des données et la sécurité du système.
+
+=== Conditions
+
+- Seuls les chefs d'agence sont autorisés à supprimer des employés.
+- L'employé sélectionné doit être présent dans la base de données.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CruduseCase.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/autreFonctions.PNG[]
+
+=== Classes utilisées
+
+==== Application.view
+
+- EmployeController : Ce contrôleur gère l'action du chef d'agence pour supprimer un employé en appelant la méthode `supprimerEmploye()`.
+
+==== Model.orm
+
+- Access_BD_Employe : Cette classe gère la suppression de l'employé de la base de données en appelant la méthode `deleteEmploye()`.
+
+=== Conclusion
+
+Ce document fournit une vue d'ensemble du processus de suppression d'un employé dans le système, en détaillant les conditions, les interactions entre les classes et les actions du chef d'agence. Il sert de guide pour le développement et la maintenance du système.
