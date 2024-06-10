@@ -335,7 +335,7 @@ Ces fonctionnalités sont plus avancées que les fonctonnalité V1, il est donc 
     Étapes :
 
     1- Après s'être connecté en tant que chef d'agence, aller sur l'onglet client.
-    2- Une fois sur l'onglet client, appuyez sur 'simuler emprunt'.
+    2- Une fois sur l'onglet client, appuyez sur "simuler emprunt".
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ClientSimulerEmprunt.PNG[]
 
@@ -351,15 +351,15 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
     Description : Permet de générer le relvé d'un compte en pdf.
     Étapes :
 
-    1- Accéder à la section opération du compte concerné comme pour faire un crédit ou un débit
+    1- Accéder à la section opération du compte concerné, comme pour faire un crédit ou un débit.
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CheminRelevé.PNG[]
 
-    2- Cliquer sur relevé PDF
+    2- Cliquer sur "relevé PDF".
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/relevePDF.PNG[]
 
-    3- Le pdf sera généré dans le dans le dossier principal conteant l'application.
+    3- Le PDF sera généré dans le dossier principal contenant l'application.
 * Auteur : Guichetier
 
 
