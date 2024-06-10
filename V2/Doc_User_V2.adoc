@@ -1,4 +1,4 @@
-= Document Utilisateur DailyBank - Date : 31 Mai 2024 Groupe 1B3 
+= Document Utilisateur DailyBank - Date : 14 juin 2024 Groupe 1B3 
 
 :toc:
 :toc-title: Sommaire
@@ -322,3 +322,47 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
     3- Remplir ou modifier les informations nécessaires.
     4- Confirmer l'action.
   * Auteur : Chef d’agence
+
+=== Version 2 (V2)
+
+Voici les fonctionnalités V2:
+
+Ces fonctionnalités sont plus avancées que les fonctonnalité V1, il est donc necessaire de maîtrise dans un premier temps les fonctions V1 avant d'utiliser les V2.
+
+==== Simulation de Crédit avec ou sans assurance
+
+    Description : Permet d'afficher le tableau d'amortissement d'un crédit en fonction du taux d'intérêt de l'assurance, de la somme empruntée et de la durée du prêt.
+    Étapes :
+
+    1- Après s'être connecté en tant que chef d'agence, aller sur l'onglet client.
+    2- Une fois sur l'onglet client, appuyez sur 'simuler emprunt'.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ClientSimulerEmprunt.PNG[]
+
+    3- Une nouvelle fenêtre s'affiche, remplissez les champs avec les informations requises.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/SimulerCredit.PNG[]
+
+    4- L'assurance est facultative, mais si vous souhaitez la prendre en compte, saisissez le taux puis cochez la case en bas de la page prévue à cet effet.
+* Auteur : Chef d’agence
+
+==== Générer relevé PDF
+
+    Description : Permet de générer le relvé d'un compte en pdf.
+    Étapes :
+
+    1- Accéder à la section opération du compte concerné comme pour faire un crédit ou un débit
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CheminRelevé.PNG[]
+
+    2- Cliquer sur relevé PDF
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/relevePDF.PNG[]
+
+    3- Le pdf sera généré dans le dans le dossier principal conteant l'application.
+* Auteur : Guichetier
+
+
+    
+
+
