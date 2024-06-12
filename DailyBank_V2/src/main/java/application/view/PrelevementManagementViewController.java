@@ -8,6 +8,8 @@ import application.control.PrelevementManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -16,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.data.CompteCourant;
@@ -179,12 +182,12 @@ private void showAddPrelevementForm() {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("prelevementeditor.fxml"));
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Ajouter un Prélèvement Automatique");
+        dialogStage.setTitle("Ajouter un Prélèvement");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         Scene scene = new Scene(loader.load());
         dialogStage.setScene(scene);
 
-        PrelevementEditorPaneViewController controller = loader.getController();
+        AddPrelevementController controller = loader.getController();
         controller.setDialogStage(dialogStage);
 
         dialogStage.showAndWait();
@@ -196,6 +199,7 @@ private void showAddPrelevementForm() {
         e.printStackTrace();
     }
 }
+
 
     
 

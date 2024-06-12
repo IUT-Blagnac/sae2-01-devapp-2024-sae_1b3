@@ -66,7 +66,7 @@
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                            <TextField fx:id="txtMontant" styleClass="input" />
+                            <TextField fx:id="montantField" styleClass="input" />
                         <Label fx:id="errorMontant" styleClass="error-text" />
                      </children>
                   </VBox>
@@ -78,13 +78,13 @@
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                            <TextField fx:id="txtDatePrelev" styleClass="input" />
+                            <TextField fx:id="dateField" styleClass="input" />
                         <Label fx:id="errorDatePrelev" styleClass="error-text" />
                      </children>
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
-                            <TextField fx:id="txtBeneficiaire" styleClass="input" />
+                            <TextField fx:id="beneficiaireField" styleClass="input" />
                         <Label fx:id="errorBeneficiaire" styleClass="error-text" />
                      </children>
                   </VBox>
@@ -92,12 +92,12 @@
               </GridPane>
               <HBox alignment="CENTER_RIGHT">
                   <children>
-                      <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-secondary" text="Annuler">
+                      <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="btn-secondary" text="Annuler">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
-                      <Button fx:id="btnOk" mnemonicParsing="false" onAction="#handleAddPrelevement" styleClass="btn-success" text="Valider">
+                      <Button mnemonicParsing="false" onAction="#handleAddPrelevement" styleClass="btn-success" text="Valider">
                           <HBox.margin>
                               <Insets />
                           </HBox.margin>
