@@ -766,7 +766,7 @@ public void generatePDF() {
 La fonctionnalité de génération de relevés PDF permet aux utilisateurs de créer facilement des relevés de compte détaillés et formatés. La méthode `generatePDF` utilise la bibliothèque iText pour générer un document PDF contenant les informations du client et les détails des opérations sur le compte. Cette fonctionnalité améliore la gestion des comptes en offrant une option pratique pour l'exportation des relevés.
 
 
-== Documentation Technique de la Simulation de Crédit et d'Assurance
+== Fonctionnalité: Simulation de Crédit et d'Assurance (Théo Raban)
 
 === Introduction
 
@@ -774,7 +774,7 @@ Ce document décrit les composants et le fonctionnement des classes utilisées p
 
 === Use case simulation crédit associé
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseSimulerEumprunt.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseSimulerEmprunt.PNG[]
 
 === Use case simulation assurance associé
 
