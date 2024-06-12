@@ -73,8 +73,32 @@ public class Access_BD_PrelevementAutomatiques {
             throw new DataAccessException(Table.PrelevementAutomatique, Order.DELETE, "Erreur lors de la suppression du prélèvement automatique", e);
         }
     }
+
+    public void addPrelevement(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
+        try (Connection con = LogToDatabase.getConnexion()) {
+            
+            // Query to insert a new PrelevementAutomatique
+            String query = "INSERT INTO PrelevementAutomatique(idPrelev, idNumCompte, montant, dateRecurrente, beneficiaire) VALUES (?, ?, ?, ?, ?)";
+            
+            try (PreparedStatement pst = con.prepareStatement(query)) {
+                // Assuming idPrelev is generated as an auto-increment field by the database
+                pst.setInt(1, prelevement.getIdPrelev());
+                pst.setInt(2, prelevement.getIdNumCompte());
+                pst.setDouble(3, prelevement.getMontant());
+                pst.setString(4, prelevement.getDateRecurrente());
+                pst.setString(5, prelevement.getBeneficiaire());
+                pst.executeUpdate();
+			    pst.close();
+                
+                pst.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(Table.PrelevementAutomatique, Order.INSERT, "Erreur lors de l'ajout du prélèvement automatique", e);
+        }
+    }
     
-    
+
+
     }
 
 

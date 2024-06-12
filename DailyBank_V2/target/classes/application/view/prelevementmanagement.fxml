@@ -27,6 +27,7 @@
                <children>
                   <Button fx:id="btnRechercher" mnemonicParsing="false" onAction="#loadPrelevements" prefHeight="31.0" prefWidth="230.0" text="Charger prélèvement" GridPane.rowIndex="2" />
                   <Button fx:id="btnSupprimerPrelevement" mnemonicParsing="false" onAction="#doSupprimerPrelevement" prefHeight="31.0" prefWidth="217.0" text="Supprimer prélèvement" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#showAddPrelevementForm" prefHeight="25.0" prefWidth="227.0" text="Ajouter prélèvement" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </center>

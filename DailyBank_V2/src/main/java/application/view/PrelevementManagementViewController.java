@@ -168,6 +168,35 @@ private void doSupprimerPrelevement() {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
+    /**
+ * Affiche le formulaire d'ajout d'un prélèvement automatique.
+ */
+@FXML
+private void showAddPrelevementForm() {
+    try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("prelevementeditor.fxml"));
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Ajouter un Prélèvement Automatique");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(loader.load());
+        dialogStage.setScene(scene);
+
+        PrelevementEditorPaneViewController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+
+        dialogStage.showAndWait();
+
+        if (controller.isOkClicked()) {
+            loadPrelevements();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
     
 
 }
