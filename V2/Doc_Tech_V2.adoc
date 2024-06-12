@@ -658,3 +658,205 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 === Conclusion
 
 Ce document fournit une vue d'ensemble du processus de suppression d'un employé dans le système, en détaillant les conditions, les interactions entre les classes et les actions du chef d'agence. Il sert de guide pour le développement et la maintenance du système.
+
+== Fonctionnalité : Relevé PDF (Théo Raban)
+
+=== Introduction
+
+Cette documentation technique couvre la fonctionnalité de génération de relevés de compte au format PDF. Cette fonctionnalité a été ajoutée à l'application de gestion bancaire pour permettre aux utilisateurs de créer des relevés de compte détaillés et formatés. Les changements incluent la création d'une méthode pour générer un PDF dans `OperationsManagementViewController` et l'utilisation de la bibliothèque iText pour la création du document PDF.
+
+=== Use case associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseRelevePDF.PNG[]
+
+=== Diagramme de Classe associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/releve_pdf.PNG[]
+
+=== Modifications dans `OperationsManagementViewController`
+
+==== Ajout de la méthode `generatePDF`
+
+[source,java]
+----
+/**
+ * Génère un relevé de compte PDF pour le compte client.
+ * @author Théo
+ */
+@FXML
+public void generatePDF() {
+    try {
+        // Récupérez les informations nécessaires pour générer le PDF
+        String clientName = this.clientDuCompte.nom;
+        String clientSurname = this.clientDuCompte.prenom;
+        String accountNumber = String.valueOf(this.compteConcerne.idNumCompte);
+        double accountBalance = this.compteConcerne.solde;
+        List<Operation> operations = this.oListOperations;
+
+        // Créez le document PDF
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("releve_compte_" + accountNumber + ".pdf"));
+
+        document.open();
+
+        // Ajoutez le contenu au document avec des titres plus gros et en gras
+        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+        Font subTitleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
+        Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
+
+        document.add(new Paragraph("Relevé de compte", titleFont));
+        document.add(new Paragraph("Client : " + clientName + " " + clientSurname, subTitleFont));
+        document.add(new Paragraph("Numéro de compte : " + accountNumber, subTitleFont));
+        document.add(new Paragraph("Solde du compte : " + String.format(Locale.ENGLISH, "%.2f", accountBalance) + " €", subTitleFont));
+        document.add(new Paragraph(" ")); // ligne vide pour l'espacement
+
+        // Création du tableau pour les opérations
+        PdfPTable table = new PdfPTable(3);
+        table.setWidthPercentage(100);
+        table.setSpacingBefore(10f);
+        table.setSpacingAfter(10f);
+
+        // Définition des en-têtes de colonne
+        PdfPCell cell1 = new PdfPCell(new Phrase("Type d'Opération", subTitleFont));
+        cell1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell1);
+
+        PdfPCell cell2 = new PdfPCell(new Phrase("Montant", subTitleFont));
+        cell2.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell2);
+
+        PdfPCell cell3 = new PdfPCell(new Phrase("Date", subTitleFont));
+        cell3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell3);
+
+        // Ajout des opérations dans le tableau
+        for (Operation op : operations) {
+            String dateValeurStr = op.dateValeur != null ? op.dateValeur.toString() : "Date non définie";
+            table.addCell(new PdfPCell(new Phrase(op.idTypeOp, normalFont)));
+            table.addCell(new PdfPCell(new Phrase(String.format(Locale.ENGLISH, "%.2f", op.montant) + " €", normalFont)));
+            table.addCell(new PdfPCell(new Phrase(dateValeurStr, normalFont)));
+        }
+
+        document.add(table);
+
+        document.close();
+
+        // Affichez un message de succès ou effectuez toute autre action nécessaire
+        System.out.println("Le relevé de compte a été généré avec succès.");
+
+    } catch (DocumentException | IOException e) {
+        e.printStackTrace();
+        // Affichez un message d'erreur ou effectuez toute autre action nécessaire
+        System.out.println("Une erreur est survenue lors de la génération du relevé de compte.");
+    }
+}
+----
+
+.Description de la méthode `generatePDF`
+- *Récupération des informations*: Les informations nécessaires telles que le nom du client, le numéro de compte, le solde du compte et la liste des opérations sont récupérées.
+- *Création du document PDF*: Le document PDF est créé en utilisant la bibliothèque iText.
+- *Ajout de contenu*: Le contenu, y compris les titres, sous-titres et un tableau des opérations, est ajouté au document.
+- *Gestion des erreurs*: En cas d'exception, un message d'erreur est affiché et l'exception est tracée.
+
+=== Conclusion
+
+La fonctionnalité de génération de relevés PDF permet aux utilisateurs de créer facilement des relevés de compte détaillés et formatés. La méthode `generatePDF` utilise la bibliothèque iText pour générer un document PDF contenant les informations du client et les détails des opérations sur le compte. Cette fonctionnalité améliore la gestion des comptes en offrant une option pratique pour l'exportation des relevés.
+
+
+== Documentation Technique de la Simulation de Crédit et d'Assurance
+
+=== Introduction
+
+Ce document décrit les composants et le fonctionnement des classes utilisées pour la simulation de crédit et d'assurance dans une application JavaFX.
+
+=== Use case simulation crédit associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseSimulerEumprunt.PNG[]
+
+=== Use case simulation assurance associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseSimulerAssurance.PNG[]
+
+=== Diagramme de Classe simulation crédit et assurance associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/simulerAssuranceCredit.PNG[]
+
+
+
+=== Modèles de données
+
+==== Classe `Amortissement`
+
+La classe `Amortissement` représente un amortissement pour un prêt. Elle contient les informations suivantes :
+- Le mois courant (`int mois`)
+- Le capital restant dû après le paiement de la mensualité (`double capitalRestant`)
+- Le montant des intérêts pour le mois courant (`double interet`)
+- Le montant du capital remboursé pour le mois courant (`double capitalRembourse`)
+- Le montant total de la mensualité (`double mensualite`)
+
+==== Classe `Assurance`
+
+La classe `Assurance` représente une assurance pour un prêt. Elle contient les informations suivantes :
+- Le mois courant (`int mois`)
+- Le montant de l'assurance pour le mois courant (`double montantAssurance`)
+
+=== Contrôleurs
+
+==== Contrôleur `SimulationCreditViewController`
+
+Le contrôleur `SimulationCreditViewController` gère les interactions de l'utilisateur avec les champs de texte et les boutons, calcule les amortissements et affiche les résultats.
+
+Méthode `doCalculer` :
+
+[source,java]
+----
+@FXML
+private void doCalculer() {
+    try {
+        double capital = Double.parseDouble(txtCapital.getText());
+        int duree = Integer.parseInt(txtDuree.getText()) * 12; // Convertir en mois
+        double taux = Double.parseDouble(txtTaux.getText()) / 100 / 12; // Convertir en taux mensuel
+
+        List<Amortissement> amortissements = calculerAmortissement(capital, taux, duree);
+        afficherTableauAmortissement(amortissements);
+    } catch (NumberFormatException e) {
+        showError("Veuillez entrer des valeurs numériques valides.");
+    }
+}
+----
+
+==== Contrôleur `TableauAmortissementViewController`
+
+Le contrôleur `TableauAmortissementViewController` gère l'affichage et la mise à jour des données du tableau d'amortissement.
+
+=== Interfaces Utilisateur
+
+==== FXML de la page de saisie de simulation de crédit
+
+La page de saisie de simulation de crédit permet à l'utilisateur d'entrer les informations nécessaires pour simuler un crédit :
+- Capital emprunté
+- Durée en années
+- Taux applicable
+
+La page comprend :
+- Un label pour le titre
+- Trois champs de texte pour la saisie des informations
+- Deux boutons, un pour valider et un pour retourner à la fenêtre précédente
+
+==== FXML de la page d'affichage du tableau d'amortissement
+
+La page d'affichage du tableau d'amortissement présente les informations sur les amortissements mensuels sous forme de tableau. Le tableau comprend les colonnes suivantes :
+- Mois
+- Capital restant dû
+- Intérêts
+- Capital remboursé
+- Mensualité
+
+=== Conclusion
+
+Cette fonctionnalité de simulation de crédit et d'assurance offre une interface utilisateur intuitive et efficace pour calculer et afficher les détails d'un prêt amorti. L'utilisateur peut saisir les informations de base du prêt, telles que le capital emprunté, la durée et le taux d'intérêt, et obtenir instantanément un tableau d'amortissement détaillant chaque paiement mensuel, les intérêts et le capital remboursé. Cela permet une meilleure compréhension et gestion des obligations financières par rapport au prêt. En ajoutant une couche de calcul d'assurance, cette fonctionnalité devient encore plus complète et utile pour une planification financière précise.
+
+
