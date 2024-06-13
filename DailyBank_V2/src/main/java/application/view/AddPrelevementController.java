@@ -40,29 +40,33 @@ public class AddPrelevementController {
     }
 
     @FXML
-    private void handleAddPrelevement() {
-        if (isInputValid()) {
-            try {
-                int idNumCompte = Integer.parseInt(txtIdNumCompte.getText());
-                double montant = Double.parseDouble(montantField.getText());
-                String date = dateField.getText();
-                String beneficiaire = beneficiaireField.getText();
+private void handleAddPrelevement() {
+    if (isInputValid()) {
+        try {
+            // Récupérer idNumCompte depuis le champ de texte
+            int idNumCompte = Integer.parseInt(txtIdNumCompte.getText());
+            double montant = Double.parseDouble(montantField.getText());
+            String date = dateField.getText();
+            String beneficiaire = beneficiaireField.getText();
 
-                PrelevementAutomatique prelevement = new PrelevementAutomatique(0, idNumCompte, montant, date, beneficiaire);
+            // Créer une instance de PrelevementAutomatique
+            PrelevementAutomatique prelevement = new PrelevementAutomatique(0, idNumCompte, montant, date, beneficiaire);
 
-                Access_BD_PrelevementAutomatiques access = new Access_BD_PrelevementAutomatiques();
-                access.addPrelevement(prelevement);
-                okClicked = true;
-                dialogStage.close();
-            } catch (NumberFormatException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur de saisie", "Veuillez vérifier que les champs sont correctement saisis.");
-                e.printStackTrace();
-            } catch (DataAccessException | DatabaseConnexionException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de l'ajout du prélèvement.");
-                e.printStackTrace();
-            }
+            // Accéder à la base de données et ajouter le prélèvement
+            Access_BD_PrelevementAutomatiques access = new Access_BD_PrelevementAutomatiques();
+            access.addPrelevement(prelevement);
+            okClicked = true;
+            dialogStage.close();
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur de saisie", "Veuillez vérifier que les champs sont correctement saisis.");
+            e.printStackTrace();
+        } catch (DataAccessException | DatabaseConnexionException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de l'ajout du prélèvement.");
+            e.printStackTrace();
         }
     }
+}
+
 
     @FXML
     private void handleCancel() {
@@ -113,5 +117,12 @@ public class AddPrelevementController {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+      private int compteId;
+
+    public void setCompteId(int compteId) {
+        this.compteId = compteId;
+        txtIdNumCompte.setText(String.valueOf(compteId));
     }
 }

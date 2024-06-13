@@ -112,7 +112,6 @@ private void loadPrelevements() {
         int idNumCompte = Integer.parseInt(idNumCompteText);
         Access_BD_PrelevementAutomatiques accessBDPrelevements = new Access_BD_PrelevementAutomatiques();
         try {
-            System.out.println("ppp");
             List<PrelevementAutomatique> prelevementAutomatiques = accessBDPrelevements.getPrelevements(idNumCompte);
             oListPrelevements.setAll(prelevementAutomatiques);
         } catch (DataAccessException | DatabaseConnexionException e) {
@@ -187,20 +186,28 @@ private void showAddPrelevementForm() {
         Scene scene = new Scene(loader.load());
         dialogStage.setScene(scene);
 
-        AddPrelevementController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
+        // Obtenez l'`idNumCompte` sélectionné actuellement
+        String idNumCompteText = txtIdNumCompte.getText();
+        if (!idNumCompteText.isEmpty()) {
+            int idNumCompte = Integer.parseInt(idNumCompteText);
 
-        dialogStage.showAndWait();
+            // Transmettre l'idNumCompte au contrôleur AddPrelevementController
+            AddPrelevementController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCompteId(idNumCompte);
 
-        if (controller.isOkClicked()) {
-            loadPrelevements();
+            dialogStage.showAndWait();
+
+            if (controller.isOkClicked()) {
+                loadPrelevements();
+            }
+        } else {
+            System.out.println("ID du compte est vide !");
         }
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
 
-
-    
 
 }
