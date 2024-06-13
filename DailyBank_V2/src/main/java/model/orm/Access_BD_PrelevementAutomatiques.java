@@ -118,6 +118,38 @@ public class Access_BD_PrelevementAutomatiques {
             throw new DataAccessException(Table.PrelevementAutomatique, Order.INSERT, "Erreur accès", e);
         }
     }
+
+
+/**
+ * Met à jour les informations d'un prélèvement automatique dans la base de données.
+ *
+ * @param prelevement Le prélèvement automatique avec les nouvelles informations.
+ * @throws DataAccessException      Si une erreur d'accès aux données survient.
+ * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+ */
+public void updatePrelevement(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
+    try {
+        Connection con = LogToDatabase.getConnexion();
+
+        String query = "UPDATE PrelevementAutomatique SET montant=?, dateRecurrente=?, beneficiaire=? WHERE idPrelev=?";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setDouble(1, prelevement.getMontant());
+        pst.setString(2, prelevement.getDateRecurrente());
+        pst.setString(3, prelevement.getBeneficiaire());
+        pst.setInt(4, prelevement.getIdPrelev());
+
+        int rowsAffected = pst.executeUpdate();
+        pst.close();
+
+        if (rowsAffected == 0) {
+            throw new DataAccessException(Table.PrelevementAutomatique, Order.UPDATE, "Aucune ligne mise à jour", null);
+        }
+    } catch (SQLException e) {
+        throw new DataAccessException(Table.PrelevementAutomatique, Order.UPDATE, "Erreur accès", e);
+    }
+}
+
+
     
     
     

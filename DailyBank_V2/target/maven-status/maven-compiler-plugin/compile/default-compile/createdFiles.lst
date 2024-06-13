@@ -31,6 +31,7 @@ application\view\ClientEditorPaneViewController$1.class
 application\tools\AlertUtilities.class
 model\data\Operation.class
 model\orm\exception\DatabaseConnexionException.class
+application\view\ModifyPrelevementController.class
 application\view\ModifyEmployeController.class
 model\data\Client.class
 application\view\ComptesManagementViewController.class

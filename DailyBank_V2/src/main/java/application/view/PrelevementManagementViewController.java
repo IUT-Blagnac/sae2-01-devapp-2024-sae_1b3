@@ -16,16 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.data.CompteCourant;
-import model.data.Employe;
 import model.data.PrelevementAutomatique;
-import model.orm.Access_BD_CompteCourant;
-import model.orm.Access_BD_Employe;
 import model.orm.Access_BD_PrelevementAutomatiques;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
@@ -39,7 +34,7 @@ public class PrelevementManagementViewController {
     private DailyBankState dailyBankState;
 
     @FXML
-    private ListView lvPrelevement;
+    private ListView<PrelevementAutomatique> lvPrelevements;
 
     // Contrôleur de Dialogue associé à PrelevementManagementController
     private PrelevementManagement pmDialogController;
@@ -83,7 +78,6 @@ public class PrelevementManagementViewController {
         this.txtIdNumCompte.setText(String.valueOf(numeroCompte));
         this.containingStage.showAndWait();
     }
-    
 
     // Gestion du stage
     private void closeWindow(WindowEvent e) {
@@ -96,8 +90,6 @@ public class PrelevementManagementViewController {
     @FXML
     private TextField txtIdNumCompte;
     @FXML
-    private ListView<PrelevementAutomatique> lvPrelevements;
-    @FXML
     private Button btnRechercher;
 
     @FXML
@@ -106,59 +98,54 @@ public class PrelevementManagementViewController {
     }
 
     @FXML
-private void loadPrelevements() {
-    String idNumCompteText = txtIdNumCompte.getText();
-    if (!idNumCompteText.isEmpty()) {
-        int idNumCompte = Integer.parseInt(idNumCompteText);
-        Access_BD_PrelevementAutomatiques accessBDPrelevements = new Access_BD_PrelevementAutomatiques();
-        try {
-            List<PrelevementAutomatique> prelevementAutomatiques = accessBDPrelevements.getPrelevements(idNumCompte);
-            oListPrelevements.setAll(prelevementAutomatiques);
-        } catch (DataAccessException | DatabaseConnexionException e) {
-            e.printStackTrace();
+    private void loadPrelevements() {
+        String idNumCompteText = txtIdNumCompte.getText();
+        if (!idNumCompteText.isEmpty()) {
+            int idNumCompte = Integer.parseInt(idNumCompteText);
+            Access_BD_PrelevementAutomatiques accessBDPrelevements = new Access_BD_PrelevementAutomatiques();
+            try {
+                List<PrelevementAutomatique> prelevementAutomatiques = accessBDPrelevements.getPrelevements(idNumCompte);
+                oListPrelevements.setAll(prelevementAutomatiques);
+            } catch (DataAccessException | DatabaseConnexionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("ID du compte est vide !");
         }
-    } else {
-        System.out.println("ID du compte est vide !");
     }
-}
-
 
     private void validateComponentState() {
         // Gérer l'état des composants si nécessaire
     }
 
-
-
     private ObservableList<PrelevementAutomatique> oListPrelevementAutomatiques;
-
 
     @FXML
     private Button btnSupprimerPrelevement;
 
     @FXML
-private void doSupprimerPrelevement() {
-    int selectedIndice = this.lvPrelevements.getSelectionModel().getSelectedIndex();
-    if (selectedIndice >= 0) {
-        PrelevementAutomatique prelevement = this.oListPrelevements.get(selectedIndice);
+    private void doSupprimerPrelevement() {
+        int selectedIndice = this.lvPrelevements.getSelectionModel().getSelectedIndex();
+        if (selectedIndice >= 0) {
+            PrelevementAutomatique prelevement = this.oListPrelevements.get(selectedIndice);
 
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Suppression de prélèvement automatique");
-        confirm.setHeaderText("Voulez-vous réellement supprimer ce prélèvement automatique?");
-        confirm.initOwner(this.containingStage);
-        confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Suppression de prélèvement automatique");
+            confirm.setHeaderText("Voulez-vous réellement supprimer ce prélèvement automatique?");
+            confirm.initOwner(this.containingStage);
+            confirm.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
-        if (confirm.showAndWait().orElse(null) == ButtonType.YES) {
-            try {
-                new Access_BD_PrelevementAutomatiques().deleteprelevementAutomatique(prelevement);
-                this.oListPrelevements.remove(selectedIndice);
-            } catch (Exception e) {
-                showAlert("Erreur", "Erreur lors de la suppression du prélèvement automatique", e.getMessage());
+            if (confirm.showAndWait().orElse(null) == ButtonType.YES) {
+                try {
+                    new Access_BD_PrelevementAutomatiques().deleteprelevementAutomatique(prelevement);
+                    this.oListPrelevements.remove(selectedIndice);
+                } catch (Exception e) {
+                    showAlert("Erreur", "Erreur lors de la suppression du prélèvement automatique", e.getMessage());
+                }
             }
         }
     }
-}
 
-    
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         if (title != null) {
@@ -171,43 +158,81 @@ private void doSupprimerPrelevement() {
         alert.showAndWait();
     }
 
+    /**
+     * Affiche le formulaire d'ajout d'un prélèvement automatique.
+     */
+    @FXML
+    private void showAddPrelevementForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("prelevementeditor.fxml"));
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter un Prélèvement");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(loader.load());
+            dialogStage.setScene(scene);
+
+            // Obtenez l'`idNumCompte` sélectionné actuellement
+            String idNumCompteText = txtIdNumCompte.getText();
+            if (!idNumCompteText.isEmpty()) {
+                int idNumCompte = Integer.parseInt(idNumCompteText);
+
+                // Transmettre l'idNumCompte au contrôleur AddPrelevementController
+                AddPrelevementController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setCompteId(idNumCompte);
+
+                dialogStage.showAndWait();
+
+                if (controller.isOkClicked()) {
+                    loadPrelevements();
+                }
+            } else {
+                System.out.println("ID du compte est vide !");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
- * Affiche le formulaire d'ajout d'un prélèvement automatique.
- */
-@FXML
-private void showAddPrelevementForm() {
-    try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("prelevementeditor.fxml"));
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Ajouter un Prélèvement");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        Scene scene = new Scene(loader.load());
-        dialogStage.setScene(scene);
+     * Affiche le formulaire de modification d'un prélèvement automatique.
+     */
+    @FXML
+    private void modifierPrelevement() {
+        // Récupérer le prélèvement sélectionné dans la liste
+        PrelevementAutomatique selectedPrelevement = lvPrelevements.getSelectionModel().getSelectedItem();
 
-        // Obtenez l'`idNumCompte` sélectionné actuellement
-        String idNumCompteText = txtIdNumCompte.getText();
-        if (!idNumCompteText.isEmpty()) {
-            int idNumCompte = Integer.parseInt(idNumCompteText);
+        // Vérifier si un prélèvement est sélectionné
+        if (selectedPrelevement != null) {
+            try {
+                // Charger le formulaire de modification du prélèvement
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("ModifyPrelevement.fxml"));
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Modifier un Prélèvement");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(loader.load());
+                dialogStage.setScene(scene);
 
-            // Transmettre l'idNumCompte au contrôleur AddPrelevementController
-            AddPrelevementController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setCompteId(idNumCompte);
+                // Passer le prélèvement sélectionné au contrôleur de modification
+                ModifyPrelevementController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                controller.setPrelevement(selectedPrelevement);
 
-            dialogStage.showAndWait();
+                // Afficher le formulaire de modification et attendre sa fermeture
+                dialogStage.showAndWait();
 
-            if (controller.isOkClicked()) {
-                loadPrelevements();
+                // Recharger la liste des prélèvements si la modification est confirmée
+                if (controller.isOkClicked()) {
+                    loadPrelevements();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } else {
-            System.out.println("ID du compte est vide !");
+            // Aucun prélèvement sélectionné, afficher un message d'erreur
+            showAlert("Aucune sélection", "Veuillez sélectionner un prélèvement dans la liste", null);
         }
-    } catch (IOException e) {
-        e.printStackTrace();
     }
-}
-
-
 }

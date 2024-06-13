@@ -81,9 +81,12 @@ private boolean isInputValid() {
         errorMessage += "ID du compte invalide!\n";
     } else {
         try {
-            Integer.parseInt(txtIdNumCompte.getText());
+            int idNumCompte = Integer.parseInt(txtIdNumCompte.getText());
+            if (idNumCompte <= 0) {
+                errorMessage += "L'ID du compte doit être supérieur à zéro!\n";
+            }
         } catch (NumberFormatException e) {
-            errorMessage += "L'ID du compte doit être un nombre!\n";
+            errorMessage += "L'ID du compte doit être un nombre entier!\n";
         }
     }
 
@@ -92,7 +95,10 @@ private boolean isInputValid() {
         errorMessage += "Montant invalide!\n";
     } else {
         try {
-            Double.parseDouble(montantField.getText());
+            double montant = Double.parseDouble(montantField.getText());
+            if (montant <= 0) {
+                errorMessage += "Le montant doit être supérieur à zéro!\n";
+            }
         } catch (NumberFormatException e) {
             errorMessage += "Le montant doit être un nombre!\n";
         }
@@ -103,7 +109,10 @@ private boolean isInputValid() {
         errorMessage += "Date invalide!\n";
     } else {
         try {
-            Long.parseLong(dateField.getText());
+            double date = Double.parseDouble(dateField.getText());
+            if (date <= 0) {
+                errorMessage += "La date doit être supérieure à zéro!\n";
+            }
         } catch (NumberFormatException e) {
             errorMessage += "La date doit être un nombre!\n";
         }
