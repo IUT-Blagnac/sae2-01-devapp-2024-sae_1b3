@@ -363,6 +363,99 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 * Auteur : Guichetier
 
 
+
+
+==== Créer Prélèvement ( Yahya Magaz )
+
+Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de pouvoir créer un prélèvement.
+
+Étapes :
+
+1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+2- Recherchez le client auquel vous voulez faire le prélèvement et cliquez sur le bouton situé à droite "Compte Client".
+3- Choisissez le compte auquel vous voulez créer le prélèvement puis cliquez sur le bouton situé à droite "Prélèvement" puis cliquez sur "Afficher Prélèvements" pour potentiellement voir les prélèvements du compte.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+4- Une fois sur la page, cliquez sur "Ajouter Prélèvement".
+
+5- Remplissez toutes les informations demandées.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleAjouterPr%C3%A9l%C3%A8vement.PNG[]
+
+6- Toutes les informations doivent être remplies correctement (exemple pas de lettre pour le montant ou encore la date), sinon un message d'erreur s'affiche.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleErreurPr%C3%A9l%C3%A8vement.PNG[]
+
+7- Une fois toutes les informations validées, cliquez sur le bouton "Valider".
+
+8- Le nouveau prélèvement sera affiché dans la liste des prélèvements.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleAjouter.PNG[]
+
+* Auteur : Guichetier, Chef d'agence
+
+
+
+
+
+
+
+==== Supprimer Prélèvement ( Yahya Magaz )
+
+Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de pouvoir supprimer un prélèvement.
+
+Étapes :
+
+1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+2- Recherchez le client dont vous voulez supprimer le prélèvement et cliquez sur le bouton situé à droite "Compte Client".
+3- Choisissez le compte auquel le prélèvement est associé puis cliquez sur le bouton situé à droite "Prélèvement".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+4- Une fois sur la page, trouvez le prélèvement que vous souhaitez supprimer et cliquez sur un prélèvement puis sur le bouton "Supprimer" situé à droite du prélèvement.
+
+5- Confirmez la suppression dans la fenêtre de dialogue qui s'affiche en cliquant sur "Oui".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaSuppressionPr%C3%A9l%C3%A8vement.PNG[]
+
+6- Le prélèvement supprimé ne sera plus affiché dans la liste des prélèvements automatiquement.
+
+* Auteur : Guichetier, Chef d'agence
+
+
+
+
+
+
+==== Afficher Prélèvement ( Yahya Magaz )
+
+Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de visualiser les prélèvements existants associés à un compte client.
+
+Étapes :
+
+1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+2- Recherchez le client dont vous voulez afficher les prélèvements et cliquez sur le bouton situé à droite "Compte Client".
+3- Choisissez le compte auquel les prélèvements sont associés puis cliquez sur le bouton situé à droite "Prélèvements".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+4- Une fois sur la page des prélèvements, si une page blanche s'affiche, c'est normal.
+
+5- Pour voir la liste des prélèvements existants, vous devez la charger en cliquant sur le bouton "Afficher Prélèvement" situé à droite.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaButtonAfficherPre.PNG[]
+
+6- La liste des prélèvements s'affichera avec les informations complètes sur tous les prélèvements.
+
+7- Pour fermer la fenêtre contextuelle, cliquez sur le bouton "Retour Gestion Compte".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaRetourPr%C3%A9l%C3%A8vement.PNG[]
+
+* Auteur : Guichetier, Chef d'agence
+
+
+
     
 
 
