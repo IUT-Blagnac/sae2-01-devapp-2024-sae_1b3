@@ -1345,3 +1345,138 @@ public void testGeneratePDF_NoOperations() {
 }
 ----
 
+== Scénarios de Test pour la Fonctionnalité "Débit Exceptionnel"
+
+=== Scénario 1 : Effectuer un débit exceptionnel avec des valeurs valides
+
+==== Description
+Tester la fonctionnalité de débit exceptionnel en fournissant des valeurs valides pour le montant et en sélectionnant un type d'opération.
+
+==== Données d'entrée
+- Montant : 5000
+
+==== Action
+Entrer les valeurs dans les champs de texte correspondants et cliquer sur le bouton "Effectuer DébitExceptionnel".
+
+==== Réponse attendue
+Le système enregistre l'opération de débit exceptionnel sans erreurs et ferme la fenêtre.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testEffectuerDebitExceptionnel_ValidInput() {
+    // Arrange
+    when(txtMontant.getText()).thenReturn("5000");
+    when(cbTypeOpe.getValue()).thenReturn("Retrait");
+
+    // Act
+    controller.doAjouter();
+
+    // Assert
+    // Vérifier que l'opération de débit exceptionnel est enregistrée et la fenêtre est fermée
+    assertNotNull(controller.operationResultat);
+    assertEquals(5000, controller.operationResultat.montant, 0.01);
+    assertEquals("Retrait", controller.operationResultat.type);
+    verify(containingStageMock).close();
+}
+----
+
+=== Scénario 2 : Effectuer un débit exceptionnel avec un montant non numérique
+
+==== Description
+Tester la fonctionnalité de débit exceptionnel en fournissant des valeurs non numériques pour le montant.
+
+==== Données d'entrée
+- Montant : "abc"
+
+==== Action
+Entrer les valeurs non numériques dans les champs de texte correspondants et cliquer sur le bouton "Effectuer DébitExceptionnel".
+
+==== Réponse attendue
+Le système affiche un message d’erreur indiquant que les valeurs doivent être numériques.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testEffectuerDebitExceptionnel_InvalidInput() {
+    // Arrange
+    when(txtMontant.getText()).thenReturn("abc");
+
+    // Act
+    controller.doAjouter();
+
+    // Assert
+    // Vérifier qu'un message d'erreur est affiché
+    verify(txtMontant).getStyleClass().add("borderred");
+    verify(lblMontant).getStyleClass().add("borderred");
+}
+----
+
+=== Scénario 3 : Effectuer un débit exceptionnel avec un montant négatif
+
+==== Description
+Tester la fonctionnalité de débit exceptionnel en fournissant un montant négatif.
+
+==== Données d'entrée
+- Montant : -1000
+
+==== Action
+Entrer les valeurs négatives dans les champs de texte correspondants et cliquer sur le bouton "Effectuer DébitExceptionnel".
+
+==== Réponse attendue
+Le système affiche un message d’erreur indiquant que le montant doit être positif.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testEffectuerDebitExceptionnel_NegativeInput() {
+    // Arrange
+    when(txtMontant.getText()).thenReturn("-1000");
+
+    // Act
+    controller.doAjouter();
+
+    // Assert
+    // Vérifier qu'un message d'erreur est affiché
+    verify(txtMontant).getStyleClass().add("borderred");
+    verify(lblMontant).getStyleClass().add("borderred");
+}
+----
+
+=== Scénario 4 : Effectuer un débit exceptionnel avec un montant nul
+
+==== Description
+Tester la fonctionnalité de débit exceptionnel en fournissant un montant nul.
+
+==== Données d'entrée
+- Montant : 0
+
+==== Action
+Entrer les valeurs nulles dans les champs de texte correspondants et cliquer sur le bouton "Effectuer DébitExceptionnel".
+
+==== Réponse attendue
+Le système affiche un message d’erreur indiquant que le montant doit être supérieur à zéro.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testEffectuerDebitExceptionnel_ZeroInput() {
+    // Arrange
+    when(txtMontant.getText()).thenReturn("0");
+
+    // Act
+    controller.doAjouter();
+
+    // Assert
+    // Vérifier qu'un message d'erreur est affiché
+    verify(txtMontant).getStyleClass().add("borderred");
+    verify(lblMontant).getStyleClass().add("borderred");
+}
+----
+
+
+
