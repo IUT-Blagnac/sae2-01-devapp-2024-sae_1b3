@@ -1480,3 +1480,129 @@ public void testEffectuerDebitExceptionnel_ZeroInput() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== Scénarios de Test pour la Fonctionnalité "Mettre à jour Prélèvement "
+
+=== Scénario 1 : Modifier un prélèvement  avec des valeurs valides
+
+==== Description
+Tester la fonctionnalité de modification d'un prélèvement  en fournissant des valeurs valides pour le montant, la date récurrente et le bénéficiaire.
+
+==== Données d'entrée
+- Montant : 100.0
+- Date Récurrente : "96"
+- Bénéficiaire : "Gilbert"
+
+==== Action
+Sélectionner un prélèvement dans la liste `lvPrelevements`, ouvrir le formulaire de modification, entrer les nouvelles valeurs dans les champs de texte correspondants, et cliquer sur le bouton "Valider".
+
+==== Réponse attendue
+Le système enregistre les modifications du prélèvement  sans erreurs et met à jour la liste `lvPrelevements`.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testModifierPrelevement_ValidInput() {
+    // Arrange
+    PrelevementAutomatique prelevement = new PrelevementAutomatique(1, 100, 100.0, "96", "Gilbert");
+    when(lvPrelevements.getSelectionModel().getSelectedItem()).thenReturn(prelevement);
+    when(modifyPrelevementControllerMock.isOkClicked()).thenReturn(true);
+    when(modifyPrelevementControllerMock.getModifiedPrelevement()).thenReturn(
+        new PrelevementAutomatique(1, 100, 100.0, "96", "Gilbert")
+    );
+
+    // Act
+    controller.modifierPrelevement();
+
+    // Assert
+    assertEquals(100.0, prelevement.getMontant(), 0.01);
+    assertEquals("96", prelevement.getDateRecurrente());
+    assertEquals("Gilbert", prelevement.getBeneficiaire());
+    verify(lvPrelevements).refresh();
+}
+----
+
+=== Scénario 2 : Modifier un prélèvement  sans sélectionner de prélèvement
+
+==== Description
+Tester la fonctionnalité de modification sans sélectionner de prélèvement dans la liste `lvPrelevements`.
+
+==== Données d'entrée
+- Aucun prélèvement sélectionné
+
+==== Action
+Ne pas sélectionner de prélèvement dans la liste `lvPrelevements` et cliquer sur le bouton "Modifier".
+
+==== Réponse attendue
+Le système affiche un message d'erreur indiquant qu'aucun prélèvement n'est sélectionné.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testModifierPrelevement_NoSelection() {
+    // Arrange
+    when(lvPrelevements.getSelectionModel().getSelectedItem()).thenReturn(null);
+
+    // Act
+    controller.modifierPrelevement();
+
+    // Assert
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Aucune sélection", "Veuillez sélectionner un prélèvement dans la liste");
+}
+----
+
+=== Scénario 3 : Modifier un prélèvement  avec des valeurs invalides
+
+==== Description
+Tester la fonctionnalité de modification avec des valeurs invalides pour le montant.
+
+==== Données d'entrée
+- Montant : -100.0
+- Date Récurrente : "96"
+- Bénéficiaire : "Gilbert"
+
+==== Action
+Sélectionner un prélèvement dans la liste `lvPrelevements`, ouvrir le formulaire de modification, entrer les nouvelles valeurs invalides dans les champs de texte correspondants, et cliquer sur le bouton "Valider".
+
+==== Réponse attendue
+Le système affiche un message d'erreur indiquant que les valeurs doivent être valides.
+
+==== Réponse réelle
+[source,java]
+----
+@Test
+public void testModifierPrelevement_InvalidInput() {
+    // Arrange
+    PrelevementAutomatique prelevement = new PrelevementAutomatique(1, 100, 100.0, "96", "Gilbert");
+    when(lvPrelevements.getSelectionModel().getSelectedItem()).thenReturn(prelevement);
+    when(modifyPrelevementControllerMock.isOkClicked()).thenReturn(true);
+    when(modifyPrelevementControllerMock.getModifiedPrelevement()).thenReturn(
+        new PrelevementAutomatique(1, 100, -100.0, "96", "Gilbert")
+    );
+
+    // Act
+    controller.modifierPrelevement();
+
+    // Assert
+    verify(alertMock).showAlert(Alert.AlertType.ERROR, "Erreur", "Les valeurs doivent être valides");
+}
+----
+
+
