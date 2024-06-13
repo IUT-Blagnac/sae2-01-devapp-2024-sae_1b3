@@ -784,8 +784,6 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/simulerAssuranceCredit.PNG[]
 
-
-
 === Modèles de données
 
 ==== Classe `Amortissement`
@@ -859,4 +857,43 @@ La page d'affichage du tableau d'amortissement présente les informations sur le
 
 Cette fonctionnalité de simulation de crédit et d'assurance offre une interface utilisateur intuitive et efficace pour calculer et afficher les détails d'un prêt amorti. L'utilisateur peut saisir les informations de base du prêt, telles que le capital emprunté, la durée et le taux d'intérêt, et obtenir instantanément un tableau d'amortissement détaillant chaque paiement mensuel, les intérêts et le capital remboursé. Cela permet une meilleure compréhension et gestion des obligations financières par rapport au prêt. En ajoutant une couche de calcul d'assurance, cette fonctionnalité devient encore plus complète et utile pour une planification financière précise.
 
+== Documentation Technique : Update un Prélèvement  ( Thomas CEOLIN )
 
+=== Introduction
+
+Cette fonctionnalité technique décrit le processus de mise à jour d'un prélèvement dans la base de données du système. Son objectif est de permettre aux utilisateurs autorisés de modifier efficacement et en toute sécurité les informations d'un prélèvement existant.
+
+=== Description 
+
+Le processus de mise à jour d'un prélèvement implique plusieurs étapes pour garantir la sécurité et l'intégrité des données pendant la modification des informations
+
+=== Conditions
+
+- Seuls les utilisateurs habilités, tels que les chefs d'agence et les guichetiers, ont l'autorisation de mettre à jour les informations relatives aux prélèvements.
+
+- Le système veille à ce que seules les modifications valides et conformes aux règles définies soient enregistrées lors de la mise à jour d'un prélèvement, si une règle n'est pas suivie, une erreur est déclenchée.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+
+=== Classes utilisées
+
+
+==== Application.view
+
+- PrelevementManagementViewController : Ce contrôleur utilise la méthode `modifierPrelevement()` pour afficher le formulaire de modification d'un prélèvement, fichier FXML .
+
+- ModifyPrelevementController : Ce contrôleur permet à l'utilisateur d'effectuer des modifications sur un prélèvement, qui utilise ensuite  la méthode `handleOk()` pour valider et enregistrer les changements.
+
+==== Model.orm
+
+- Access_BD_PrelevementAutomatique : Cette classe gère l'accès à la base de données pour mettre à jour les informations d'un prélèvement en utilisant la méthode `updatePrelevement()`, et l'utilise dans le contrôleur ModifyPrelevementController.
+
+=== Conclusion
+
+Cette documentation technique offre un guide détaillé sur le processus de mise à jour d'un prélèvement dans le système, en mettant en avant les conditions d'accès, les interactions entre les classes et les actions spécifiques des utilisateurs autorisés. Elle est essentielle pour assurer le développement et la maintenance efficaces du système.
