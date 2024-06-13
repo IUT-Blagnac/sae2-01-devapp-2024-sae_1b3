@@ -857,6 +857,55 @@ La page d'affichage du tableau d'amortissement présente les informations sur le
 
 Cette fonctionnalité de simulation de crédit et d'assurance offre une interface utilisateur intuitive et efficace pour calculer et afficher les détails d'un prêt amorti. L'utilisateur peut saisir les informations de base du prêt, telles que le capital emprunté, la durée et le taux d'intérêt, et obtenir instantanément un tableau d'amortissement détaillant chaque paiement mensuel, les intérêts et le capital remboursé. Cela permet une meilleure compréhension et gestion des obligations financières par rapport au prêt. En ajoutant une couche de calcul d'assurance, cette fonctionnalité devient encore plus complète et utile pour une planification financière précise.
 
+
+== Documentation Technique : Débit Exceptionnel (Thomas CEOLIN)
+
+=== Introduction
+
+Cette fonctionnalité technique décrit le processus permettant d'effectuer un débit exceptionnel sur un compte client, autorisant le dépassement du découvert autorisé. Son but est de fournir un guide détaillé pour assurer que cette opération spécifique soit effectuée de manière sécurisée et efficace.
+
+=== Description
+
+Le débit exceptionnel est une opération spéciale permettant de dépasser temporairement le découvert autorisé sur un compte client. Ce processus implique plusieurs étapes pour garantir la sécurité des données et la conformité.
+
+=== Conditions
+
+- Accès Restreint : Seuls les Chefs d'agence disposent des droits nécessaires pour initier un débit exceptionnel.
+
+- Validation des Données : Le système vérifie la validité des informations saisies lors du processus. Tout problème détecté, comme des données manquantes ou incorrectes, déclenche l'affichage de messages d'erreur appropriés pour guider l'utilisateur.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+
+=== Classes utilisées
+
+- OperationsManagement : Cette classe gère les opérations bancaires, notamment les débits exceptionnels, en utilisant des méthodes spécifiques. Elle utilise la méthode `enregistrerDEBITExceptionnel()` pour enregistrer une opération de débit, appelant la méthode `insertDebitExceptionnel()` de `Access_BD_Operation`.
+
+- OperationEditorPane : Cette classe crée un fichier FXML pour effectuer le débit exceptionnel. Ce fichier FXML est contrôlé par `OperationEditorPaneViewController`.
+
+==== Application.view
+
+- OperationEditorPaneViewController : Ce contrôleur utilise la méthode `displayDialog()` pour afficher une boîte de dialogue permettant à l'utilisateur de saisir les détails d'une opération bancaire (cas DEBITExceptionnel). Il utilise également la méthode `doAjouter()` pour valider et enregistrer l'opération de débit exceptionnel.
+
+- OperationsManagementViewController : Ce contrôleur est utilisé pour gérer le débit exceptionnel. Sa méthode `doDebitExceptionnel()` commence par appeler `enregistrerDEBITExceptionnel()` pour enregistrer l'opération de débit exceptionnel. Ensuite, elle valide l'état des composants de l'interface en appelant `validateComponentState()` et met à jour les informations du compte client affichées dans l'interface avec `updateInfoCompteClient()`.
+
+==== Model.data
+
+Operation : Cette classe représente une opération bancaire avec ses détails essentiels tels que le montant et les identifiants associés. Elle est beaucoup utilisée dans les autres classes.
+
+==== Model.orm
+
+- Access_BD_Operation : Cette classe gère l'accès à la base de données pour effectuer le débit exceptionnel en utilisant la méthode `insertDebitExceptionnel()`.
+
+=== Conclusion
+
+Cette fonctionnalité technique fournit un guide détaillé sur le processus technique pour effectuer un débit exceptionnel dans le système bancaire. Elle met en évidence les étapes critiques, les conditions d'accès ainsi que les vérifications nécessaires pour assurer la sécurité et la validité des opérations réalisées 
+
 == Documentation Technique : Update un Prélèvement  ( Thomas CEOLIN )
 
 === Introduction
@@ -897,3 +946,5 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 === Conclusion
 
 Cette documentation technique offre un guide détaillé sur le processus de mise à jour d'un prélèvement dans le système, en mettant en avant les conditions d'accès, les interactions entre les classes et les actions spécifiques des utilisateurs autorisés. Elle est essentielle pour assurer le développement et la maintenance efficaces du système.
+
+
