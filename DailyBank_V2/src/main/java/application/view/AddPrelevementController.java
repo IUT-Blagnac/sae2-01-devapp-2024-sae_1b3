@@ -73,44 +73,56 @@ private void handleAddPrelevement() {
         dialogStage.close();
     }
 
-    private boolean isInputValid() {
-        String errorMessage = "";
+private boolean isInputValid() {
+    String errorMessage = "";
 
-        if (txtIdNumCompte.getText() == null || txtIdNumCompte.getText().isEmpty()) {
-            errorMessage += "ID du compte invalide!\n";
-        } else {
-            try {
-                Integer.parseInt(txtIdNumCompte.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "L'ID du compte doit être un nombre!\n";
-            }
-        }
-
-        if (montantField.getText() == null || montantField.getText().isEmpty()) {
-            errorMessage += "Montant invalide!\n";
-        } else {
-            try {
-                Double.parseDouble(montantField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "Le montant doit être un nombre!\n";
-            }
-        }
-
-        if (dateField.getText() == null || dateField.getText().isEmpty()) {
-            errorMessage += "Date invalide!\n";
-        }
-
-        if (beneficiaireField.getText() == null || beneficiaireField.getText().isEmpty()) {
-            errorMessage += "Bénéficiaire invalide!\n";
-        }
-
-        if (errorMessage.isEmpty()) {
-            return true;
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Champs invalides", errorMessage);
-            return false;
+    // Vérification de l'ID du compte
+    if (txtIdNumCompte.getText() == null || txtIdNumCompte.getText().isEmpty()) {
+        errorMessage += "ID du compte invalide!\n";
+    } else {
+        try {
+            Integer.parseInt(txtIdNumCompte.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "L'ID du compte doit être un nombre!\n";
         }
     }
+
+    // Vérification du montant
+    if (montantField.getText() == null || montantField.getText().isEmpty()) {
+        errorMessage += "Montant invalide!\n";
+    } else {
+        try {
+            Double.parseDouble(montantField.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Le montant doit être un nombre!\n";
+        }
+    }
+
+    // Vérification de la date
+    if (dateField.getText() == null || dateField.getText().isEmpty()) {
+        errorMessage += "Date invalide!\n";
+    } else {
+        try {
+            Long.parseLong(dateField.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "La date doit être un nombre!\n";
+        }
+    }
+
+    // Vérification du bénéficiaire
+    if (beneficiaireField.getText() == null || beneficiaireField.getText().isEmpty()) {
+        errorMessage += "Bénéficiaire invalide!\n";
+    }
+
+    // Retourne vrai si aucun message d'erreur n'a été accumulé, sinon affiche une alerte
+    if (errorMessage.isEmpty()) {
+        return true;
+    } else {
+        showAlert(Alert.AlertType.ERROR, "Champs invalides", errorMessage);
+        return false;
+    }
+}
+
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
