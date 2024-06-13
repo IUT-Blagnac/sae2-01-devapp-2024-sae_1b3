@@ -876,11 +876,11 @@ Le débit exceptionnel est une opération spéciale permettant de dépasser temp
 
 === Partie du UseCase
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/v2debitexcep.png[]
 
 === Diagramme de classe
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Diagramme1V2.png[]
 
 === Classes utilisées
 
@@ -924,11 +924,11 @@ Le processus de mise à jour d'un prélèvement implique plusieurs étapes pour 
 
 === Partie du UseCase
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/MUV2.png[]
 
 === Diagramme de classe
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/diagramme22v2.png[]
 
 === Classes utilisées
 
