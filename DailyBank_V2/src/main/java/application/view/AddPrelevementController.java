@@ -12,6 +12,12 @@ import model.orm.exception.DatabaseConnexionException;
 public class AddPrelevementController {
 
     @FXML
+    private TextField txtIdNumCompte;
+
+    @FXML
+    private TextField txtIdprelev;
+
+    @FXML
     private TextField montantField;
 
     @FXML
@@ -20,7 +26,9 @@ public class AddPrelevementController {
     @FXML
     private TextField beneficiaireField;
 
+    @FXML
     private Stage dialogStage;
+
     private boolean okClicked = false;
 
     public void setDialogStage(Stage dialogStage) {
@@ -34,17 +42,21 @@ public class AddPrelevementController {
     @FXML
     private void handleAddPrelevement() {
         if (isInputValid()) {
-            double montant = Double.parseDouble(montantField.getText());
-            String date = dateField.getText();
-            String beneficiaire = beneficiaireField.getText();
-
-            PrelevementAutomatique prelevement = new PrelevementAutomatique(0, 0, montant, date, beneficiaire);
-
             try {
+                int idNumCompte = Integer.parseInt(txtIdNumCompte.getText());
+                double montant = Double.parseDouble(montantField.getText());
+                String date = dateField.getText();
+                String beneficiaire = beneficiaireField.getText();
+
+                PrelevementAutomatique prelevement = new PrelevementAutomatique(0, idNumCompte, montant, date, beneficiaire);
+
                 Access_BD_PrelevementAutomatiques access = new Access_BD_PrelevementAutomatiques();
                 access.addPrelevement(prelevement);
                 okClicked = true;
                 dialogStage.close();
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur de saisie", "Veuillez vérifier que les champs sont correctement saisis.");
+                e.printStackTrace();
             } catch (DataAccessException | DatabaseConnexionException e) {
                 showAlert(Alert.AlertType.ERROR, "Erreur de base de données", "Une erreur s'est produite lors de l'ajout du prélèvement.");
                 e.printStackTrace();
@@ -59,6 +71,16 @@ public class AddPrelevementController {
 
     private boolean isInputValid() {
         String errorMessage = "";
+
+        if (txtIdNumCompte.getText() == null || txtIdNumCompte.getText().isEmpty()) {
+            errorMessage += "ID du compte invalide!\n";
+        } else {
+            try {
+                Integer.parseInt(txtIdNumCompte.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "L'ID du compte doit être un nombre!\n";
+            }
+        }
 
         if (montantField.getText() == null || montantField.getText().isEmpty()) {
             errorMessage += "Montant invalide!\n";

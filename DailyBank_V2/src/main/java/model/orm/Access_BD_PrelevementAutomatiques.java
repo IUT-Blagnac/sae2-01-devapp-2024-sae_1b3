@@ -110,11 +110,15 @@ public class Access_BD_PrelevementAutomatiques {
             pst.setDouble(3, prelevement.getMontant());
             pst.setString(4, prelevement.getDateRecurrente());
             pst.setString(5, prelevement.getBeneficiaire());
+
+    
             pst.executeUpdate();
             pst.close();
         } catch (SQLException e) {
             throw new DataAccessException(Table.PrelevementAutomatique, Order.INSERT, "Erreur accès", e);
         }
     }
+    
+    
     
 }

@@ -15,7 +15,7 @@
    <center>
       <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" styleClass="card" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblMessage" styleClass="header-bank-app" text="Informations sur le nouveau compte" />
+            <Label fx:id="lblMessage" styleClass="header-bank-app" text="Informations sur le nouveau prélèvement" />
             <Label fx:id="errorSupp" />
               <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="199.0">
                   <columnConstraints>
@@ -38,12 +38,12 @@
                               <Insets bottom="24.0" right="20.0" />
                           </GridPane.margin>
                       </Label>
-                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="41.0" maxWidth="1.7976931348623157E308" styleClass="fz-14" text="Montant de prélèvement" GridPane.rowIndex="1">
+                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="41.0" maxWidth="1.7976931348623157E308" styleClass="fz-14" text="Montant de prélèvement" GridPane.rowIndex="2">
                           <GridPane.margin>
                               <Insets bottom="24.0" right="20.0" />
                           </GridPane.margin>
                       </Label>
-                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="102.0" maxWidth="1.7976931348623157E308" styleClass="fz-14" text="ID Prélèvement" GridPane.rowIndex="2">
+                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="102.0" maxWidth="1.7976931348623157E308" styleClass="fz-14" text="ID Prélèvement" GridPane.rowIndex="1">
                           <GridPane.margin>
                               <Insets bottom="24.0" right="20.0" />
                           </GridPane.margin>
@@ -60,25 +60,25 @@
                       </Label>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1">
                      <children>
-                            <TextField fx:id="txtIdNumCompte" disable="true" editable="false" maxWidth="1.7976931348623157E308" styleClass="input" />
+                            <TextField fx:id="txtIdNumCompte" maxWidth="1.7976931348623157E308" styleClass="input" />
                         <Label styleClass="error-text" />
                      </children>
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                            <TextField fx:id="montantField" styleClass="input" />
+                            <TextField disable="true" editable="false" styleClass="input" />
                         <Label fx:id="errorMontant" styleClass="error-text" />
                      </children>
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                            <TextField fx:id="txtIdprelev" disable="true" editable="false" styleClass="input" />
+                            <TextField fx:id="montantField" styleClass="input" />
                         <Label styleClass="error-text" />
                      </children>
                   </VBox>
                   <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                            <TextField fx:id="dateField" styleClass="input" />
+                        <TextField fx:id="dateField" />
                         <Label fx:id="errorDatePrelev" styleClass="error-text" />
                      </children>
                   </VBox>
