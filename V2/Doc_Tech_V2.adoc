@@ -948,3 +948,125 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 Cette documentation technique offre un guide détaillé sur le processus de mise à jour d'un prélèvement dans le système, en mettant en avant les conditions d'accès, les interactions entre les classes et les actions spécifiques des utilisateurs autorisés. Elle est essentielle pour assurer le développement et la maintenance efficaces du système.
 
 
+
+== Documentation Technique : Créer un Prélèvement (Yahya Magaz)
+
+=== Introduction
+
+Cette fonctionnalité technique décrit le processus de création d'un prélèvement dans la base de données du système. L'objectif est de permettre aux utilisateurs autorisés de saisir de manière sécurisée et efficace les informations nécessaires pour ajouter un prélèvement.
+
+=== Description du processus
+
+Le processus de création d'un prélèvement comprend plusieurs étapes pour garantir l'intégrité des données et la sécurité du système.
+
+=== Conditions
+
+Seuls les utilisateurs autorisés, tels que les chefs d'agence et les guichetiers, sont habilités à créer des prélèvements.
+Les données saisies doivent être valides et conformes aux règles définies par le système.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaUseCaseCr%C3%A9erPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaDcCr%C3%A9erPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Classes utilisées
+
+==== Application.view
+
+PrelevementManagementViewController : Ce contrôleur utilise la méthode showAddPrelevementForm() pour afficher la page FXML permettant de créer les prélèvements.
+
+AddPrelevementController : Ce contrôleur permet à l'utilisateur d'ajouter un prélèvement automatique en saisissant les informations nécessaires, en utilisant notamment la méthode handleAddEmploye() pour valider et isInputValid() pour vérifier les différentes informations.
+
+==== Model.orm
+
+Access_BD_PrelevementAutomatique : Cette classe gère la création du prélèvement dans la base de données en appelant la méthode addPrelevement(), utilisée dans le contrôleur AddPrelevementController.
+
+=== Conclusion
+
+Cette fonctionnalité offre une vue d'ensemble du processus de création d'un prélèvement dans le système, en détaillant les conditions, les interactions entre les classes ainsi que les actions des chefs d'agence et des guichetiers. Elle constitue un guide essentiel pour le développement et la maintenance du système.
+
+
+
+
+== Documentation Technique : Charger un Prélèvement (Yahya Magaz)
+
+=== Introduction
+
+Cette fonctionnalité technique décrit le processus de chargement d'un prélèvement à partir de la base de données du système. L'objectif est de permettre aux utilisateurs autorisés d'accéder de manière sécurisée et efficace aux informations relatives à un prélèvement existant.
+
+=== Description du processus
+
+Le processus de chargement d'un prélèvement comprend plusieurs étapes pour récupérer les données nécessaires de manière sécurisée et garantir l'intégrité des informations.
+
+=== Conditions
+
+Seuls les utilisateurs autorisés, comme les chefs d'agence et les guichetiers, ont le droit de charger des informations sur les prélèvements.
+Le système garantit que seules les données appropriées et valides sont accessibles et affichées lors du chargement d'un prélèvement.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaUseCaseChargerPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaDcCr%C3%A9erPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Classes utilisées
+
+==== Application.view
+
+PrelevementManagementViewController : Ce contrôleur utilise la méthode showLoadPrelevementForm() pour afficher l'interface utilisateur permettant de charger un prélèvement existant.
+
+==== Model.orm
+
+Access_BD_PrelevementAutomatique : Cette classe gère l'accès à la base de données pour charger les informations d'un prélèvement en utilisant la méthode loadPrelevement(), appelée dans le contrôleur LoadPrelevementController.
+
+=== Conclusion
+
+Cette fonctionnalité technique offre un guide détaillé sur le processus de chargement d'un prélèvement dans le système, en mettant en avant les conditions d'accès, les interactions entre les classes et les actions spécifiques des utilisateurs autorisés. Elle est essentielle pour assurer le développement et la maintenance efficaces du système.
+
+
+
+
+== Documentation Technique : Supprimer un Prélèvement (Yahya Magaz)
+
+=== Introduction
+
+Cette fonctionnalité technique décrit le processus de suppression d'un prélèvement dans la base de données du système. L'objectif est de permettre aux utilisateurs autorisés de supprimer de manière sécurisée et efficace un prélèvement existant.
+
+=== Description du processus
+
+Le processus de suppression d'un prélèvement comprend plusieurs étapes pour garantir la sécurité des données et l'intégrité du système.
+
+=== Conditions
+
+Seuls les utilisateurs autorisés, tels que les chefs d'agence et les guichetiers, sont habilités à supprimer des prélèvements.
+Avant de supprimer un prélèvement, le système vérifie les autorisations et confirme l'action avec l'utilisateur.
+
+=== Partie du UseCase
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaUseCaseSupprimerPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Diagramme de classe
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaDcCr%C3%A9erPr%C3%A9l%C3%A8vement.PNG[]
+
+=== Classes utilisées
+
+==== Application.view
+
+PrelevementManagementViewController : Ce contrôleur utilise la méthode showDeletePrelevementForm() pour afficher l'interface utilisateur permettant de sélectionner et supprimer un prélèvement.
+
+==== Model.orm
+
+Access_BD_PrelevementAutomatique : Cette classe gère l'accès à la base de données pour supprimer un prélèvement en utilisant la méthode deletePrelevement(), appelée dans le contrôleur DeletePrelevementController.
+
+=== Conclusion
+
+Cette fonctionnalité technique fournit un aperçu détaillé du processus de suppression d'un prélèvement dans le système, en mettant en évidence les conditions d'accès, les interactions entre les classes et les étapes clés pour garantir la sécurité et l'efficacité de l'opération. Elle constitue un guide essentiel pour les développeurs et les administrateurs système impliqués dans la gestion des prélèvements.
+
+
+
