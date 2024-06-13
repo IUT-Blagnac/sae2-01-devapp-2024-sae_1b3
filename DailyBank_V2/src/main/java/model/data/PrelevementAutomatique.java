@@ -58,7 +58,7 @@ public class PrelevementAutomatique {
 
     @Override
     public String toString() {
-        return "PrelevementAutomatique [idPrelev=" + idPrelev + ", idNumCompte=" + idNumCompte + ", montant=" + montant
-                + ", dateRecurrente=" + dateRecurrente + ", beneficiaire=" + beneficiaire + "]";
+        return "| Prélèvement N°=" + idPrelev + " | Numéro Compte=" + idNumCompte + " | montant=" + montant
+                + " | dateRecurrente=" + dateRecurrente + " | beneficiaire=" + beneficiaire +" |";
     }
 }
