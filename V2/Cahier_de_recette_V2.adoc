@@ -31,6 +31,7 @@ Le cahier de recette a été rédigé par :
 | Date | Version
 | [Semaine 20] | [Version 0.0]
 | [Semaine 22] | [Version 1.0]
+| [Semaine 24] | [Version 2.0]
 |===
 
 == Scénarios de Test pour les fonctionnalités de la V1"
@@ -1345,7 +1346,7 @@ public void testGeneratePDF_NoOperations() {
 }
 ----
 
-== Scénarios de Test pour la Fonctionnalité "Débit Exceptionnel"
+== Scénarios de Test pour la Fonctionnalité "Débit Exceptionnel" ( Thomas Ceolin )
 
 === Scénario 1 : Effectuer un débit exceptionnel avec des valeurs valides
 
@@ -1498,7 +1499,7 @@ public void testEffectuerDebitExceptionnel_ZeroInput() {
 
 == Scénarios de Test pour la Fonctionnalité "Mettre à jour Prélèvement "
 
-=== Scénario 1 : Modifier un prélèvement  avec des valeurs valides
+=== Scénario 1 : Modifier un prélèvement  avec des valeurs valides ( Thomas Ceolin )
 
 ==== Description
 Tester la fonctionnalité de modification d'un prélèvement  en fournissant des valeurs valides pour le montant, la date récurrente et le bénéficiaire.
@@ -1604,5 +1605,141 @@ public void testModifierPrelevement_InvalidInput() {
     verify(alertMock).showAlert(Alert.AlertType.ERROR, "Erreur", "Les valeurs doivent être valides");
 }
 ----
+
+= Scénarios de Test pour les Fonctionnalités (Créer, Supprimer, Visualiser) de Prélèvement 
+
+== Scénarios de Test pour la Fonctionnalité "Lire les Prélèvements" (Yahya MAGAZ)
+
+=== Scénario 1 : Charger les prélèvements avec un identifiant de compte valide
+
+==== Données d'entrée
+- ID du compte : "12345"
+
+==== Action
+Entrer l'ID du compte dans le champ de texte correspondant et cliquer sur le bouton "Charger Prélèvements".
+
+==== Réponse attendue
+Le système charge et affiche les prélèvements pour le compte spécifié sans erreurs.
+
+[source,java]
+----
+@TestLoadPrelevements
+public void test1() {
+    txtIdNumCompte.setText("12345");
+    controller.loadPrelevements();
+    assertFalse(oListPrelevements.isEmpty());
+}
+----
+
+=== Scénario 2 : Charger les prélèvements avec un identifiant de compte vide
+
+==== Données d'entrée
+- ID du compte : ""
+
+==== Action
+Laisser le champ de texte de l'ID du compte vide et cliquer sur le bouton "Charger Prélèvements".
+
+==== Réponse attendue
+Le système affiche un message indiquant que l'ID du compte est vide.
+
+[source,java]
+----
+@TestLoadPrelevements
+public void test2() {
+    txtIdNumCompte.setText("");
+    controller.loadPrelevements();
+    verify(console).println("ID du compte est vide !");
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Supprimer Prélèvement" (Yahya MAGAZ)
+
+=== Scénario 1 : Supprimer un prélèvement sélectionné
+
+==== Données d'entrée
+- Prélèvement sélectionné
+
+==== Action
+Sélectionner un prélèvement dans la liste `lvPrelevements` et cliquer sur le bouton "Supprimer Prélèvement".
+
+==== Réponse attendue
+Le système affiche une boîte de confirmation. Si l'utilisateur confirme, le prélèvement est supprimé sans erreurs et retiré de la liste.
+
+[source,java]
+----
+@TestDoSupprimerPrelevement
+public void test1() {
+    lvPrelevements.getSelectionModel().select(0);
+    controller.doSupprimerPrelevement();
+    assertTrue(oListPrelevements.isEmpty());
+}
+----
+
+=== Scénario 2 : Supprimer un prélèvement sans sélection
+
+==== Données d'entrée
+- Aucun prélèvement sélectionné
+
+==== Action
+Ne pas sélectionner de prélèvement dans la liste `lvPrelevements` et cliquer sur le bouton "Supprimer Prélèvement".
+
+==== Réponse attendue
+Le système n'effectue aucune action.
+
+[source,java]
+----
+@TestDoSupprimerPrelevement
+public void test2() {
+    lvPrelevements.getSelectionModel().clearSelection();
+    controller.doSupprimerPrelevement();
+    assertFalse(oListPrelevements.isEmpty());
+}
+----
+
+== Scénarios de Test pour la Fonctionnalité "Ajouter Prélèvement" (Yahya MAGAZ)
+
+=== Scénario 1 : Afficher le formulaire d'ajout de prélèvement avec un identifiant de compte valide
+
+==== Données d'entrée
+- ID du compte : "12345"
+
+==== Action
+Entrer l'ID du compte dans le champ de texte correspondant et cliquer sur le bouton "Ajouter Prélèvement".
+
+==== Réponse attendue
+Le système affiche le formulaire d'ajout de prélèvement avec l'ID du compte pré-rempli.
+
+[source,java]
+----
+@TestDoAjouterPrelevement
+public void test1() {
+    txtIdNumCompte.setText("12345");
+    controller.doAjouterPrelevement();
+    assertTrue(dialogStage.isShowing());
+}
+----
+
+=== Scénario 2 : Afficher le formulaire d'ajout de prélèvement avec un identifiant de compte vide
+
+==== Données d'entrée
+- ID du compte : ""
+
+==== Action
+Laisser le champ de texte de l'ID du compte vide et cliquer sur le bouton "Ajouter Prélèvement".
+
+==== Réponse attendue
+Le système affiche un message indiquant que l'ID du compte est vide et n'affiche pas le formulaire.
+
+[source,java]
+----
+@TestDoAjouterPrelevement
+public void test2() {
+    txtIdNumCompte.setText("");
+    controller.doAjouterPrelevement();
+    verify(console).println("ID du compte est vide !");
+    assertFalse(dialogStage.isShowing());
+}
+----
+
 
 
