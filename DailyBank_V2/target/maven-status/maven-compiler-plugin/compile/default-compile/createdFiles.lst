@@ -50,7 +50,6 @@ model\orm\Access_BD_TypeOperation.class
 application\control\OperationsManagement.class
 application\control\LoginDialog.class
 model\orm\exception\Table.class
-application\control\PrelevementEditorPane.class
 application\tools\NoSelectionModel.class
 application\view\OperationsManagementViewController.class
 model\orm\exception\Order.class

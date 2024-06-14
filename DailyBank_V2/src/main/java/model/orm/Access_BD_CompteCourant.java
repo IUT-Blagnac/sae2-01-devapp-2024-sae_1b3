@@ -275,6 +275,7 @@ public class Access_BD_CompteCourant {
     public void deleteCompteCourant(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
 		// Supprimer les opérations associées au compte
 		deleteOperationsForCompte(compte);
+		deletePrelevementForCompte(compte);
 	
 		// Supprimer le compte lui-même
 		String query = "DELETE FROM CompteCourant WHERE idNumCompte = ?";
@@ -321,6 +322,34 @@ public class Access_BD_CompteCourant {
 		} catch (SQLException e) {
 			e.printStackTrace(); // Affiche la pile d'appels pour le débogage
 			throw new DataAccessException(Table.Operation, Order.DELETE, "Erreur lors de la suppression des opérations pour le compte", e);
+		}
+	}
+
+	/**
+	 * Supprime toutes les opérations associées à un compte donné de la base de données.
+	 *
+	 * @param compte Le compte pour lequel les opérations doivent être supprimées.
+	 * @throws DataAccessException      Si une erreur d'accès aux données survient.
+	 * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+	 * @author Yahya MAGAZ
+	 */
+	private void deletePrelevementForCompte(CompteCourant compte) throws DataAccessException, DatabaseConnexionException {
+		String query = "DELETE FROM PrelevementAutomatique WHERE idNumCompte = ?";
+		try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
+			pst.setInt(1, compte.idNumCompte);
+	
+			// Ajout de logs pour le débogage
+			System.out.println("Tentative de suppression des prélèvements pour le compte avec idNumCompte : " + compte.idNumCompte);
+	
+			int rowsAffected = pst.executeUpdate();
+			if (rowsAffected == 0) {
+				System.out.println("Aucun prélèvement associée au compte avec idNumCompte : " + compte.idNumCompte);
+			} else {
+				System.out.println("Prélèvement associées au compte avec idNumCompte : " + compte.idNumCompte + " supprimées avec succès");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Affiche la pile d'appels pour le débogage
+			throw new DataAccessException(Table.PrelevementAutomatique, Order.DELETE, "Erreur lors de la suppression des opérations pour le compte", e);
 		}
 	}
 	

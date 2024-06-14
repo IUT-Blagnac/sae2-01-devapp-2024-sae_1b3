@@ -143,6 +143,9 @@ public class ComptesManagement {
 		if (compte != null) {
 			compte.idNumCompte = nouveauNumeroCompte;
 			System.out.println("Compte à insérer : " + compte.idNumCompte);
+		if(compte.getDebitAutorise()>=0){
+			compte.debitAutorise= -compte.debitAutorise;
+		}
 			try {
 				Access_BD_CompteCourant acc = new Access_BD_CompteCourant();
 				acc.insertCompte(compte); // Enregistre le compte dans la base de données
