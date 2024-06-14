@@ -671,7 +671,7 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 === Diagramme de Classe associé
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/releve_pdf.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ReleveUML.PNG[]
 
 === Modifications dans `OperationsManagementViewController`
 
@@ -780,9 +780,13 @@ image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Imag
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/useCaseSimulerAssurance.PNG[]
 
-=== Diagramme de Classe simulation crédit et assurance associé
+=== Diagramme de Classe simulation crédit 
 
-image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/simulerAssuranceCredit.PNG[]
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/EmpruntUML.PNG[]
+
+=== Diagramme de Classe simulation assurance associé
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/AssuranceUML.PNG[]
 
 === Modèles de données
 
