@@ -1,7 +1,6 @@
 = Document Utilisateur DailyBank - Date : 14 juin 2024 Groupe 1B3 
-
-:toc:
-:toc-title: Sommaire
+:toc: right
+:toclevels: 3
 
 image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
 
