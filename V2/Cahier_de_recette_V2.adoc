@@ -1,7 +1,7 @@
 
 = Cahier De Recette
 :toc: right
-:toclevels: 4
+:toclevels: 2
 
 :doctype: book
 :icons: font
