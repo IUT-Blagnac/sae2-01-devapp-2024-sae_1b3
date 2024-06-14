@@ -162,7 +162,7 @@ public class PrelevementManagementViewController {
      * Affiche le formulaire d'ajout d'un prélèvement automatique.
      */
     @FXML
-    private void showAddPrelevementForm() {
+    private void doAjouterPrelevement() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("prelevementeditor.fxml"));
