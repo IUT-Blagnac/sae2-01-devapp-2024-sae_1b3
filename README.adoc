@@ -61,7 +61,7 @@ GPO: le repo GIT n’est pas structuré, difficile de s’y retrouver. Structure
 | 07/06   | Code V1    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V1      |
 | 14/06   | Gantt V2  réalisé    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/gantt_V2_r%C3%A9alis%C3%A9.pdf      | 
 |         | Doc. Util. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_User_V2.adoc        |         
-|         | Doc. Tec. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_Tech_V2.adoc               |     
+|         | Doc. Tec. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_Tech_V2.adoc              |     
 |         | Code V2    |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V2                   | 
 |         | Recette V2 |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Cahier_de_recette_V2.adoc                    | 
 |         | `jar` projet | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/DailyBank_V2/target/DailyBank-1.0-shaded.jar   | 
