@@ -9,6 +9,9 @@ import model.orm.Access_BD_PrelevementAutomatiques;
 import model.orm.exception.DataAccessException;
 import model.orm.exception.DatabaseConnexionException;
 
+/**
+ * Contrôleur pour la vue d'ajout de prélèvement automatique.
+ */
 public class AddPrelevementController {
 
     @FXML
@@ -31,14 +34,27 @@ public class AddPrelevementController {
 
     private boolean okClicked = false;
 
+    /**
+     * Définit la fenêtre de dialogue pour ce contrôleur.
+     *
+     * @param dialogStage La Stage de la fenêtre de dialogue.
+     */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Indique si le bouton OK a été cliqué.
+     *
+     * @return true si le bouton OK a été cliqué, sinon false.
+     */
     public boolean isOkClicked() {
         return okClicked;
     }
 
+    /**
+     * Gère l'action d'ajout d'un prélèvement automatique.
+     */
     @FXML
 private void handleAddPrelevement() {
     if (isInputValid()) {
@@ -68,12 +84,20 @@ private void handleAddPrelevement() {
 }
 
 
+    /**
+     * Gère l'action d'annulation.
+     */
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
-private boolean isInputValid() {
+    /**
+     * Valide les entrées utilisateur.
+     *
+     * @return true si toutes les entrées sont valides, sinon false.
+     */
+    private boolean isInputValid() {
     String errorMessage = "";
 
     // Vérification de l'ID du compte
@@ -142,6 +166,11 @@ private boolean isInputValid() {
 
       private int compteId;
 
+      /**
+    * Définit l'ID du compte et met à jour le champ texte correspondant.
+    *
+    * @param compteId L'ID du compte à définir.
+    */
     public void setCompteId(int compteId) {
         this.compteId = compteId;
         txtIdNumCompte.setText(String.valueOf(compteId));

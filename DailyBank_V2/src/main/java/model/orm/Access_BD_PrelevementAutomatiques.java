@@ -13,11 +13,22 @@ import model.orm.exception.DatabaseConnexionException;
 import model.orm.exception.Order;
 import model.orm.exception.Table;
 
+/**
+ * Classe d'accès aux données pour les prélèvements automatiques.
+ */
 public class Access_BD_PrelevementAutomatiques {
 
     public Access_BD_PrelevementAutomatiques() {
     }
 
+    /**
+     * Récupère la liste des prélèvements automatiques pour un compte donné.
+     *
+     * @param idNumCompte L'ID du compte pour lequel récupérer les prélèvements automatiques.
+     * @return Une liste d'objets PrelevementAutomatique représentant les prélèvements automatiques.
+     * @throws DataAccessException S'il y a une erreur d'accès aux données.
+     * @throws DatabaseConnexionException S'il y a une erreur de connexion à la base de données.
+     */
     public List<PrelevementAutomatique> getPrelevements(int idNumCompte)
             throws DataAccessException, DatabaseConnexionException {
 
@@ -48,6 +59,13 @@ public class Access_BD_PrelevementAutomatiques {
         return prelevements;
     }
 
+    /**
+     * Récupère tous les prélèvements automatiques de la base de données.
+     *
+     * @return Une liste d'objets PrelevementAutomatique représentant tous les prélèvements automatiques.
+     * @throws DataAccessException S'il y a une erreur d'accès aux données.
+     * @throws DatabaseConnexionException S'il y a une erreur de connexion à la base de données.
+     */
     public List<PrelevementAutomatique> getTousLesPrelevements() throws DataAccessException, DatabaseConnexionException {
         List<PrelevementAutomatique> prelevements = new ArrayList<>();
         try {
@@ -74,6 +92,14 @@ public class Access_BD_PrelevementAutomatiques {
         return prelevements;
     }
 
+    /**
+     * Supprime un prélèvement automatique de la base de données.
+     *
+     * @param prelevement Le prélèvement automatique à supprimer.
+     * @throws DataAccessException S'il y a une erreur d'accès aux données.
+     * @throws DatabaseConnexionException S'il y a une erreur de connexion à la base de données.
+     * @author Magaz Yahya
+     */
     public void deleteprelevementAutomatique(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
         String query = "DELETE FROM PrelevementAutomatique WHERE idPrelev = ?";
         try (Connection con = LogToDatabase.getConnexion(); PreparedStatement pst = con.prepareStatement(query)) {
@@ -88,6 +114,14 @@ public class Access_BD_PrelevementAutomatiques {
         }
     }
 
+    /**
+     * Ajoute un nouveau prélèvement automatique dans la base de données.
+     *
+     * @param prelevement Le prélèvement automatique à ajouter.
+     * @throws DataAccessException S'il y a une erreur d'accès aux données.
+     * @throws DatabaseConnexionException S'il y a une erreur de connexion à la base de données.
+     * @author Magaz Yahya
+     */
     public void addPrelevement(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
         try {
             Connection con = LogToDatabase.getConnexion();
@@ -120,14 +154,15 @@ public class Access_BD_PrelevementAutomatiques {
     }
 
 
-/**
- * Met à jour les informations d'un prélèvement automatique dans la base de données.
- *
- * @param prelevement Le prélèvement automatique avec les nouvelles informations.
- * @throws DataAccessException      Si une erreur d'accès aux données survient.
- * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
- */
-public void updatePrelevement(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
+    /**
+     * Met à jour les informations d'un prélèvement automatique dans la base de données.
+     *
+     * @param prelevement Le prélèvement automatique avec les nouvelles informations.
+     * @throws DataAccessException      Si une erreur d'accès aux données survient.
+     * @throws DatabaseConnexionException Si une erreur de connexion à la base de données survient.
+     * @author Thomas CEOLIN
+     */
+    public void updatePrelevement(PrelevementAutomatique prelevement) throws DataAccessException, DatabaseConnexionException {
     try {
         Connection con = LogToDatabase.getConnexion();
 

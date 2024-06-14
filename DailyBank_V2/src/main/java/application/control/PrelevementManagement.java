@@ -35,6 +35,7 @@ public class PrelevementManagement {
      *
      * @param _parentStage Le stage parent pour la fenêtre de gestion des prélèvements automatiques.
      * @param _dbstate     L'instance de DailyBankState pour gérer l'état de l'application.
+     * @author Magaz Yahya
      */
     public PrelevementManagement(Stage _parentStage, DailyBankState _dbstate) {
         this.dailyBankState = _dbstate;
@@ -66,6 +67,8 @@ public class PrelevementManagement {
      * Affiche la fenêtre de gestion des prélèvements automatiques.
      *
      * @param numeroCompte Le numéro de compte pour lequel les prélèvements sont gérés.
+    * @author Yahya Magaz
+
      */
     public void doPrelevementManagementDialog(int numeroCompte) {
         this.pmViewController.displayDialog(numeroCompte);
@@ -75,6 +78,8 @@ public class PrelevementManagement {
      * Supprime un prélèvement automatique existant.
      *
      * @param prelevement Le prélèvement automatique à supprimer.
+     * @author Yahya Magaz
+
      */
     public void supprimerPrelevementAutomatique(PrelevementAutomatique prelevement) {
         if (prelevement != null) {
@@ -92,6 +97,14 @@ public class PrelevementManagement {
         }
     }
     
+    /**
+     * Récupère une liste de prélèvements automatiques pour un compte donné.
+     *
+     * @param idNumCompte L'ID du compte pour lequel récupérer les prélèvements automatiques.
+     * @return Une liste d'objets PrelevementAutomatique représentant les prélèvements automatiques.
+     * @throws DatabaseConnexionException S'il y a un problème de connexion à la base de données.
+     * @throws ApplicationException Si une exception au niveau de l'application se produit lors de la récupération.
+     */
     public List<PrelevementAutomatique> getPrelevementsAutomatiques(int idNumCompte) {
         List<PrelevementAutomatique> listeCli = new ArrayList<>();
         try {

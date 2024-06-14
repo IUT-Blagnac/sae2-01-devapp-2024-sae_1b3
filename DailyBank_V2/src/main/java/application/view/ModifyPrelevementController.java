@@ -11,6 +11,7 @@ import model.orm.exception.DatabaseConnexionException;
 
 /**
  * Classe contrôleur pour la modification des informations des prélèvements automatiques dans l'application.
+ * @author Thomas CEOLIN
  */
 public class ModifyPrelevementController {
 
