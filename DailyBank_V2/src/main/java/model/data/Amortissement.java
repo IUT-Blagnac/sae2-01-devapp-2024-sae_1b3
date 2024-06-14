@@ -5,7 +5,7 @@ package model.data;
  * Contient des informations sur le mois, le capital restant, l'intérêt, le capital remboursé,
  * la mensualité et l'assurance.
  * 
- * @autor Théo
+ * @author Théo
  */
 public class Amortissement {
     private int mois;

@@ -15,7 +15,7 @@ import java.util.List;
  * Contrôleur de la vue du tableau d'amortissement.
  * Gère l'affichage des amortissements dans une table.
  * 
- * @autor Théo
+ * @author Théo
  */
 public class TableauAmortissementViewController {
 
