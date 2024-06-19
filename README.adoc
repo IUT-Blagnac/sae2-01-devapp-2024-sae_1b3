@@ -59,8 +59,8 @@ GPO: le repo GIT n’est pas structuré, difficile de s’y retrouver. Structure
 |         | Recette V1 |   https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Cahier%20De%20Recette%20V1.adoc                | 
 |         | Gantt V2 prévu |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Gantt_V2_Pr%C3%A9vu.pdf  |  Il n’y a aucune différence avec le GANTT V1, n’y a t il pas eu des ajustements ? une revu des taches. Il manque des taches de fin de projet.
 | 07/06   | Code V1    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V1      |
-| 14/06   | Gantt V2  réalisé    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/gantt_V2_r%C3%A9alis%C3%A9.pdf      | 
-|         | Doc. Util. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_User_V2.adoc        |         
+| 14/06   | Gantt V2  réalisé    | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/gantt_V2_r%C3%A9alis%C3%A9.pdf      | Il manque beaucoup de tagging sur les issues du board (assignee / milestone / prio …). Manque certains jalons dans le GANTT, ainsi que certaines activités non liées directement au dev. 11,5/20
+|         | Doc. Util. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_User_V2.adoc        | remarques non pris en compte, notamment sur la procédure d’installation. L’utilisateur de devrait pas avoir à redeployer un environnement de dev pour faire tourner l’appli. Les fonctions sont accompagnées de très peu de descriptif textuel. Les cas d’erreurs ne sont pas présentés. document globalement incomplet. 10/20        
 |         | Doc. Tec. V2 | https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Doc_Tech_V2.adoc              |     
 |         | Code V2    |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/tree/main/DailyBank_V2                   | 
 |         | Recette V2 |  https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/V2/Cahier_de_recette_V2.adoc                    | 
