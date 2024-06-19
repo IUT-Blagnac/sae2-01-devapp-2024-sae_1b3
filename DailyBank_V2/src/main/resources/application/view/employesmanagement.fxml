@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.EmployeController">
+    <TableView fx:id="employeTable" prefHeight="397.0" prefWidth="402.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" />
+            <TableColumn fx:id="nomColumn" text="Nom" />
+            <TableColumn fx:id="prenomColumn" text="Prénom" />
+            <TableColumn fx:id="droitsAccessColumn" text="Droits d'Accès" />
+            <TableColumn fx:id="loginColumn" text="Login" />
+        </columns>
+    </TableView>
+    <Button onAction="#loadEmployes" text="Charger Employés" />
+   <Button mnemonicParsing="false" onAction="#modifierEmploye" text="Modifier Employé" />
+    <Button onAction="#showAddEmployeForm" text="Ajouter Employé">
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin></Button>
+   <Button fx:id="btnSupprimerEmploye" onAction="#supprimerEmploye" text="Supprimer Employé">
+      <VBox.margin>
+         <Insets bottom="10.0" />
+      </VBox.margin>
+   </Button>
+</VBox>

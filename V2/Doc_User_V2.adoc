@@ -1,0 +1,529 @@
+= Document Utilisateur DailyBank - Date : 14 juin 2024 Groupe 1B3 
+:toc: right
+:toclevels: 3
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/logoIUT.PNG[]
+
+
+== Auteurs
+
+La Documentation utilisateur a été rédigé par :
+
+    Théo RABAN
+    Yahya MAGAZ
+    Thomas CEOLIN
+
+== Révision
+
+|===
+| Date | Version
+| [Semaine 18] | [Version 1.0]
+| [Semaine 19] | [Version 2.0]
+|===
+
+
+== Sommaire
+
+* <<Introduction>>
+* <<Installation_et_Configuration>>
+* <<Connexion>>
+* <<Fonctionnalités>>
+
+== Introduction
+
+Ce document présente le cahier des charges de l'application DailyBank. DailyBank est une plateforme bancaire complète offrant une gamme de fonctionnalités pour les clients et le personnel.
+
+Nous aborderons l'installation, la connexion, et les fonctionnalités existantes telles que la gestion des clients et des comptes. Ensuite, nous explorerons les fonctionnalités à développer pour les versions futures, notamment la gestion des prélèvements automatiques et les simulations financières.
+
+== Présentation Générale
+
+L'application DailyBank est une solution bancaire innovante conçue pour offrir aux utilisateurs une expérience fluide et sécurisée dans la gestion de leurs finances. En combinant des technologies de pointe et une interface utilisateur intuitive, DailyBank répond aux besoins tant des clients que du personnel bancaire. L'application permet une gestion efficace des comptes, des transactions, et offre des outils avancés pour l'analyse et la planification financière.
+
+== Rôle de l'Application
+
+L'application DailyBank joue un rôle crucial en tant que plateforme bancaire centralisée. Elle facilite les interactions bancaires quotidiennes en offrant une interface conviviale pour les utilisateurs finaux et des outils robustes pour le personnel bancaire. Grâce à ses fonctionnalités complètes, DailyBank améliore l'efficacité opérationnelle, réduit les erreurs humaines et permet une gestion proactive des finances personnelles et professionnelles.
+
+== Installation et Configuration
+
+Pour commencer, vous devez installer Java et Maven sur votre machine.
+
+1. **Installation de Java :**
+   - Téléchargez la dernière version de Java JDK depuis le site officiel d'[Oracle](https://www.oracle.com/java/technologies/javase-downloads.html).
+   - Suivez les instructions d'installation spécifiques à votre système d'exploitation.
+   - Vérifiez l'installation en ouvrant un terminal ou une invite de commande et en tapant `java -version`. Vous devriez voir la version installée de Java.
+
+2. **Installation de Maven :**
+   - Téléchargez la dernière version de Maven depuis le site officiel d'[Apache Maven](https://maven.apache.org/download.cgi).
+   - Suivez les instructions d'installation spécifiques à votre système d'exploitation.
+   - Vérifiez l'installation en ouvrant un terminal ou une invite de commande et en tapant `mvn -version`. Vous devriez voir la version installée de Maven.
+
+=== Mise en place du workspace (1.1)
+
+Pour préparer votre espace de travail :
+
+1. Téléchargez le fichier de code initial depuis Moodle.
+2. Décompressez le fichier dans un emplacement accessible.
+3. Ouvrez VSCode.
+4. Cliquez sur "File" > "Open Folder" et sélectionnez le dossier extrait.
+5. Attendez que VSCode charge le projet et les dépendances Maven.
+
+=== Comptes Oracle (1.2)
+
+Pour accéder à la base de données Oracle :
+
+1. Trouvez les informations de connexion Oracle sur Moodle.
+2. Ouvrez SQLDeveloper.
+3. Utilisez ces informations pour vous connecter à votre base de données.
+4. Changez le mot de passe avec la commande `password`.
+
+=== Création de la base depuis SQLDeveloper (1.3)
+
+Pour créer la base de données :
+
+1. Trouvez le répertoire "basededonnee" dans le projet Eclipse DailyBank en V0.
+2. Ouvrez le fichier "scriptCreaBase_V2.sql" dans un éditeur de texte.
+3. Copiez tout le contenu du fichier.
+4. Collez le script dans l'éditeur SQL de SQLDeveloper.
+5. Exécutez le script.
+
+=== Paramétrage de LogToDatabase (1.4)
+
+Pour configurer la connexion à la base de données :
+
+1. Ouvrez le fichier "LogToDatabase.java" dans VSCode.
+2. Recherchez les champs "user" et "passwd".
+3. Remplacez les valeurs par vos informations de connexion Oracle.
+4. Enregistrez le fichier.
+
+== Connexion
+
+Pour accéder à l'application DailyBank, la première étape consiste à vous connecter. Voici les étapes à suivre :
+
+1- *Accéder à la page de connexion* :
+   Rendez-vous sur la page de connexion de l'application. Vous trouverez cette page sur l'interface principale de DailyBank.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/%C3%A9tape1.PNG[]
+
+2- *Entrer vos identifiants* :
+   Saisissez votre login et votre mot de passe dans les champs prévus à cet effet. Ces informations d'identification sont associées à votre compte utilisateur et sont stockées dans une base de données sécurisée.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/%C3%A9tape2.PNG[]
+
+3- *Valider votre connexion* :
+   Une fois vos identifiants entrés, cliquez sur le bouton de validation pour confirmer votre connexion.
+
+En suivant ces étapes simples, vous aurez accès à toutes les fonctionnalités de l'application DailyBank en fonction de vos autorisations et de votre rôle au sein de l'organisation.
+
+
+== Fonctionnalités
+
+=== Version existante (V0)
+
+Dans la version existante (V0), les fonctionnalités disponibles sont les suivantes :
+
+=== Gestion des clients
+
+==== _Modification des informations client_ (Yahya MAGAZ)
+  * Description : Permet de mettre à jour les informations personnelles d'un client, telles que l'adresse, le numéro de téléphone, etc.
+  * Étapes :
+
+    1- Accéder au profil du client via le système.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.png[]
+
+    2- Sélectionner l'option de modification des informations.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
+    3- Mettre à jour les champs requis (adresse, téléphone, etc.).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/modifierClient.PNG[]
+
+    4- Sauvegarder les modifications.
+  * Remarques : Assurez-vous que toutes les informations sont correctes avant de sauvegarder.
+  * Auteur : Guichetier
+
+
+==== _Création d'un nouveau client_ (Théo RABAN)
+  * Description : Permet de créer un nouveau profil client dans le système.
+  * Étapes :
+
+    1- Accéder à l'option de création de client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
+    2- Remplir les informations nécessaires (nom, adresse, téléphone, etc.).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/AjoutClient.PNG[]
+
+    3- Vérifier les informations saisies.
+    4- Confirmer la création du profil client.
+  * Remarques : Toutes les informations obligatoires doivent être remplies avant la création du compte.
+  * Auteur : Guichetier
+
+
+
+=== Gestion des comptes
+
+==== _Consultation d'un compte_ (Théo RABAN)
+  * Description : Permet de visualiser les détails d'un compte client.
+  * Étapes :
+
+    1- Lorsque vous êtes sur la liste des client séléctionnez en un et appuyer sur "Comptes".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aperçuClient.PNG[]
+
+    2- Entrer l'identifiant du compte ou du client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
+    3- Afficher les informations du compte (solde, transactions récentes, etc.).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
+  * Remarques : Utiliser des filtres pour afficher des informations spécifiques si nécessaire.
+  * Auteur : Guichetier
+
+==== _Débit d'un compte_ (Thomas CEOLIN)
+  * Description : Permet de débiter un montant d'un compte client.
+  * Étapes :
+
+    1- Accéder à la section de gestion des comptes.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
+    2- Sélectionner le compte à débiter.
+    3- Cliquer sur voir opération.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Operations.PNG[]
+
+    4- Cliquer sur enregistrer débit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Débit.PNG[]
+
+    5- Choisissez chèque ou espèce et saisir montant
+    6- Confirmer transaction.
+  * Remarques : Vérifiez toujours le solde du compte avant de débiter.
+  * Auteur : Guichetier
+
+=== Version 1 (V1)
+
+Voici les fonctionnalités V1:
+
+
+=== Gestion des comptes
+
+==== _Crédit d'un compte (Java et BD avec procédure stockée)_(Thomas CEOLIN)
+  * Description : Ajout d'un montant d'un compte client, en utilisant une procédure stockée pour garantir l'intégrité des transactions.
+  * Étapes :
+
+    1- Accéder à la section de gestion des comptes.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CompteConsult.PNG[]
+
+    2- Sélectionner le compte à créditer.
+    3- Cliquer sur voir opération.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Operations.PNG[]
+
+    4- Cliquer sur enregistrer crédit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Crédit.PNG[]
+
+    5- Choisissez chèque ou espèce et saisir montant
+    6- Confirmer transaction.
+  * Auteur : Guichetier
+
+=== Transferts et virements
+
+==== Virement de compte à compte (Thomas Ceolin)
+  * Description : Permet de transférer des fonds d'un compte à un autre.
+  * Étapes :
+
+    1- Sélectionner les comptes source et destination.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Virement_page_P.png[]
+
+
+    2- Entrer le montant à transférer.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Montant_virement.png[]
+
+    3- Confirmer le virement.
+  * Auteur : Guichetier
+
+
+
+==== _Clôture d'un compte_ (Yahya MAGAZ)
+  * Description : Permet de fermer un compte client.
+  * Étapes :
+
+    1- Sélectionner le compte à clôturer.
+    2- Vérifier les soldes et les transactions en cours.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/captureSupprimerCompte.PNG[]
+
+    3- Confirmer la supression du compte.
+  * Auteur : Guichetier
+
+
+==== _Création d'un compte_ (Théo RABAN)
+  * Description : Permet de créer un nouveau compte pour un client existant ou nouveau.
+  * Étapes :
+
+    1- Sélectionner le client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
+    2- Cliquer sur Compte.
+    3- Cliquer sur nouveauCompte.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/nouveauCompte.PNG[]
+
+    4- Remplissez les champs.
+  * Auteur : Guichetier
+
+
+==== _Modification d'un compte_ (Yahya MAGAZ)
+
+  * Description : Permet de modifier les détails d'un compte existant pour un client.
+  * Étapes :
+
+    1- Sélectionner le client.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/aper%C3%A7uClient.PNG[]
+
+    2- Cliquer sur Compte.
+    3- Sélectionner le compte à modifier.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/listeCompte.PNG[]
+
+    4- Modifier les champs nécessaires.
+  * Auteur : Guichetier
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/modifierCompte.PNG[]
+
+
+=== Gestion des employés
+
+==== Gestion des employés (CRUD) : guichetier et chef d’agence (RABAN / MAGAZ / CEOLIN)
+  * Description : Permet de créer, lire, mettre à jour et supprimer des profils d'employés.
+  * Étapes :
+
+    1- Accéder à la gestion des employés.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/choixEmployeClient.png[]
+
+    2- Sélectionner l'action souhaitée (charger, modifier, supprimer).
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/gestionEmploye.PNG[]
+
+    3- Remplir ou modifier les informations nécessaires.
+    4- Confirmer l'action.
+  * Auteur : Chef d’agence
+
+=== Version 2 (V2)
+
+Voici les fonctionnalités V2:
+
+Ces fonctionnalités sont plus avancées que les fonctonnalité V1, il est donc necessaire de maîtrise dans un premier temps les fonctions V1 avant d'utiliser les V2.
+
+==== Simulation de Crédit avec ou sans assurance
+
+    Description : Permet d'afficher le tableau d'amortissement d'un crédit en fonction du taux d'intérêt de l'assurance, de la somme empruntée et de la durée du prêt.
+    Étapes :
+
+    1- Après s'être connecté en tant que chef d'agence, aller sur l'onglet client.
+    2- Une fois sur l'onglet client, appuyez sur "simuler emprunt".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/ClientSimulerEmprunt.PNG[]
+
+    3- Une nouvelle fenêtre s'affiche, remplissez les champs avec les informations requises.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/SimulerCredit.PNG[]
+
+    4- L'assurance est facultative, mais si vous souhaitez la prendre en compte, saisissez le taux puis cochez la case en bas de la page prévue à cet effet.
+* Auteur : Chef d’agence
+
+==== Générer relevé PDF
+
+    Description : Permet de générer le relvé d'un compte en pdf.
+    Étapes :
+
+    1- Accéder à la section opération du compte concerné, comme pour faire un crédit ou un débit.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/CheminRelevé.PNG[]
+
+    2- Cliquer sur "relevé PDF".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/relevePDF.PNG[]
+
+    3- Le PDF sera généré dans le dossier principal contenant l'application.
+* Auteur : Guichetier
+
+
+
+
+==== Créer Prélèvement ( Yahya Magaz )
+
+    Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de pouvoir créer un prélèvement.
+
+    Étapes :
+
+    1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+    2- Recherchez le client auquel vous voulez faire le prélèvement et cliquez sur le bouton situé à droite "Compte Client".
+    3- Choisissez le compte auquel vous voulez créer le prélèvement puis cliquez sur le bouton situé à droite "Prélèvement" puis cliquez sur "Afficher Prélèvements" pour potentiellement voir les prélèvements du compte.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+    4- Une fois sur la page, cliquez sur "Ajouter Prélèvement".
+
+    5- Remplissez toutes les informations demandées.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleAjouterPr%C3%A9l%C3%A8vement.PNG[]
+
+    6- Toutes les informations doivent être remplies correctement (exemple pas de lettre pour le montant ou encore la date), sinon un message d'erreur s'affiche.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleErreurPr%C3%A9l%C3%A8vement.PNG[]
+
+    7- Une fois toutes les informations validées, cliquez sur le bouton "Valider".
+
+    8- Le nouveau prélèvement sera affiché dans la liste des prélèvements.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaExempleAjouter.PNG[]
+
+* Auteur : Guichetier, Chef d'agence
+
+
+
+
+
+
+
+==== Supprimer Prélèvement ( Yahya Magaz )
+
+    Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de pouvoir supprimer un prélèvement.
+
+    Étapes :
+
+    1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+    2- Recherchez le client dont vous voulez supprimer le prélèvement et cliquez sur le bouton situé à droite "Compte Client".
+    3- Choisissez le compte auquel le prélèvement est associé puis cliquez sur le bouton situé à droite "Prélèvement".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+    4- Une fois sur la page, trouvez le prélèvement que vous souhaitez supprimer et cliquez sur un prélèvement puis sur le bouton "Supprimer" situé à droite du prélèvement.
+
+    5- Confirmez la suppression dans la fenêtre de dialogue qui s'affiche en cliquant sur "Oui".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaSuppressionPr%C3%A9l%C3%A8vement.PNG[]
+
+    6- Le prélèvement supprimé ne sera plus affiché dans la liste des prélèvements automatiquement.
+
+* Auteur : Guichetier, Chef d'agence
+
+
+==== Afficher Prélèvement ( Yahya Magaz )
+
+    Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de visualiser les prélèvements existants associés à un compte client.
+
+    Étapes :
+
+    1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+    2- Recherchez le client dont vous voulez afficher les prélèvements et cliquez sur le bouton situé à droite "Compte Client".
+    3- Choisissez le compte auquel les prélèvements sont associés puis cliquez sur le bouton situé à droite "Prélèvements".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaBouttonPr%C3%A9l%C3%A8vement.PNG[]
+
+    4- Une fois sur la page des prélèvements, si une page blanche s'affiche, c'est normal.
+
+    5- Pour voir la liste des prélèvements existants, vous devez la charger en cliquant sur le bouton "Afficher Prélèvement" situé à droite.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaButtonAfficherPre.PNG[]
+
+    6- La liste des prélèvements s'affichera avec les informations complètes sur tous les prélèvements.
+
+    7- Pour fermer la fenêtre contextuelle, cliquez sur le bouton "Retour Gestion Compte".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/YahyaRetourPr%C3%A9l%C3%A8vement.PNG[]
+
+* Auteur : Guichetier, Chef d'agence
+
+==== Update Prelevement ( Thomas CEOLIN )
+
+	Description : Cette fonctionnalité permet au Guichetier et au Chef d'agence de mettre à jour un prélèvement existant.
+
+	Étapes :
+
+	1- Connectez-vous dans l'application, accédez à la section "Gestion des clients".
+	2- Recherchez le client pour lequel le prélèvement doit être mis à jour et cliquez sur le bouton "Compte Client".
+	3- Sélectionnez le compte contenant le prélèvement à mettre à jour, puis cliquez sur le bouton "Prélèvement".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Updateimage1.png[]
+
+	4- Sur la page du prélèvement, recherchez et sélectionnez le prélèvement à mettre à jour, puis cliquez sur le bouton "Modifier Prélèvement".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Updateimage2.png[]
+
+	5- Mettez à jour les informations nécessaires dans le formulaire affiché.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Updateimage3.png[]
+
+	6- Assurez-vous que toutes les informations sont correctement remplies (par exemple, pas de caractères non numériques pour le montant ou une date invalide), sinon un message 	d'erreur s'affichera.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Updateimage4.png[]
+
+	7- Après avoir vérifié et mis à jour les informations, cliquez sur le bouton "Valider" pour enregistrer les modifications.
+
+	8- Les modifications apportées au prélèvement seront reflétées dans la liste des prélèvements.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/Updateimage5.png[]
+
+    * Auteur : Guichetier, Chef d'agence
+
+==== Débit Exceptionnel ( Thomas CEOLIN )
+
+    Description : Permet d'effectuer un débit exceptionnel depuis un compte, autorisant le dépassement du découvert autorisé.
+
+	Étapes :
+
+	1- Connectez-vous en tant que Chef d'agence.
+	2- Accédez à la section "Gestion des clients", recherchez le client concerné, puis cliquez sur "Compte Client".
+	3- Sélectionnez l'option "Opérations", puis cliquez sur "Débit Exceptionnel".
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/debitexceptionnelleimage1.png[]
+
+	4- Remplissez les champs avec les informations nécessaires dans la nouvelle fenêtre qui s'affiche.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/debitexceptionnelleimage2.png[]
+
+	5- Assurez-vous de remplir correctement toutes les informations nécessaires pour le débit exceptionnel. Sinon, une erreur s'affichera.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/debitexceptionnelleimage3.png[]
+
+	6- Une fois tous les champs remplis, cliquez sur "Effectuer Débit Exceptionnel". La page se fermera automatiquement et le débit sera effectué.
+
+image::https://github.com/IUT-Blagnac/sae2-01-devapp-2024-sae_1b3/blob/main/Images/debitexceptionnelleimage4.png[]
+
+* Auteur : Chef d'agence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
